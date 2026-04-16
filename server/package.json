@@ -1,0 +1,11 @@
+{
+  "name": "browser-agent-bridge",
+  "version": "1.0.0",
+  "description": "Bridge server for POMDP Browser Agent extension",
+  "main": "bridge.js",
+  "scripts": {
+    "start": "node bridge.js"
+  },
+  "keywords": ["pomdp", "browser-agent", "chatgpt"],
+  "license": "MIT"
+}

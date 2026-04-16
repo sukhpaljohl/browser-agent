@@ -1,0 +1,74 @@
+{
+  "manifest_version": 3,
+  "name": "POMDP Browser Agent",
+  "version": "1.0.0",
+  "description": "Hybrid Adaptive Decision Agent for resilient browser-based LLM interaction",
+  "permissions": [
+    "activeTab",
+    "storage",
+    "alarms",
+    "scripting",
+    "debugger"
+  ],
+  "host_permissions": [
+    "<all_urls>",
+    "http://localhost:3847/*",
+    "http://127.0.0.1:3847/*"
+  ],
+  "background": {
+    "service_worker": "background/service-worker.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "core/belief-state.js",
+        "core/reward.js",
+        "core/exploration.js",
+        "core/convergence.js",
+        "core/credit-assignment.js",
+        "core/path-selector.js",
+        "core/pomdp-engine.js",
+        "motor/motor-model.js",
+        "motor/trajectory-generator.js",
+        "motor/segment-matcher.js",
+        "motor/keystroke-engine.js",
+        "motor/user-profile.js",
+        "motor/session-state.js",
+        "motor/attention-field.js",
+        "motor/human-engine.js",
+        "content/dom-recon.js",
+        "brain/diagnostics.js",
+        "brain/node-classifier.js",
+        "brain/candidate-pruner.js",
+        "brain/context-builder.js",
+        "brain/action-context.js",
+        "brain/stealth-audit.js",
+        "brain/image-extractor.js",
+        "brain/stability-watcher.js",
+        "brain/progress-estimator.js",
+        "brain/clarification.js",
+        "brain/brain-executor.js",
+        "brain/universal-strategy.js",
+        "content/content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

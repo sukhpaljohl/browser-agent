@@ -1,0 +1,6 @@
+node_modules/
+.DS_Store
+temp_chrome_profile/
+__pycache__/
+*.pyc
+tools/dataset/data/

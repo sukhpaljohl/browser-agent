@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>POMDP Browser Agent</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="logo-row">
+        <div class="pulse-dot"></div>
+        <h1>Browser Agent</h1>
+      </div>
+      <p class="subtitle">Hybrid Adaptive Decision System</p>
+    </header>
+
+    <section class="status-card" id="statusCard">
+      <div class="status-row">
+        <span class="label">State</span>
+        <span class="value" id="convergenceState">—</span>
+      </div>
+      <div class="status-row">
+        <span class="label">ε (Explore)</span>
+        <span class="value" id="epsilon">—</span>
+      </div>
+      <div class="status-row">
+        <span class="label">Success (short)</span>
+        <span class="value" id="shortTermSuccess">—</span>
+      </div>
+      <div class="status-row">
+        <span class="label">Success (long)</span>
+        <span class="value" id="longTermSuccess">—</span>
+      </div>
+      <div class="status-row">
+        <span class="label">Iterations</span>
+        <span class="value" id="iterations">—</span>
+      </div>
+      <div class="status-row">
+        <span class="label">Tracked Nodes</span>
+        <span class="value" id="trackedNodes">—</span>
+      </div>
+    </section>
+
+    <section class="prompt-section">
+      <textarea id="promptInput" placeholder="Type a prompt to send to ChatGPT..." rows="3"></textarea>
+      <button id="sendBtn" class="btn-primary">Send Prompt</button>
+    </section>
+
+    <section class="response-section" id="responseSection" style="display:none;">
+      <h2>Response</h2>
+      <div id="responseText" class="response-box"></div>
+    </section>
+
+    <footer>
+      <span class="connection" id="connectionStatus">Checking bridge…</span>
+    </footer>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
