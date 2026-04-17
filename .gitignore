@@ -3,4 +3,4 @@ node_modules/
 temp_chrome_profile/
 __pycache__/
 *.pyc
-tools/dataset/data/
+tools/dataset/data/sample_1000.json
