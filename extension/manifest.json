@@ -49,6 +49,7 @@
         "brain/image-extractor.js",
         "brain/stability-watcher.js",
         "brain/progress-estimator.js",
+        "brain/goal-completion.js",
         "brain/clarification.js",
         "brain/brain-executor.js",
         "brain/universal-strategy.js",

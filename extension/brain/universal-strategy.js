@@ -277,6 +277,21 @@
       console.log(`[UniversalStrategy] Command: "${prompt}"`);
 
       // ═════════════════════════════════════════════════════════════
+      //  0. PRE-ACTION SNAPSHOT (Phase 1B.2 — Goal Completion)
+      // ═════════════════════════════════════════════════════════════
+      //  Capture page state BEFORE the action executes so delta-based
+      //  detectors (cart, login, form) can compare pre vs post.
+
+      let goalPreSnapshot = null;
+      if (typeof BrowserAgent.GoalCompletionSnapshot !== 'undefined') {
+        try {
+          goalPreSnapshot = BrowserAgent.GoalCompletionSnapshot.capture();
+        } catch (e) {
+          console.warn('[UniversalStrategy] Goal completion snapshot failed (non-fatal):', e.message);
+        }
+      }
+
+      // ═════════════════════════════════════════════════════════════
       //  1. PRIMARY ACTION
       // ═════════════════════════════════════════════════════════════
 
@@ -346,7 +361,43 @@
       }
 
       // ═════════════════════════════════════════════════════════════
-      //  3. FAILURE BOOKKEEPING
+      //  3. GOAL COMPLETION EVALUATION (Phase 1B.2)
+      // ═════════════════════════════════════════════════════════════
+      //  Checks if the action just completed the task goal.
+      //  Uses corroboration: generic signals + type-specific detector.
+      //  If terminal → skip recovery → return immediately.
+      //  If safety blocked → skip recovery → return immediately.
+
+      const parsedGoal = context?.taskState?.parsedGoal;
+      let goalCompletion = null;
+
+      if (parsedGoal && goalPreSnapshot && typeof BrowserAgent.GoalCompletionEvaluator !== 'undefined') {
+        try {
+          goalCompletion = BrowserAgent.GoalCompletionEvaluator.evaluate(
+            parsedGoal,
+            context?.taskState,
+            goalPreSnapshot,
+            primaryResult.progress
+          );
+
+          if (goalCompletion.safetyBlocked) {
+            console.log('[UniversalStrategy] ⛔ SAFETY BOUNDARY — blocking further action');
+            return this._assembleTerminalResponse(primaryResult, goalCompletion, strategyStart);
+          }
+
+          if (goalCompletion.isTerminal) {
+            console.log(`[UniversalStrategy] ✅ GOAL COMPLETE (score: ${goalCompletion.completionScore.toFixed(3)})`);
+            return this._assembleTerminalResponse(primaryResult, goalCompletion, strategyStart);
+          }
+
+          console.log(`[UniversalStrategy] Goal status: ${goalCompletion.reason} (score: ${goalCompletion.completionScore.toFixed(3)})`);
+        } catch (e) {
+          console.warn('[UniversalStrategy] Goal completion evaluation failed (non-fatal):', e.message);
+        }
+      }
+
+      // ═════════════════════════════════════════════════════════════
+      //  3b. FAILURE BOOKKEEPING
       // ═════════════════════════════════════════════════════════════
       //
       //  recordAction() in task-state.js already handles:
@@ -423,7 +474,7 @@
       //  6. STRUCTURED RESPONSE
       // ═════════════════════════════════════════════════════════════
 
-      return this._assembleResponse(primaryResult, recoveryResult, recoveryMeta, strategyStart);
+      return this._assembleResponse(primaryResult, recoveryResult, recoveryMeta, strategyStart, goalCompletion);
     }
 
     /**
@@ -464,9 +515,10 @@
      * @param {Object|null} recoveryResult - Result from recovery (if any)
      * @param {Object|null} recoveryMeta - Recovery metadata { reason, intent, success }
      * @param {number} strategyStart - Start timestamp for total timing
+     * @param {Object|null} goalCompletion - Goal completion evaluation result (Phase 1B.2)
      * @returns {Object} Structured response
      */
-    _assembleResponse(primaryResult, recoveryResult, recoveryMeta, strategyStart) {
+    _assembleResponse(primaryResult, recoveryResult, recoveryMeta, strategyStart, goalCompletion = null) {
       // Use recovery result for top-level success/response if recovery happened
       // and was successful (the recovery "fixed" things).
       const effectiveResult = (recoveryResult?.success && recoveryMeta)
@@ -506,7 +558,12 @@
             } : null
           } : null,
           strategyTime: Date.now() - strategyStart
-        }
+        },
+
+        // ── Goal completion metadata (Phase 1B.2) ──
+        goal_complete: false,
+        goal_completion_score: goalCompletion?.completionScore || 0,
+        should_continue: true,
       };
 
       // Pass through clarification fields if present
@@ -519,6 +576,72 @@
       console.log(`[UniversalStrategy] ✓ Complete (${response.strategy.strategyTime}ms)`);
       if (recoveryMeta) {
         console.log(`[UniversalStrategy] Recovery: ${recoveryMeta.reason} → ${recoveryMeta.success ? '✓' : '✗'}`);
+      }
+      if (goalCompletion) {
+        console.log(`[UniversalStrategy] Goal: ${goalCompletion.reason} (${goalCompletion.completionScore.toFixed(3)})`);
+      }
+
+      return response;
+    }
+
+    /**
+     * Assemble a terminal response when goal is complete or safety-blocked.
+     * Skips recovery entirely — the task is done.
+     *
+     * @param {Object} primaryResult - Result from primary action
+     * @param {Object} goalCompletion - Goal completion evaluation result
+     * @param {number} strategyStart - Start timestamp
+     * @returns {Object} Terminal structured response
+     */
+    _assembleTerminalResponse(primaryResult, goalCompletion, strategyStart) {
+      const response = {
+        // Backward-compatible
+        success: primaryResult.success,
+        response: primaryResult.response,
+        progress: primaryResult.progress,
+
+        // Engine/diagnostic passthrough
+        engineStatus: primaryResult.engineStatus,
+        diagnostics: primaryResult.diagnostics,
+        totalTime: primaryResult.totalTime,
+
+        // Goal completion metadata (Phase 1B.2)
+        goal_complete: goalCompletion.isTerminal,
+        goal_completion_score: goalCompletion.completionScore,
+        should_continue: !goalCompletion.isTerminal && !goalCompletion.safetyBlocked,
+
+        // Strategy metadata
+        strategy: {
+          primaryAction: {
+            success: primaryResult.success,
+            prompt: primaryResult.response?.text?.substring(0, 100),
+            progress: primaryResult.progress ? {
+              delta: primaryResult.progress.progressDelta,
+              effect: primaryResult.progress.effect,
+              score: primaryResult.progress.progress
+            } : null
+          },
+          recoveryAction: null,
+          goalCompletion: {
+            score: goalCompletion.completionScore,
+            terminal: goalCompletion.isTerminal,
+            safetyBlocked: goalCompletion.safetyBlocked,
+            verb: goalCompletion.parsedGoal?.verb,
+            reason: goalCompletion.reason,
+            signals: goalCompletion.signals,
+          },
+          strategyTime: Date.now() - strategyStart,
+        }
+      };
+
+      // Pass through clarification fields if present
+      if (primaryResult.status) response.status = primaryResult.status;
+
+      console.log('[UniversalStrategy] ────────────────────────────────');
+      if (goalCompletion.safetyBlocked) {
+        console.log(`[UniversalStrategy] ⛔ SAFETY BLOCKED (${response.strategy.strategyTime}ms)`);
+      } else {
+        console.log(`[UniversalStrategy] ✅ GOAL COMPLETE — ${goalCompletion.parsedGoal?.verb}: "${goalCompletion.parsedGoal?.target}" (${response.strategy.strategyTime}ms)`);
       }
 
       return response;

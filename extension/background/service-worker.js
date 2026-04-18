@@ -231,6 +231,52 @@ function dispatchToContentScript(data, retryCount = 0) {
         if (errMsg.includes('message port closed') ||
             errMsg.includes('back/forward cache')) {
           console.log('[CommandRelay] Port closed (navigation) — reporting success');
+
+          // ── Phase 1B.2.1: Dead Man's Switch ──────────────────────────────
+          // The content script died mid-execution. If a pending intent was
+          // registered (pre-click), record it as a confirmed navigation action.
+          // This ensures the action is in TaskState even though
+          // BRAIN_RECORD_STEP_COMPLETE never fired.
+          if (taskStateTracker.isActive()) {
+            const pendingIntent = taskStateTracker._state?.pendingIntent;
+            if (pendingIntent && pendingIntent.status === 'pending') {
+              // Record the action in TaskState as if BRAIN_RECORD_STEP_COMPLETE fired
+              taskStateTracker.recordAction(
+                {
+                  type: pendingIntent.intent || 'click',
+                  tag: pendingIntent.nodeTag || '',
+                  role: '',
+                  text: pendingIntent.nodeText || '',
+                  boundingBox: null
+                },
+                'navigation',
+                ''  // URL unknown — will be filled by retroactive scoring
+              );
+
+              // Feed loop detector (reuses Phase 1B.1 wiring pattern)
+              if (typeof loopDetector !== 'undefined') {
+                loopDetector.check(
+                  pendingIntent.url || '',
+                  'nav_death',  // special fingerprint for navigation-killed scripts
+                  { type: pendingIntent.intent || 'click', tag: pendingIntent.nodeTag || '' }
+                );
+              }
+
+              // Mark as recorded — awaiting retroactive scoring on new page
+              // Note: recordAction auto-cleared pendingIntent, so we need to
+              // restore it with the 'recorded_by_sw' status for scoring.
+              taskStateTracker.setPendingIntent({
+                ...pendingIntent,
+                status: 'recorded_by_sw',
+                needsRetroactiveScoring: true
+              });
+              // Override the status that setPendingIntent sets to 'pending'
+              taskStateTracker._state.pendingIntent.status = 'recorded_by_sw';
+
+              console.log(`[CommandRelay] ✓ Auto-recorded pending intent: "${(pendingIntent.nodeText || '').slice(0, 40)}"`);
+            }
+          }
+
           postResponseToBridge(data.id, {
             success: true,
             response: { text: 'Action executed. Page navigated to a new URL.' }
@@ -497,6 +543,89 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         }
         taskStateTracker.updateInstruction(instruction);
         sendResponse({ success: true, state: taskStateTracker.getSnapshot() });
+        return false;
+      }
+
+      // ── Parsed Goal Storage (Phase 1B.2) ──────────────────────────────
+
+      case 'BRAIN_TASK_SET_PARSED_GOAL': {
+        const { parsedGoal } = message;
+        if (!parsedGoal) {
+          sendResponse({ success: false, error: 'parsedGoal is required' });
+          return false;
+        }
+        if (!taskStateTracker.isActive()) {
+          sendResponse({ success: false, error: 'No active task' });
+          return false;
+        }
+        taskStateTracker.setParsedGoal(parsedGoal);
+        sendResponse({ success: true, state: taskStateTracker.getSnapshot() });
+        return false;
+      }
+
+      // ── Pre-Action Intent Registration (Phase 1B.2.1) ──────────────────
+      // Content script registers what it's about to click BEFORE the click.
+      // If the script dies (navigation), the Dead Man's Switch (Case 2 in
+      // dispatchToContentScript) uses this to record the action.
+
+      case 'BRAIN_REGISTER_INTENT': {
+        const { intentData } = message;
+        if (!intentData) {
+          sendResponse({ success: false, error: 'intentData is required' });
+          return false;
+        }
+        if (!taskStateTracker.isActive()) {
+          sendResponse({ success: false, error: 'No active task' });
+          return false;
+        }
+        taskStateTracker.setPendingIntent(intentData);
+        sendResponse({ success: true });
+        return false;
+      }
+
+      // ── Retroactive Navigation Check (Phase 1B.2.1) ────────────────────
+      // New content script checks if there's an unscored navigation action
+      // from a previous script that died during a page transition.
+
+      case 'BRAIN_CHECK_PENDING_NAV': {
+        const unscoredNav = taskStateTracker.getUnscoredNavigation();
+        sendResponse({
+          success: true,
+          pendingNav: unscoredNav,
+          goalTokens: taskStateTracker.getGoalTokens()
+        });
+        return false;
+      }
+
+      // ── Retroactive Navigation Scoring (Phase 1B.2.1) ──────────────────
+      // New content script reports how relevant the destination page is to
+      // the goal. If below threshold (0.20), the SW marks the clicked node
+      // as a failure — it gets 0.3× penalty in future ranking.
+
+      case 'BRAIN_SCORE_PENDING_NAV': {
+        const { progressScore, url } = message;
+        const pendingIntent = taskStateTracker.consumePendingIntent();
+        if (!pendingIntent) {
+          sendResponse({ success: true, action: 'no_pending_intent' });
+          return false;
+        }
+
+        // If progress is very low, the navigation was a wrong path
+        const FAILURE_THRESHOLD = 0.20;
+        if (typeof progressScore === 'number' && progressScore < FAILURE_THRESHOLD) {
+          // Mark the node as a failure — gets 0.3× penalty in future ranking
+          taskStateTracker.recordFailure({
+            tag: pendingIntent.nodeTag || '',
+            text: pendingIntent.nodeText || '',
+            role: '',
+            boundingBox: null
+          });
+          console.log(`[Brain] ✗ Retroactive nav failure: "${(pendingIntent.nodeText || '').slice(0, 30)}" → score ${progressScore.toFixed(3)} < ${FAILURE_THRESHOLD}`);
+          sendResponse({ success: true, action: 'marked_failure', nodeSignature: pendingIntent.nodeSignature });
+        } else {
+          console.log(`[Brain] ✓ Retroactive nav accepted: "${(pendingIntent.nodeText || '').slice(0, 30)}" → score ${(progressScore || 0).toFixed(3)}`);
+          sendResponse({ success: true, action: 'accepted' });
+        }
         return false;
       }
 

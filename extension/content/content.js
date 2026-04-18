@@ -68,6 +68,52 @@
       console.warn('[BrowserAgent] UniversalStrategy not loaded — using raw BrainExecutor');
     }
 
+    // ── Phase 1B.2.1: Retroactive Navigation Scoring ──────────────────────
+    // Check if the Service Worker has an unscored navigation action from a
+    // previous content script that died during a page transition. If so,
+    // evaluate this page against the goal and report the score back.
+    // This is fire-and-forget — it doesn't block init or command handling.
+    try {
+      chrome.runtime.sendMessage({ type: 'BRAIN_CHECK_PENDING_NAV' }, (response) => {
+        if (chrome.runtime.lastError || !response?.success) return;
+
+        const pendingNav = response.pendingNav;
+        if (!pendingNav) return;
+
+        console.log(`[BrowserAgent] Found unscored navigation: "${(pendingNav.nodeText || '').slice(0, 40)}" — evaluating...`);
+
+        const goalTokens = response.goalTokens || [];
+        if (goalTokens.length === 0) {
+          console.warn('[BrowserAgent] No goal tokens — skipping retroactive scoring');
+          return;
+        }
+
+        // Run lightweight evaluation (no stability wait, no snapshot)
+        if (BrowserAgent.ProgressEstimator && BrowserAgent.ProgressEstimator.quickEvaluate) {
+          const evalResult = BrowserAgent.ProgressEstimator.quickEvaluate(goalTokens);
+
+          // Report score to SW for failure penalty decision
+          chrome.runtime.sendMessage({
+            type: 'BRAIN_SCORE_PENDING_NAV',
+            progressScore: evalResult.progressScore,
+            url: evalResult.url
+          }, (scoreResponse) => {
+            if (chrome.runtime.lastError) return;
+            if (scoreResponse?.action === 'marked_failure') {
+              console.log(`[BrowserAgent] ✗ Retroactive nav failure — node "${scoreResponse.nodeSignature}" penalized`);
+            } else if (scoreResponse?.action === 'accepted') {
+              console.log(`[BrowserAgent] ✓ Retroactive nav accepted (score: ${evalResult.progressScore.toFixed(3)})`);
+            }
+          });
+        } else {
+          console.warn('[BrowserAgent] ProgressEstimator.quickEvaluate not available — skipping retroactive scoring');
+        }
+      });
+    } catch (e) {
+      // Non-fatal — retroactive scoring is best-effort
+      console.warn('[BrowserAgent] Retroactive scoring check failed (non-fatal):', e.message);
+    }
+
     // Load persisted state
     try {
       const saved = localStorage.getItem('browserAgent_state');

@@ -391,6 +391,55 @@ BrowserAgent.BrainExecutor = class BrainExecutor {
   }
 
   // ═══════════════════════════════════════════════════════════════
+  //  PRE-ACTION INTENT REGISTRATION (Phase 1B.2.1)
+  // ═══════════════════════════════════════════════════════════════
+
+  /**
+   * Register a pre-action intent with the Service Worker's TaskStateTracker.
+   * Must be called AFTER element selection but BEFORE the click/action.
+   *
+   * If the content script dies during navigation (the "Navigation Amnesia"
+   * bug), the SW uses this registered intent to record the action via its
+   * Dead Man's Switch. Without this, the action is lost forever.
+   *
+   * Performance: ~2-5ms (one IPC round-trip). Non-blocking on failure —
+   * if registration fails, the click proceeds normally.
+   *
+   * @param {string} intent - Action type ('click', 'navigate', 'search')
+   * @param {Object} match - The selected candidate from _findBestMatch()
+   * @param {string} prompt - The original command prompt
+   * @returns {Promise<void>}
+   */
+  async _registerIntent(intent, match, prompt) {
+    try {
+      await new Promise((resolve) => {
+        chrome.runtime.sendMessage({
+          type: 'BRAIN_REGISTER_INTENT',
+          intentData: {
+            nodeSignature: `${match.tag || ''}|${match.role || ''}|${(match.innerText || '').slice(0, 30).trim().toLowerCase()}`,
+            nodeText: (match.innerText || '').substring(0, 60),
+            nodeTag: match.tag || '',
+            nodeType: match.nodeType || '',
+            url: window.location.href,
+            prompt: prompt,
+            intent: intent,
+            timestamp: Date.now()
+          }
+        }, (response) => {
+          if (chrome.runtime.lastError) {
+            console.warn('[Brain] Intent registration failed:', chrome.runtime.lastError.message);
+          }
+          resolve();
+        });
+      });
+    } catch (e) {
+      // Non-fatal — the click will proceed even if registration fails.
+      // This happens when the extension context is invalidated.
+      console.warn('[Brain] Intent registration error (non-fatal):', e.message);
+    }
+  }
+
+  // ═══════════════════════════════════════════════════════════════
   //  ACTION HANDLERS
   // ═══════════════════════════════════════════════════════════════
 
@@ -406,6 +455,9 @@ BrowserAgent.BrainExecutor = class BrainExecutor {
     if (!el) {
       return { success: false, response: { text: `Found candidate "${match.innerText}" but couldn't resolve DOM element.` } };
     }
+
+    // Phase 1B.2.1: Register intent before click (survives navigation death)
+    await this._registerIntent('click', match, target);
 
     const engine = await this._ensureHumanEngine();
     if (engine) {
@@ -492,6 +544,8 @@ BrowserAgent.BrainExecutor = class BrainExecutor {
       await engine._sleep(300);
       await engine.type(query);
       await engine._sleep(200);
+      // Phase 1B.2.1: Register intent before Enter (Enter triggers navigation)
+      await this._registerIntent('search', searchInput, query);
       await engine.pressKey('Enter', 'Enter', 13);
     } else {
       el.focus();
@@ -709,6 +763,9 @@ BrowserAgent.BrainExecutor = class BrainExecutor {
 
     const href = el.href || el.getAttribute('href') || '';
     const linkText = (match.innerText || '').substring(0, 60);
+
+    // Phase 1B.2.1: Register intent before navigation click
+    await this._registerIntent('navigate', match, target);
 
     // Schedule click after response is posted (page may navigate away)
     const engine = await this._ensureHumanEngine();

@@ -265,8 +265,20 @@ BrowserAgent.ProgressEstimator = (() => {
       });
 
       console.log(`[ProgressEstimator] Task initialized — goal: "${prompt}"`);
+
+      // Parse goal for completion evaluation (Phase 1B.2)
+      const goalTokens = initResult?.state?.goalTokens || _tokenize(prompt);
+      if (typeof BrowserAgent.GoalParser !== 'undefined') {
+        const parsedGoal = BrowserAgent.GoalParser.parse(prompt);
+        await _sendMessage({
+          type: 'BRAIN_TASK_SET_PARSED_GOAL',
+          parsedGoal: parsedGoal
+        });
+        console.log(`[ProgressEstimator] Goal parsed: ${parsedGoal.verb} → "${parsedGoal.target}"`);
+      }
+
       return {
-        goalTokens: initResult?.state?.goalTokens || _tokenize(prompt),
+        goalTokens,
         taskState: initResult?.state || null,
         isNew: true
       };
@@ -284,8 +296,20 @@ BrowserAgent.ProgressEstimator = (() => {
       });
 
       console.log(`[ProgressEstimator] Goal shift detected — new goal: "${prompt}"`);
+
+      // Parse goal for completion evaluation (Phase 1B.2)
+      const goalTokens = initResult?.state?.goalTokens || _tokenize(prompt);
+      if (typeof BrowserAgent.GoalParser !== 'undefined') {
+        const parsedGoal = BrowserAgent.GoalParser.parse(prompt);
+        await _sendMessage({
+          type: 'BRAIN_TASK_SET_PARSED_GOAL',
+          parsedGoal: parsedGoal
+        });
+        console.log(`[ProgressEstimator] Goal parsed (shift): ${parsedGoal.verb} → "${parsedGoal.target}"`);
+      }
+
       return {
-        goalTokens: initResult?.state?.goalTokens || _tokenize(prompt),
+        goalTokens,
         taskState: initResult?.state || null,
         isNew: true
       };
@@ -1030,6 +1054,67 @@ BrowserAgent.ProgressEstimator = (() => {
   }
 
   // ═══════════════════════════════════════════════════════════════
+  //  RETROACTIVE NAVIGATION SCORING (Phase 1B.2.1)
+  // ═══════════════════════════════════════════════════════════════
+
+  /**
+   * Lightweight page evaluation for retroactive navigation scoring.
+   * Called by content.js on init() when the Service Worker has an unscored
+   * navigation action from a previous content script that died mid-navigation.
+   *
+   * Uses only 2 of the 4 base signals:
+   *   - Keyword overlap (weight 0.6): How many goal tokens appear on this page?
+   *   - URL relevance  (weight 0.4): How many goal tokens appear in the URL?
+   *
+   * Skips interaction depth (not meaningful for cross-page evaluation) and
+   * state change score (no pre-action snapshot available for comparison).
+   *
+   * Does NOT call BRAIN_RECORD_STEP_COMPLETE — this is purely for scoring,
+   * not for recording. The Dead Man's Switch already recorded the action.
+   *
+   * Performance: ~3-5ms (tokenize page text + check tokens, no IPC, no
+   * stability wait).
+   *
+   * @param {string[]} goalTokens - Goal tokens from the Service Worker
+   * @returns {{ progressScore: number, url: string, keywordOverlap: number, urlRelevance: number }}
+   */
+  function quickEvaluate(goalTokens) {
+    if (!goalTokens || goalTokens.length === 0) {
+      return { progressScore: 0, url: window.location.href, keywordOverlap: 0, urlRelevance: 0 };
+    }
+
+    // Signal 1: Keyword overlap (weight 0.6)
+    // How many goal tokens appear in the current page content?
+    const pageText = _getPageText().toLowerCase();
+    let matches = 0;
+    for (const token of goalTokens) {
+      if (pageText.includes(token)) matches++;
+    }
+    const keywordOverlap = matches / goalTokens.length;
+
+    // Signal 2: URL relevance (weight 0.4)
+    // How many goal tokens appear in the current URL?
+    const urlLower = window.location.href.toLowerCase();
+    let urlMatches = 0;
+    for (const token of goalTokens) {
+      if (urlLower.includes(token)) urlMatches++;
+    }
+    const urlRelevance = urlMatches / goalTokens.length;
+
+    // Weighted composite (heavier on content than URL)
+    const progressScore = 0.6 * keywordOverlap + 0.4 * urlRelevance;
+
+    console.log(`[ProgressEstimator] quickEvaluate: keyword=${keywordOverlap.toFixed(3)}, url=${urlRelevance.toFixed(3)}, score=${progressScore.toFixed(3)}`);
+
+    return {
+      progressScore,
+      url: window.location.href,
+      keywordOverlap,
+      urlRelevance
+    };
+  }
+
+  // ═══════════════════════════════════════════════════════════════
   //  PUBLIC API
   // ═══════════════════════════════════════════════════════════════
 
@@ -1038,6 +1123,7 @@ BrowserAgent.ProgressEstimator = (() => {
     ensureTaskActive,
     captureSnapshot,
     evaluate,
+    quickEvaluate,
 
     // Exposed for testing
     _tokenize,

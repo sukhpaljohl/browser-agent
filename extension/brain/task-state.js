@@ -161,6 +161,17 @@ class TaskStateTracker {
       currentInstruction: null,
       currentInstructionTokens: [],
 
+      // ── Parsed goal for goal completion (Phase 1B.2) ──
+      // Structured intent from GoalParser: verb, target, targetTokens, etc.
+      // Set once per task via setParsedGoal(), included in snapshots.
+      parsedGoal: null,
+
+      // ── Pending intent for navigation amnesia fix (Phase 1B.2.1) ──
+      // Stores the pre-click intent so the SW can record it if the script dies.
+      // Set by BRAIN_REGISTER_INTENT, consumed by recordAction() or Dead Man's Switch.
+      // Single slot (not a queue) — each new intent overwrites the previous.
+      pendingIntent: null,
+
       // ── Budget ──
       maxStepsPerTask: MAX_STEPS_PER_TASK
     };
@@ -264,6 +275,15 @@ class TaskStateTracker {
     }
 
     console.log(`[TaskState] Step ${state.step_index}: ${action.type} → ${effect} (${nodeSignature.slice(0, 40)})`);
+
+    // ── Phase 1B.2.1: Clear pending intent if normal recording succeeded ──
+    // The intent was registered pre-click. If we got here, the script survived
+    // the navigation, so the intent is consumed by this full recording.
+    if (state.pendingIntent) {
+      console.log(`[TaskState] Pending intent consumed by normal recording`);
+      state.pendingIntent = null;
+    }
+
     return this.getSnapshot();
   }
 
@@ -325,6 +345,20 @@ class TaskStateTracker {
     this._state.currentInstruction = instruction;
     this._state.currentInstructionTokens = this._tokenize(instruction);
     console.log(`[TaskState] Instruction updated: "${instruction.slice(0, 60)}"`);
+  }
+
+  // ─── Parsed Goal (Phase 1B.2) ──────────────────────────────────────────────
+
+  /**
+   * Store the parsed goal intent for goal completion evaluation.
+   * Called once per task by ProgressEstimator after GoalParser.parse().
+   *
+   * @param {Object} parsedGoal - From GoalParser.parse()
+   */
+  setParsedGoal(parsedGoal) {
+    if (!this._state) return;
+    this._state.parsedGoal = parsedGoal;
+    console.log(`[TaskState] Parsed goal set: verb=${parsedGoal.verb}, target="${parsedGoal.target}"`);
   }
 
   // ─── Commitment Window ─────────────────────────────────────────────────────
@@ -419,6 +453,8 @@ class TaskStateTracker {
       recentNodeSignatures: [...s.recentNodeSignatures],
       currentInstruction: s.currentInstruction,
       currentInstructionTokens: [...s.currentInstructionTokens],
+      parsedGoal: s.parsedGoal ? { ...s.parsedGoal } : null,
+      pendingIntent: s.pendingIntent ? { ...s.pendingIntent } : null,
       maxStepsPerTask: s.maxStepsPerTask,
 
       // ── Derived / convenience fields ──
@@ -473,6 +509,73 @@ class TaskStateTracker {
 
     const gainRate = newMatches / Math.max(goalTokens.length, 1);
     return { newMatches, gainRate };
+  }
+
+  // ─── Pending Intent Methods (Phase 1B.2.1 — Navigation Amnesia Fix) ────────
+
+  /**
+   * Store a pre-action intent. Called by BRAIN_REGISTER_INTENT before the
+   * content script dispatches a navigation-risk action (click/navigate/search).
+   *
+   * Single slot — each new intent overwrites the previous. This is correct
+   * because only one action can be in-flight at a time.
+   *
+   * @param {Object} intentData - Pre-action intent descriptor
+   * @param {string} intentData.nodeSignature - Stable node signature (tag|role|text|bx,by)
+   * @param {string} intentData.nodeText - Visible text of the target element
+   * @param {string} intentData.nodeTag - HTML tag name
+   * @param {string} intentData.nodeType - Node type from classifier (navigation_link, etc.)
+   * @param {string} intentData.url - URL where the action was initiated
+   * @param {string} intentData.prompt - The original command prompt
+   * @param {string} intentData.intent - Action type ('click', 'navigate', 'search')
+   * @param {number} intentData.timestamp - When the intent was registered
+   */
+  setPendingIntent(intentData) {
+    if (!this._state) {
+      console.warn('[TaskState] setPendingIntent called with no active task');
+      return;
+    }
+    this._state.pendingIntent = {
+      ...intentData,
+      status: 'pending'  // 'pending' → 'recorded_by_sw' → null (consumed)
+    };
+    console.log(`[TaskState] ✓ Pending intent registered: ${intentData.intent} → "${(intentData.nodeText || '').slice(0, 30)}"`);
+  }
+
+  /**
+   * Consume and clear the pending intent. Called when:
+   *   - Retroactive scoring completes on the new page (BRAIN_SCORE_PENDING_NAV)
+   *   - The intent needs to be explicitly consumed by any path
+   *
+   * Note: Normal recording (recordAction) auto-clears via inline check,
+   * so this method is primarily for the retroactive scoring path.
+   *
+   * @returns {Object|null} The consumed intent, or null if none existed
+   */
+  consumePendingIntent() {
+    if (!this._state) return null;
+    const intent = this._state.pendingIntent;
+    this._state.pendingIntent = null;
+    if (intent) {
+      console.log(`[TaskState] Pending intent consumed (status: ${intent.status})`);
+    }
+    return intent;
+  }
+
+  /**
+   * Get the pending intent if it was recorded by the SW's Dead Man's Switch
+   * but hasn't been retroactively scored yet by the new page's content script.
+   *
+   * Called by BRAIN_CHECK_PENDING_NAV during content script init().
+   *
+   * @returns {Object|null} The unscored intent (status 'recorded_by_sw'), or null
+   */
+  getUnscoredNavigation() {
+    if (!this._state?.pendingIntent) return null;
+    if (this._state.pendingIntent.status === 'recorded_by_sw') {
+      return this._state.pendingIntent;
+    }
+    return null;
   }
 
   // ─── Internal Helpers ──────────────────────────────────────────────────────
