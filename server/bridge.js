@@ -216,18 +216,22 @@ const server = http.createServer((req, res) => {
         if (waitingClientSockets.has(id)) {
           const clientRes = waitingClientSockets.get(id);
           try {
-            if (data.success === false) {
+            // Determine if this is a fatal crash or a meaningful soft failure
+            const isFatalCrash = data.success === false && !data.response && !data.status;
+
+            if (isFatalCrash) {
               json(clientRes, 500, {
                 error: {
-                  message: 'Browser execution failed',
+                  message: 'Browser execution failed (Fatal)',
                   type: 'browser_error',
                   code: 'execution_failed'
                 }
               });
             } else {
+              // Pass through both successes AND meaningful soft failures (like "needs_clarification" or "not found")
               const content = (data.response && typeof data.response === 'object')
-                ? (data.response.text || '')
-                : (data.response || '');
+                ? (data.response.text || JSON.stringify(data.response))
+                : (data.response || 'Action failed but no reason was provided.');
 
               const openaiResponse = {
                 id: 'chatcmpl-' + id,
