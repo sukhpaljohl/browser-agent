@@ -141,9 +141,11 @@ class HumanEngine {
     // Stealth Scroll: If out of vertical viewport bounds, use human-like mouseWheel scroll
     // Native scrollIntoView() is easily detected by advanced anti-bot scripts.
     const vH = window.innerHeight;
-    if (rect.y < 0 || rect.y > vH) {
-      // Calculate delta to center the element in the viewport
-      const deltaY = rect.y - (vH / 2) + (rect.height / 2);
+    if (rect.y < 0 || rect.y + rect.height > vH) {
+      // Calculate delta to a random comfortable viewing position (30-70% of viewport)
+      // Humans don't scroll to the exact center — they land at slightly different spots each time
+      const targetY = vH * (0.3 + Math.random() * 0.4);
+      const deltaY = rect.y - targetY + (rect.height / 2);
       
       // Move mouse to center of screen before scrolling (ensures wheel hits the main window)
       await this.moveTo(window.innerWidth / 2, vH / 2);

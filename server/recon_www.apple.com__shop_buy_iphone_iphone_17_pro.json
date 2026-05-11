@@ -1,0 +1,6992 @@
+{
+  "url": "https://www.apple.com/shop/buy-iphone/iphone-17-pro",
+  "hostname": "www.apple.com",
+  "pathname": "/shop/buy-iphone/iphone-17-pro",
+  "title": "Buy iPhone 17 Pro and iPhone 17 Pro Max - Apple",
+  "timestamp": "2026-05-06T18:40:16.644Z",
+  "scanTimeMs": 6558,
+  "probed": false,
+  "viewport": {
+    "width": 1536,
+    "height": 730,
+    "scrollHeight": 14008
+  },
+  "framework": {
+    "ui": "Unknown",
+    "css": [
+      "Bootstrap"
+    ],
+    "editor": null,
+    "customElements": [
+      "as-footnote"
+    ],
+    "reactComponents": []
+  },
+  "structure": {
+    "regions": [
+      {
+        "role": "navigation",
+        "selector": "#globalnav",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "w": 1521,
+          "h": 44
+        },
+        "text": "Apple StoreShopShop the LatestMaciPadiPhoneApple WatchApple …"
+      },
+      {
+        "role": "navigation",
+        "selector": "nav[aria-label=\"Breadcrumbs\"]",
+        "rect": {
+          "x": 270,
+          "y": 13385,
+          "w": 980,
+          "h": 56
+        },
+        "text": "Apple iPhone iPhone 17 Pro Buy iPhone 17 Pro and iPhone 17 P…"
+      },
+      {
+        "role": "navigation",
+        "selector": "nav[aria-label=\"More\\ Apple\\ Store\\ Links\"]",
+        "rect": {
+          "x": 270,
+          "y": 13441,
+          "w": 980,
+          "h": 440
+        },
+        "text": "Shop and Learn Shop and Learn Store Mac iPad iPhone Watch Vi…"
+      },
+      {
+        "role": "main",
+        "selector": "[role=\"main\"]",
+        "rect": {
+          "x": 0,
+          "y": 44,
+          "w": 1521,
+          "h": 9553
+        },
+        "text": "window.NAMED_ASSETS = {\"noACMIPriceRequest\":true,\"disableApp…"
+      },
+      {
+        "role": "footer",
+        "selector": "#global-footersection",
+        "rect": {
+          "x": 0,
+          "y": 9597,
+          "w": 1521,
+          "h": 4411
+        },
+        "text": "Footer footnotes Footnote ** AppleCare+ with Theft and Loss …"
+      }
+    ],
+    "overlays": []
+  },
+  "interactiveElements": [
+    {
+      "_domElement": {},
+      "i": 0,
+      "tag": "button",
+      "selector": "button[aria-label=\"Submit\\ search\"]",
+      "fallbacks": [
+        "button.globalnav-searchfield-submit",
+        "div > form > div:nth-of-type(1) > button:nth-of-type(2)"
+      ],
+      "purpose": "action",
+      "intent": "submit_form",
+      "confidence": 0.85,
+      "innerText": "",
+      "ariaLabel": "Submit search",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 264,
+        "y": 79,
+        "w": 30,
+        "h": 35
+      },
+      "hasPointerCursor": true
+    },
+    {
+      "_domElement": {},
+      "i": 1,
+      "tag": "a",
+      "selector": "div:nth-of-type(2) > div > div:nth-of-type(1) > a",
+      "purpose": "action",
+      "intent": "open_dialog",
+      "confidence": 0.95,
+      "innerText": "Get $35–$685 for your trade-in. Footnote #",
+      "role": "button",
+      "ariaHaspopup": "dialog",
+      "href": "/shop/browse/overlay/iphone_step1/tradein",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 1193,
+        "y": 204,
+        "w": 233,
+        "h": 40
+      },
+      "data": {
+        "data-slot-name": "tradeIn",
+        "data-feature-name": "Astro Link",
+        "data-display-name": "AOS: overlay/iphone_step1/tradein",
+        "data-ase-loader": "buyflow-info-overlay-loader",
+        "data-ase-rerender": "",
+        "data-ase-loader-action": "load"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 2,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > div > div > a",
+      "purpose": "action",
+      "intent": "open_dialog",
+      "confidence": 0.95,
+      "innerText": "Show more",
+      "role": "button",
+      "ariaHaspopup": "dialog",
+      "href": "/shop/browse/overlay/iphone/compare_models/iphone_17_pro",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 1386,
+        "y": 755,
+        "w": 27,
+        "h": 22
+      },
+      "data": {
+        "data-relatedlink": "_r_c__link",
+        "data-trigger-stoppropagation": "true",
+        "data-ase-loader": "buyflow-info-overlay-loader",
+        "data-ase-loader-action": "load",
+        "data-display-name": "AOS: overlay/iphone/compare_models/iphone_17_pro",
+        "data-analytics-title": "Need help choosing a model?"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 3,
+      "tag": "a",
+      "selector": "div > div > p:nth-of-type(2) > a",
+      "purpose": "action",
+      "intent": "open_dialog",
+      "confidence": 0.95,
+      "innerText": "Learn more about Personal Setup",
+      "role": "button",
+      "ariaHaspopup": "dialog",
+      "href": "/shop/browse/overlay/store/step_1/personal_setup",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 621,
+        "y": 5016,
+        "w": 279,
+        "h": 20
+      },
+      "data": {
+        "data-slot-name": "main-11",
+        "data-feature-name": "Astro Link",
+        "data-display-name": "AOS: overlay/store/step_1/personal_setup",
+        "data-ase-loader": "buyflow-info-overlay-loader",
+        "data-ase-loader-action": "load"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 4,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > div:nth-of-type(3) > span > a",
+      "purpose": "action",
+      "intent": "open_menu",
+      "confidence": 0.7,
+      "innerText": "Learn more about Apple Intelligence for iPhone",
+      "role": "button",
+      "href": "/shop/browse/overlay/iphone/domore/apple_intelligence",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 225,
+        "y": 303,
+        "w": 79,
+        "h": 16
+      },
+      "data": {
+        "data-slot-name": "productSelectionHeader",
+        "data-feature-name": "Astro Link",
+        "data-display-name": "AOS: overlay/iphone/domore/apple_intelligence",
+        "data-ase-loader": "buyflow-info-overlay-loader",
+        "data-ase-loader-action": "load"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 5,
+      "tag": "button",
+      "selector": "#globalnav-menubutton-link-store",
+      "fallbacks": [
+        "button[aria-label=\"Store\\ menu\"]",
+        "div:nth-of-type(1) > ul > li:nth-of-type(2) > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "",
+      "ariaLabel": "Store menu",
+      "ariaExpanded": "false",
+      "ariaControls": "globalnav-submenu-link-store",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 343,
+        "y": 0,
+        "w": 22,
+        "h": 44
+      },
+      "data": {
+        "data-topnav-flyout-trigger-regular": "true"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 6,
+      "tag": "button",
+      "selector": "#globalnav-menubutton-link-mac",
+      "fallbacks": [
+        "button[aria-label=\"Mac\\ menu\"]",
+        "div:nth-of-type(2) > ul > li:nth-of-type(2) > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "",
+      "ariaLabel": "Mac menu",
+      "ariaExpanded": "false",
+      "ariaControls": "globalnav-submenu-link-mac",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 401,
+        "y": 0,
+        "w": 22,
+        "h": 44
+      },
+      "data": {
+        "data-topnav-flyout-trigger-regular": "true"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 7,
+      "tag": "button",
+      "selector": "#globalnav-menubutton-link-ipad",
+      "fallbacks": [
+        "button[aria-label=\"iPad\\ menu\"]",
+        "div:nth-of-type(3) > ul > li:nth-of-type(2) > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "",
+      "ariaLabel": "iPad menu",
+      "ariaExpanded": "false",
+      "ariaControls": "globalnav-submenu-link-ipad",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 460,
+        "y": 0,
+        "w": 22,
+        "h": 44
+      },
+      "data": {
+        "data-topnav-flyout-trigger-regular": "true"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 8,
+      "tag": "button",
+      "selector": "#globalnav-menubutton-link-iphone",
+      "fallbacks": [
+        "button[aria-label=\"iPhone\\ menu\"]",
+        "div:nth-of-type(4) > ul > li:nth-of-type(2) > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "",
+      "ariaLabel": "iPhone menu",
+      "ariaExpanded": "false",
+      "ariaControls": "globalnav-submenu-link-iphone",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 533,
+        "y": 0,
+        "w": 22,
+        "h": 44
+      },
+      "data": {
+        "data-topnav-flyout-trigger-regular": "true"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 9,
+      "tag": "button",
+      "selector": "#globalnav-menubutton-link-watch",
+      "fallbacks": [
+        "button[aria-label=\"Watch\\ menu\"]",
+        "div:nth-of-type(5) > ul > li:nth-of-type(2) > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "",
+      "ariaLabel": "Watch menu",
+      "ariaExpanded": "false",
+      "ariaControls": "globalnav-submenu-link-watch",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 603,
+        "y": 0,
+        "w": 22,
+        "h": 44
+      },
+      "data": {
+        "data-topnav-flyout-trigger-regular": "true"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 10,
+      "tag": "button",
+      "selector": "#globalnav-menubutton-link-vision",
+      "fallbacks": [
+        "button[aria-label=\"Vision\\ menu\"]",
+        "div:nth-of-type(6) > ul > li:nth-of-type(2) > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "",
+      "ariaLabel": "Vision menu",
+      "ariaExpanded": "false",
+      "ariaControls": "globalnav-submenu-link-vision",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 672,
+        "y": 0,
+        "w": 22,
+        "h": 44
+      },
+      "data": {
+        "data-topnav-flyout-trigger-regular": "true"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 11,
+      "tag": "button",
+      "selector": "#globalnav-menubutton-link-airpods",
+      "fallbacks": [
+        "button[aria-label=\"AirPods\\ menu\"]",
+        "div:nth-of-type(7) > ul > li:nth-of-type(2) > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "",
+      "ariaLabel": "AirPods menu",
+      "ariaExpanded": "false",
+      "ariaControls": "globalnav-submenu-link-airpods",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 750,
+        "y": 0,
+        "w": 22,
+        "h": 44
+      },
+      "data": {
+        "data-topnav-flyout-trigger-regular": "true"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 12,
+      "tag": "button",
+      "selector": "#globalnav-menubutton-link-tv-home",
+      "fallbacks": [
+        "button[aria-label=\"TV\\ and\\ Home\\ menu\"]",
+        "div:nth-of-type(8) > ul > li:nth-of-type(2) > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "",
+      "ariaLabel": "TV and Home menu",
+      "ariaExpanded": "false",
+      "ariaControls": "globalnav-submenu-link-tv-home",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 851,
+        "y": 0,
+        "w": 22,
+        "h": 44
+      },
+      "data": {
+        "data-topnav-flyout-trigger-regular": "true"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 13,
+      "tag": "button",
+      "selector": "#globalnav-menubutton-link-entertainment",
+      "fallbacks": [
+        "button[aria-label=\"Entertainment\\ menu\"]",
+        "div:nth-of-type(9) > ul > li:nth-of-type(2) > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "",
+      "ariaLabel": "Entertainment menu",
+      "ariaExpanded": "false",
+      "ariaControls": "globalnav-submenu-link-entertainment",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 963,
+        "y": 0,
+        "w": 22,
+        "h": 44
+      },
+      "data": {
+        "data-topnav-flyout-trigger-regular": "true"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 14,
+      "tag": "button",
+      "selector": "#globalnav-menubutton-link-accessories",
+      "fallbacks": [
+        "button[aria-label=\"Accessories\\ menu\"]",
+        "div:nth-of-type(10) > ul > li:nth-of-type(2) > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "",
+      "ariaLabel": "Accessories menu",
+      "ariaExpanded": "false",
+      "ariaControls": "globalnav-submenu-link-accessories",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 1065,
+        "y": 0,
+        "w": 22,
+        "h": 44
+      },
+      "data": {
+        "data-topnav-flyout-trigger-regular": "true"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 15,
+      "tag": "button",
+      "selector": "#globalnav-menubutton-link-support",
+      "fallbacks": [
+        "button[aria-label=\"Support\\ menu\"]",
+        "div:nth-of-type(11) > ul > li:nth-of-type(2) > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "",
+      "ariaLabel": "Support menu",
+      "ariaExpanded": "false",
+      "ariaControls": "globalnav-submenu-link-support",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 1144,
+        "y": 0,
+        "w": 22,
+        "h": 44
+      },
+      "data": {
+        "data-topnav-flyout-trigger-regular": "true"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 16,
+      "tag": "button",
+      "selector": "button[aria-label=\"Next\\ gallery\\ image\"]",
+      "fallbacks": [
+        "div:nth-of-type(1) > div > div:nth-of-type(3) > button:nth-of-type(2)"
+      ],
+      "purpose": "action",
+      "intent": "upload_file",
+      "confidence": 0.8,
+      "innerText": "Next gallery image",
+      "ariaLabel": "Next gallery image",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 964,
+        "y": 645,
+        "w": 56,
+        "h": 56
+      },
+      "data": {
+        "data-autom": "paddlenav-next"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 17,
+      "tag": "button",
+      "selector": "#title-_r_11_-1",
+      "fallbacks": [
+        "button.rc-accordion-button.rf-bfe-faq-accordion",
+        "ul > li > h2 > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "Frequently Asked Questions",
+      "ariaExpanded": "true",
+      "ariaControls": "content-_r_11_-1",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 270,
+        "y": 8694,
+        "w": 980,
+        "h": 100
+      },
+      "data": {
+        "data-core-accordion-button": "",
+        "data-core-accordion-button-expanded": ""
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 18,
+      "tag": "button",
+      "selector": "#title-question-0",
+      "fallbacks": [
+        "ul > li:nth-of-type(1) > h3 > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "What is eSIM?",
+      "ariaExpanded": "false",
+      "ariaControls": "content-question-0",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 270,
+        "y": 8795,
+        "w": 980,
+        "h": 55
+      },
+      "data": {
+        "data-core-accordion-button": ""
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 19,
+      "tag": "button",
+      "selector": "#title-question-1",
+      "fallbacks": [
+        "ul > li:nth-of-type(2) > h3 > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "Can I activate an iPhone 17 Pro outside of the United States?",
+      "ariaExpanded": "false",
+      "ariaControls": "content-question-1",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 270,
+        "y": 8851,
+        "w": 980,
+        "h": 55
+      },
+      "data": {
+        "data-core-accordion-button": ""
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 20,
+      "tag": "button",
+      "selector": "#title-question-2",
+      "fallbacks": [
+        "ul > li:nth-of-type(3) > h3 > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "Will my new iPhone be unlocked?",
+      "ariaExpanded": "false",
+      "ariaControls": "content-question-2",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 270,
+        "y": 8907,
+        "w": 980,
+        "h": 55
+      },
+      "data": {
+        "data-core-accordion-button": ""
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 21,
+      "tag": "button",
+      "selector": "#title-question-3",
+      "fallbacks": [
+        "ul > li:nth-of-type(4) > h3 > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "When I buy from apple.com, does my iPhone come ready to use?",
+      "ariaExpanded": "false",
+      "ariaControls": "content-question-3",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 270,
+        "y": 8963,
+        "w": 980,
+        "h": 55
+      },
+      "data": {
+        "data-core-accordion-button": ""
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 22,
+      "tag": "button",
+      "selector": "#title-question-4",
+      "fallbacks": [
+        "ul > li:nth-of-type(5) > h3 > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "Will my iPhone work worldwide?",
+      "ariaExpanded": "false",
+      "ariaControls": "content-question-4",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 270,
+        "y": 9018,
+        "w": 980,
+        "h": 55
+      },
+      "data": {
+        "data-core-accordion-button": ""
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 23,
+      "tag": "button",
+      "selector": "#title-question-5",
+      "fallbacks": [
+        "ul > li:nth-of-type(6) > h3 > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "Can I return my iPhone?",
+      "ariaExpanded": "false",
+      "ariaControls": "content-question-5",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 270,
+        "y": 9074,
+        "w": 980,
+        "h": 55
+      },
+      "data": {
+        "data-core-accordion-button": ""
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 24,
+      "tag": "button",
+      "selector": "#title-question-6",
+      "fallbacks": [
+        "ul > li:nth-of-type(7) > h3 > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "I’m buying an iPhone as a gift. Can it be activated at a later date?",
+      "ariaExpanded": "false",
+      "ariaControls": "content-question-6",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 270,
+        "y": 9130,
+        "w": 980,
+        "h": 55
+      },
+      "data": {
+        "data-core-accordion-button": ""
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 25,
+      "tag": "button",
+      "selector": "#title-question-7",
+      "fallbacks": [
+        "ul > li:nth-of-type(8) > h3 > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "What resources are available to me to quickly get set up, transfer existing files, and make the most of my new iPhone?",
+      "ariaExpanded": "false",
+      "ariaControls": "content-question-7",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 270,
+        "y": 9186,
+        "w": 980,
+        "h": 76
+      },
+      "data": {
+        "data-core-accordion-button": ""
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 26,
+      "tag": "button",
+      "selector": "#title-question-8",
+      "fallbacks": [
+        "ul > li:nth-of-type(9) > h3 > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "Are there differences between an iPhone for AT&T, Boost Mobile, T-Mobile, or Verizon?",
+      "ariaExpanded": "false",
+      "ariaControls": "content-question-8",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 270,
+        "y": 9263,
+        "w": 980,
+        "h": 55
+      },
+      "data": {
+        "data-core-accordion-button": ""
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 27,
+      "tag": "button",
+      "selector": "#title-question-9",
+      "fallbacks": [
+        "ul > li:nth-of-type(10) > h3 > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "Can I easily switch my carrier when I purchase an iPhone?",
+      "ariaExpanded": "false",
+      "ariaControls": "content-question-9",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 270,
+        "y": 9318,
+        "w": 980,
+        "h": 55
+      },
+      "data": {
+        "data-core-accordion-button": ""
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 28,
+      "tag": "button",
+      "selector": "#title-question-10",
+      "fallbacks": [
+        "ul > li:nth-of-type(11) > h3 > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "How does the iPhone Upgrade Program work?",
+      "ariaExpanded": "false",
+      "ariaControls": "content-question-10",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 270,
+        "y": 9374,
+        "w": 980,
+        "h": 55
+      },
+      "data": {
+        "data-core-accordion-button": ""
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 29,
+      "tag": "button",
+      "selector": "#title-question-11",
+      "fallbacks": [
+        "ul > li:nth-of-type(12) > h3 > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "What are connectivity discounts?",
+      "ariaExpanded": "false",
+      "ariaControls": "content-question-11",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 270,
+        "y": 9430,
+        "w": 980,
+        "h": 55
+      },
+      "data": {
+        "data-core-accordion-button": ""
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 30,
+      "tag": "button",
+      "selector": "#title-question-12",
+      "fallbacks": [
+        "ul > li:nth-of-type(13) > h3 > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "Which network providers offer 5G service?",
+      "ariaExpanded": "false",
+      "ariaControls": "content-question-12",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 270,
+        "y": 9486,
+        "w": 980,
+        "h": 55
+      },
+      "data": {
+        "data-core-accordion-button": ""
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 31,
+      "tag": "button",
+      "selector": "#title-question-13",
+      "fallbacks": [
+        "ul > li:nth-of-type(14) > h3 > button"
+      ],
+      "purpose": "action",
+      "intent": "toggle_expand",
+      "confidence": 0.9,
+      "innerText": "What products can be covered by AppleCare One?",
+      "ariaExpanded": "false",
+      "ariaControls": "content-question-13",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 270,
+        "y": 9542,
+        "w": 980,
+        "h": 55
+      },
+      "data": {
+        "data-core-accordion-button": ""
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 32,
+      "tag": "a",
+      "selector": "div:nth-of-type(2) > div > div:nth-of-type(2) > a",
+      "purpose": "navigation",
+      "intent": "open_dialog",
+      "confidence": 0.95,
+      "innerText": "See how to pay monthly.",
+      "ariaHaspopup": "dialog",
+      "href": "/shop/browse/overlay/iphone/payment_options",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 1242,
+        "y": 256,
+        "w": 184,
+        "h": 40
+      },
+      "data": {
+        "data-slot-name": "productSelectionHeader",
+        "data-feature-name": "Astro Link",
+        "data-display-name": "AOS: overlay/iphone/payment_options",
+        "data-ase-loader": "buyflow-info-overlay-loader",
+        "data-ase-rerender": "",
+        "data-ase-loader-action": "load"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 33,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > div > div > a",
+      "purpose": "action",
+      "intent": "open_dialog",
+      "confidence": 0.95,
+      "innerText": "Show more",
+      "role": "button",
+      "ariaHaspopup": "dialog",
+      "ariaDisabled": "true",
+      "href": null,
+      "disabled": true,
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 1386,
+        "y": 1723,
+        "w": 27,
+        "h": 22
+      },
+      "data": {
+        "data-relatedlink": "_r_k__link",
+        "data-trigger-stoppropagation": "true",
+        "data-ase-loader-action": "load",
+        "data-ase-rerender": "",
+        "data-display-name": "AOS: overlay/iphone/capacity",
+        "data-analytics-title": "Not sure how much storage to get?"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 34,
+      "tag": "a",
+      "selector": "div:nth-of-type(2) > div > div > a",
+      "purpose": "action",
+      "intent": "open_dialog",
+      "confidence": 0.95,
+      "innerText": "Show more",
+      "role": "button",
+      "ariaHaspopup": "dialog",
+      "ariaDisabled": "true",
+      "href": null,
+      "disabled": true,
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 1386,
+        "y": 2024,
+        "w": 27,
+        "h": 22
+      },
+      "data": {
+        "data-relatedlink": "_r_1c__link",
+        "data-trigger-stoppropagation": "true",
+        "data-ase-loader-action": "load",
+        "data-ase-rerender": "",
+        "data-display-name": "AOS: overlay/iphone_step1/tradein",
+        "data-analytics-title": "How does trade-in work?"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 35,
+      "tag": "a",
+      "selector": "div:nth-of-type(2) > div > div > a",
+      "purpose": "action",
+      "intent": "open_dialog",
+      "confidence": 0.95,
+      "innerText": "Show more",
+      "role": "button",
+      "ariaHaspopup": "dialog",
+      "ariaDisabled": "true",
+      "href": null,
+      "disabled": true,
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 1386,
+        "y": 2566,
+        "w": 27,
+        "h": 22
+      },
+      "data": {
+        "data-relatedlink": "_r_q__link",
+        "data-trigger-stoppropagation": "true",
+        "data-ase-loader-action": "load",
+        "data-display-name": "AOS: overlay/iphone_17_pro/connectivity",
+        "data-analytics-title": "Is it easy to get connected?"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 36,
+      "tag": "button",
+      "selector": "#as-compareapplecare-link",
+      "fallbacks": [
+        "button.as-compareapplecare-learnmore",
+        "div > div:nth-of-type(3) > div > button"
+      ],
+      "purpose": "action",
+      "intent": "open_dialog",
+      "confidence": 0.95,
+      "innerText": "Show more",
+      "ariaHaspopup": "dialog",
+      "ariaDisabled": "true",
+      "disabled": true,
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 1392,
+        "y": 2910,
+        "w": 28,
+        "h": 22
+      },
+      "data": {
+        "data-ase-overlay": "compare-applecare-overlay",
+        "data-ase-click": "show",
+        "data-href": "/shop/api/applecare/overlay?fae=true&node=overlay/iphone_ste…",
+        "data-autom": "compareapplecare-learnmore",
+        "data-ariafocusable": "true",
+        "data-ariasaved-disabled": "",
+        "data-ariasaved-ariadisabled": "",
+        "data-ariasaved-tabindex": "",
+        "data-relatedlink": "_r_1l__link",
+        "data-trigger-stoppropagation": "true",
+        "data-analytics-title": "How does AppleCare work?"
+      },
+      "hasPointerCursor": true
+    },
+    {
+      "_domElement": {},
+      "i": 37,
+      "tag": "button",
+      "selector": "#as-compareprice-link",
+      "fallbacks": [
+        "button.as-compareprice-learnmore",
+        "div > div:nth-of-type(2) > div > button"
+      ],
+      "purpose": "action",
+      "intent": "open_menu",
+      "confidence": 0.7,
+      "innerText": "Show more",
+      "ariaDisabled": "true",
+      "disabled": true,
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 1386,
+        "y": 2281,
+        "w": 28,
+        "h": 22
+      },
+      "data": {
+        "data-ase-overlay": "compare-price-overlay",
+        "data-ase-click": "show",
+        "data-href": "/shop/overlay/carrier/compare/payment-options?fae=true&produ…",
+        "data-autom": "compareprice-learnmore",
+        "data-ariafocusable": "true",
+        "data-ariasaved-disabled": "",
+        "data-ariasaved-ariadisabled": "",
+        "data-ariasaved-tabindex": "",
+        "data-relatedlink": "_r_1o__link",
+        "data-trigger-stoppropagation": "true",
+        "data-analytics-title": "Not sure which payment option to choose?"
+      },
+      "hasPointerCursor": true
+    },
+    {
+      "_domElement": {},
+      "i": 38,
+      "tag": "a",
+      "selector": "a[aria-label=\"Apple\"]",
+      "fallbacks": [
+        "a.globalnav-link.globalnav-link-apple",
+        "div > ul > li:nth-of-type(1) > a"
+      ],
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "innerText": "Apple",
+      "ariaLabel": "Apple",
+      "href": "https://www.apple.com/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 262,
+        "y": 0,
+        "w": 30,
+        "h": 44
+      },
+      "data": {
+        "data-globalnav-item-name": "apple",
+        "data-analytics-title": "apple home",
+        "data-autom": "gn_apple"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 39,
+      "tag": "a",
+      "selector": "a[aria-label=\"Store\"]",
+      "fallbacks": [
+        "a.globalnav-link.globalnav-submenu-trigger-link.globalnav-link-store",
+        "div:nth-of-type(1) > ul > li:nth-of-type(1) > a"
+      ],
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "innerText": "Store",
+      "ariaLabel": "Store",
+      "href": "/store",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 312,
+        "y": 0,
+        "w": 46,
+        "h": 44
+      },
+      "data": {
+        "data-globalnav-item-name": "store",
+        "data-topnav-flyout-trigger-compact": "",
+        "data-analytics-title": "store",
+        "data-analytics-element-engagement": "hover - store",
+        "data-autom": "gn_store"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 40,
+      "tag": "a",
+      "selector": "a[aria-label=\"Mac\"]",
+      "fallbacks": [
+        "a.globalnav-link.globalnav-submenu-trigger-link.globalnav-link-mac",
+        "div:nth-of-type(2) > ul > li:nth-of-type(1) > a"
+      ],
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "innerText": "Mac",
+      "ariaLabel": "Mac",
+      "href": "https://www.apple.com/mac/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 377,
+        "y": 0,
+        "w": 39,
+        "h": 44
+      },
+      "data": {
+        "data-globalnav-item-name": "mac",
+        "data-topnav-flyout-trigger-compact": "",
+        "data-analytics-title": "mac",
+        "data-analytics-element-engagement": "hover - mac",
+        "data-autom": "gn_mac"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 41,
+      "tag": "a",
+      "selector": "a[aria-label=\"iPad\"]",
+      "fallbacks": [
+        "a.globalnav-link.globalnav-submenu-trigger-link.globalnav-link-ipad",
+        "div:nth-of-type(3) > ul > li:nth-of-type(1) > a"
+      ],
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "innerText": "iPad",
+      "ariaLabel": "iPad",
+      "href": "https://www.apple.com/ipad/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 435,
+        "y": 0,
+        "w": 40,
+        "h": 44
+      },
+      "data": {
+        "data-globalnav-item-name": "ipad",
+        "data-topnav-flyout-trigger-compact": "",
+        "data-analytics-title": "ipad",
+        "data-analytics-element-engagement": "hover - ipad",
+        "data-autom": "gn_ipad"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 42,
+      "tag": "a",
+      "selector": "a[aria-label=\"iPhone\"]",
+      "fallbacks": [
+        "a.globalnav-link.globalnav-submenu-trigger-link.globalnav-link-iphone",
+        "div:nth-of-type(4) > ul > li:nth-of-type(1) > a"
+      ],
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "innerText": "iPhone",
+      "ariaLabel": "iPhone",
+      "href": "https://www.apple.com/iphone/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 494,
+        "y": 0,
+        "w": 54,
+        "h": 44
+      },
+      "data": {
+        "data-globalnav-item-name": "iphone",
+        "data-topnav-flyout-trigger-compact": "",
+        "data-analytics-title": "iphone",
+        "data-analytics-element-engagement": "hover - iphone",
+        "data-autom": "gn_iphone"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 43,
+      "tag": "a",
+      "selector": "a[aria-label=\"Watch\"]",
+      "fallbacks": [
+        "a.globalnav-link.globalnav-submenu-trigger-link.globalnav-link-watch",
+        "div:nth-of-type(5) > ul > li:nth-of-type(1) > a"
+      ],
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "innerText": "Watch",
+      "ariaLabel": "Watch",
+      "href": "https://www.apple.com/watch/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 567,
+        "y": 0,
+        "w": 51,
+        "h": 44
+      },
+      "data": {
+        "data-globalnav-item-name": "watch",
+        "data-topnav-flyout-trigger-compact": "",
+        "data-analytics-title": "watch",
+        "data-analytics-element-engagement": "hover - watch",
+        "data-autom": "gn_watch"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 44,
+      "tag": "a",
+      "selector": "a[aria-label=\"Vision\"]",
+      "fallbacks": [
+        "a.globalnav-link.globalnav-submenu-trigger-link.globalnav-link-vision",
+        "div:nth-of-type(6) > ul > li:nth-of-type(1) > a"
+      ],
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "innerText": "Vision",
+      "ariaLabel": "Vision",
+      "href": "https://www.apple.com/apple-vision-pro/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 637,
+        "y": 0,
+        "w": 50,
+        "h": 44
+      },
+      "data": {
+        "data-globalnav-item-name": "vision",
+        "data-topnav-flyout-trigger-compact": "",
+        "data-analytics-title": "vision",
+        "data-analytics-element-engagement": "hover - vision",
+        "data-autom": "gn_vision"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 45,
+      "tag": "a",
+      "selector": "a[aria-label=\"AirPods\"]",
+      "fallbacks": [
+        "a.globalnav-link.globalnav-submenu-trigger-link.globalnav-link-airpods",
+        "div:nth-of-type(7) > ul > li:nth-of-type(1) > a"
+      ],
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "innerText": "AirPods",
+      "ariaLabel": "AirPods",
+      "href": "https://www.apple.com/airpods/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 706,
+        "y": 0,
+        "w": 59,
+        "h": 44
+      },
+      "data": {
+        "data-globalnav-item-name": "airpods",
+        "data-topnav-flyout-trigger-compact": "",
+        "data-analytics-title": "airpods",
+        "data-analytics-element-engagement": "hover - airpods",
+        "data-autom": "gn_airpods"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 46,
+      "tag": "a",
+      "selector": "a[aria-label=\"TV\\ and\\ Home\"]",
+      "fallbacks": [
+        "a.globalnav-link.globalnav-submenu-trigger-link.globalnav-link-tv-home",
+        "div:nth-of-type(8) > ul > li:nth-of-type(1) > a"
+      ],
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "innerText": "TV & Home",
+      "ariaLabel": "TV and Home",
+      "href": "https://www.apple.com/tv-home/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 785,
+        "y": 0,
+        "w": 81,
+        "h": 44
+      },
+      "data": {
+        "data-globalnav-item-name": "tv-home",
+        "data-topnav-flyout-trigger-compact": "",
+        "data-analytics-title": "tv & home",
+        "data-analytics-element-engagement": "hover - tv & home",
+        "data-autom": "gn_tv-home"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 47,
+      "tag": "a",
+      "selector": "a[aria-label=\"Entertainment\"]",
+      "fallbacks": [
+        "a.globalnav-link.globalnav-submenu-trigger-link.globalnav-link-entertainment",
+        "div:nth-of-type(9) > ul > li:nth-of-type(1) > a"
+      ],
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "innerText": "Entertainment",
+      "ariaLabel": "Entertainment",
+      "href": "https://www.apple.com/services/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 885,
+        "y": 0,
+        "w": 93,
+        "h": 44
+      },
+      "data": {
+        "data-globalnav-item-name": "entertainment",
+        "data-topnav-flyout-trigger-compact": "",
+        "data-analytics-title": "entertainment",
+        "data-analytics-element-engagement": "hover - entertainment",
+        "data-autom": "gn_entertainment"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 48,
+      "tag": "a",
+      "selector": "a[aria-label=\"Accessories\"]",
+      "fallbacks": [
+        "a.globalnav-link.globalnav-submenu-trigger-link.globalnav-link-accessories",
+        "div:nth-of-type(10) > ul > li:nth-of-type(1) > a"
+      ],
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "innerText": "Accessories",
+      "ariaLabel": "Accessories",
+      "href": "/shop/accessories/all",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 997,
+        "y": 0,
+        "w": 83,
+        "h": 44
+      },
+      "data": {
+        "data-globalnav-item-name": "accessories",
+        "data-topnav-flyout-trigger-compact": "",
+        "data-analytics-title": "accessories",
+        "data-analytics-element-engagement": "hover - accessories",
+        "data-autom": "gn_accessories"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 49,
+      "tag": "a",
+      "selector": "a[aria-label=\"Support\"]",
+      "fallbacks": [
+        "a.globalnav-link.globalnav-submenu-trigger-link.globalnav-link-support",
+        "div:nth-of-type(11) > ul > li:nth-of-type(1) > a"
+      ],
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "innerText": "Support",
+      "ariaLabel": "Support",
+      "href": "https://www.apple.com/support/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 1099,
+        "y": 0,
+        "w": 60,
+        "h": 44
+      },
+      "data": {
+        "data-globalnav-item-name": "support",
+        "data-topnav-flyout-trigger-compact": "",
+        "data-analytics-title": "support",
+        "data-analytics-element-engagement": "hover - support",
+        "data-analytics-exit-link": "true",
+        "data-autom": "gn_support"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 50,
+      "tag": "a",
+      "selector": "#globalnav-menubutton-link-search",
+      "fallbacks": [
+        "a[aria-label=\"Search\\ apple\\.com\"]",
+        "a.globalnav-link.globalnav-link-search",
+        "div > ul > li:nth-of-type(3) > a"
+      ],
+      "purpose": "action",
+      "intent": "search",
+      "confidence": 0.8,
+      "innerText": "",
+      "role": "button",
+      "ariaLabel": "Search apple.com",
+      "href": "/search",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 1178,
+        "y": 0,
+        "w": 31,
+        "h": 44
+      },
+      "data": {
+        "data-topnav-flyout-trigger-regular": "",
+        "data-topnav-flyout-trigger-compact": "",
+        "data-analytics-title": "open - search field"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 51,
+      "tag": "button",
+      "selector": "button[aria-label=\"Clear\\ search\"]",
+      "fallbacks": [
+        "button.globalnav-searchfield-reset",
+        "div > form > div:nth-of-type(1) > button:nth-of-type(1)"
+      ],
+      "purpose": "action",
+      "intent": "search",
+      "confidence": 0.8,
+      "innerText": "",
+      "ariaLabel": "Clear search",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 1228,
+        "y": 78,
+        "w": 30,
+        "h": 36
+      },
+      "hasPointerCursor": true
+    },
+    {
+      "_domElement": {},
+      "i": 52,
+      "tag": "a",
+      "selector": "#globalnav-menubutton-link-bag",
+      "fallbacks": [
+        "a[aria-label=\"Shopping\\ Bag\"]",
+        "a.globalnav-link.globalnav-link-bag",
+        "ul > li:nth-of-type(4) > div:nth-of-type(1) > a"
+      ],
+      "purpose": "action",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "innerText": "",
+      "role": "button",
+      "ariaLabel": "Shopping Bag",
+      "href": "/shop/bag",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 1228,
+        "y": 0,
+        "w": 30,
+        "h": 44
+      },
+      "data": {
+        "data-globalnav-item-name": "bag",
+        "data-topnav-flyout-trigger-regular": "",
+        "data-topnav-flyout-trigger-compact": "",
+        "data-analytics-title": "open - bag",
+        "data-autom": "gn_bag"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 53,
+      "tag": "button",
+      "selector": "button[aria-label=\"Previous\\ gallery\\ image\"]",
+      "fallbacks": [
+        "button.paddlenav-arrow.paddlenav-arrow-previous.visuallyhidden",
+        "div:nth-of-type(1) > div > div:nth-of-type(3) > button:nth-of-type(1)"
+      ],
+      "purpose": "action",
+      "intent": "upload_file",
+      "confidence": 0.8,
+      "innerText": "Previous gallery image",
+      "ariaLabel": "Previous gallery image",
+      "disabled": true,
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 113,
+        "y": 645,
+        "w": 56,
+        "h": 56
+      },
+      "data": {
+        "data-autom": "paddlenav-previous"
+      },
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 54,
+      "tag": "button",
+      "selector": "button[aria-label=\"Save\\ for\\ later\\ \"]",
+      "fallbacks": [
+        "button.rf-saveditem-button.as-buttonlink.typography-body-reduced",
+        "div:nth-of-type(2) > div:nth-of-type(2) > div > button"
+      ],
+      "purpose": "action",
+      "intent": "save",
+      "confidence": 0.8,
+      "innerText": "Save for later",
+      "ariaLabel": "Save for later ",
+      "disabled": true,
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 566,
+        "y": 3523,
+        "w": 103,
+        "h": 21
+      },
+      "data": {
+        "data-autom": "save-for-later"
+      },
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 55,
+      "tag": "input",
+      "selector": "input[aria-label=\"Search\\ apple\\.com\"]",
+      "fallbacks": [
+        "input.globalnav-searchfield-input",
+        "div > form > div:nth-of-type(1) > input:nth-of-type(1)"
+      ],
+      "purpose": "unknown",
+      "intent": "search",
+      "confidence": 0.8,
+      "innerText": "",
+      "ariaLabel": "Search apple.com",
+      "placeholder": "Search apple.com",
+      "type": null,
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 264,
+        "y": 76,
+        "w": 995,
+        "h": 40
+      },
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 56,
+      "tag": "button",
+      "selector": "#as-carrierpromotion-ribbonlearnmore-trigger",
+      "fallbacks": [
+        "button.as-buttonlink.as-carrierpromotion-ribbonlearnmore.icon",
+        "div > div > div:nth-of-type(1) > button"
+      ],
+      "purpose": "action",
+      "intent": "interact",
+      "confidence": 0.4,
+      "innerText": "See all deals",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 306,
+        "y": 105,
+        "w": 103,
+        "h": 20
+      },
+      "data": {
+        "data-ase-overlay": "carrier-promotion-overlay",
+        "data-ase-click": "show",
+        "data-href": "/shop/api/carrier-promotions?cpps.0=ATT_IPHONE17PRO&cpps.1=A…",
+        "data-autom": "carrierpromotion-ribbonlearnmore"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 57,
+      "tag": "button",
+      "selector": "#buyflow-messages-summary-trigger",
+      "fallbacks": [
+        "div:nth-of-type(1) > div > div > button"
+      ],
+      "purpose": "action",
+      "intent": "interact",
+      "confidence": 0.4,
+      "innerText": "Get 3% Daily Cash with Apple Card",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 571,
+        "y": 3378,
+        "w": 244,
+        "h": 18
+      },
+      "data": {
+        "data-buyflow-messages-overlay": "button",
+        "data-buyflow-messages-metrics-info": "learn more - daily cash"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 58,
+      "tag": "a",
+      "selector": "a[aria-label=\"Shop\\ the\\ latest\\ Apple\\ products\"]",
+      "fallbacks": [
+        "div:nth-of-type(1) > ul > li:nth-of-type(1) > a"
+      ],
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Shop the Latest",
+      "innerText": "",
+      "ariaLabel": "Shop the latest Apple products",
+      "href": "https://www.apple.com/store",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 102,
+        "w": 192,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "shop the latest"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 59,
+      "tag": "a",
+      "selector": "a[aria-label=\"iMac\"]",
+      "fallbacks": [
+        "div:nth-of-type(1) > ul > li:nth-of-type(5) > a"
+      ],
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "iMac",
+      "innerText": "",
+      "ariaLabel": "iMac",
+      "href": "https://www.apple.com/imac/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 254,
+        "w": 74,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "imac"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 60,
+      "tag": "a",
+      "selector": "a[aria-label=\"iPad-11\"]",
+      "fallbacks": [
+        "div:nth-of-type(1) > ul > li:nth-of-type(4) > a"
+      ],
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "iPad",
+      "innerText": "",
+      "ariaLabel": "iPad-11",
+      "href": "https://www.apple.com/ipad-11/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 216,
+        "w": 69,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "ipad"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 61,
+      "tag": "a",
+      "selector": "a.title",
+      "fallbacks": [
+        "div:nth-of-type(1) > div > div:nth-of-type(1) > a"
+      ],
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "innerText": "iPhone 17 Pro",
+      "href": "https://www.apple.com/iphone-17-pro",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 95,
+        "y": -90,
+        "w": 128,
+        "h": 29
+      },
+      "data": {
+        "data-slot-name": "productSelectionHeader",
+        "data-feature-name": "Astro Link",
+        "data-display-name": "AOS: iphone-17-pro",
+        "data-autom": "stickynavHeader"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 62,
+      "tag": "a",
+      "selector": "div > p > div > a",
+      "purpose": "navigation",
+      "intent": "add_item",
+      "confidence": 0.7,
+      "text": "carbon neutrality by 2030(Opens in a new window)",
+      "innerText": "carbon neutrality by 2030 (Opens in a new window)",
+      "href": "https://www.apple.com/environment",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 464,
+        "y": 4417,
+        "w": 165,
+        "h": 17
+      },
+      "data": {
+        "data-slot-name": "main-10",
+        "data-feature-name": "Astro Link",
+        "data-display-name": "AOS: environment"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 63,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > div:nth-of-type(1) > p:nth-of-type(1) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "innerText": "iPhone 17 Pro",
+      "href": "https://www.apple.com/shop/buy-iphone/iphone-17-pro",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 300,
+        "y": 6123,
+        "w": 141,
+        "h": 29
+      },
+      "data": {
+        "data-slot-name": "familySelector",
+        "data-feature-name": "Astro Link",
+        "data-display-name": "AOS: home/shop_iphone/family/iphone_17_pro",
+        "data-dd-link": "iphone-17-pro"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 64,
+      "tag": "a",
+      "selector": "div:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "innerText": "iPhone Air",
+      "href": "https://www.apple.com/shop/buy-iphone/iphone-air",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 577,
+        "y": 6123,
+        "w": 106,
+        "h": 29
+      },
+      "data": {
+        "data-slot-name": "familySelector",
+        "data-feature-name": "Astro Link",
+        "data-display-name": "AOS: home/shop_iphone/family/iphone_air",
+        "data-dd-link": "iphone-air"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 65,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > div:nth-of-type(1) > p:nth-of-type(1) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "innerText": "iPhone 17",
+      "href": "https://www.apple.com/shop/buy-iphone/iphone-17",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 840,
+        "y": 6123,
+        "w": 101,
+        "h": 29
+      },
+      "data": {
+        "data-slot-name": "familySelector",
+        "data-feature-name": "Astro Link",
+        "data-display-name": "AOS: home/shop_iphone/family/iphone_17",
+        "data-dd-link": "iphone-17"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 66,
+      "tag": "a",
+      "selector": "div:nth-of-type(4) > div:nth-of-type(1) > p:nth-of-type(1) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "innerText": "iPhone 17e",
+      "href": "https://www.apple.com/shop/buy-iphone/iphone-17e",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 1094,
+        "y": 6123,
+        "w": 113,
+        "h": 29
+      },
+      "data": {
+        "data-slot-name": "familySelector",
+        "data-feature-name": "Astro Link",
+        "data-display-name": "AOS: home/shop_iphone/family/iphone_17e",
+        "data-dd-link": "iphone-17e"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 67,
+      "tag": "a",
+      "selector": "a.more",
+      "fallbacks": [
+        "div:nth-of-type(12) > div > p > a"
+      ],
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "innerText": "Compare all iPhone models",
+      "href": "https://www.apple.com/iphone/compare",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 651,
+        "y": 8611,
+        "w": 220,
+        "h": 20
+      },
+      "data": {
+        "data-slot-name": "familySelector",
+        "data-feature-name": "Astro Link",
+        "data-display-name": "AOS: iphone/compare"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 68,
+      "tag": "a",
+      "selector": "ul > li:nth-of-type(10) > span:nth-of-type(2) > a:nth-of-type(4)",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Theft and Loss Insurance Documentation${translate.store.a11y.opens_new_window}",
+      "innerText": "Theft and Loss Insurance Documentation ${translate.store.a11y.opens_new_window}",
+      "href": "https://www.apple.com/legal/applecare/applecareplus/theftandloss",
+      "visible": true,
+      "parentRegion": "contentinfo",
+      "rect": {
+        "x": 270,
+        "y": 12075,
+        "w": 963,
+        "h": 30
+      },
+      "data": {
+        "data-slot-name": "appleCare",
+        "data-feature-name": "Astro Link",
+        "data-display-name": "AOS: legal/applecare/applecareplus/theftandloss"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 69,
+      "tag": "a",
+      "selector": "li:nth-of-type(10) > span:nth-of-type(2) > p:nth-of-type(7) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Service Fees and Deductibles${translate.store.a11y.opens_new_window}",
+      "innerText": "Service Fees and Deductibles ${translate.store.a11y.opens_new_window}",
+      "href": "https://www.apple.com/legal/applecare/fees-deductibles",
+      "visible": true,
+      "parentRegion": "contentinfo",
+      "rect": {
+        "x": 270,
+        "y": 12469,
+        "w": 915,
+        "h": 30
+      },
+      "data": {
+        "data-slot-name": "appleCare",
+        "data-feature-name": "Astro Link",
+        "data-display-name": "AOS: legal/applecare/fees-deductibles"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 70,
+      "tag": "a",
+      "selector": "li:nth-of-type(10) > span:nth-of-type(2) > p:nth-of-type(8) > a:nth-of-type(1)",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Terms and Conditions${translate.store.a11y.opens_new_window}",
+      "innerText": "Terms and Conditions ${translate.store.a11y.opens_new_window}",
+      "href": "https://www.apple.com/legal/applecare/applecareone",
+      "visible": true,
+      "parentRegion": "contentinfo",
+      "rect": {
+        "x": 270,
+        "y": 12526,
+        "w": 956,
+        "h": 30
+      },
+      "data": {
+        "data-slot-name": "appleCare",
+        "data-feature-name": "Astro Link",
+        "data-display-name": "AOS: legal/applecare/applecareone"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 71,
+      "tag": "a",
+      "selector": "a.as-globalfooter-mini-locale-link",
+      "fallbacks": [
+        "div > div:nth-of-type(2) > div:nth-of-type(2) > a"
+      ],
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "innerText": "United States",
+      "href": "https://www.apple.com/choose-your-country",
+      "visible": true,
+      "parentRegion": "contentinfo",
+      "rect": {
+        "x": 1175,
+        "y": 13972,
+        "w": 75,
+        "h": 16
+      },
+      "data": {
+        "data-slot-name": "footerConfig",
+        "data-feature-name": "Footer Navigation",
+        "data-display-name": "Country Selector",
+        "data-autom": "footer"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 72,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(1) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "innerText": "Privacy Policy",
+      "href": "https://www.apple.com/privacy/privacy-policy",
+      "visible": true,
+      "parentRegion": "contentinfo",
+      "rect": {
+        "x": 558,
+        "y": 13972,
+        "w": 95,
+        "h": 16
+      },
+      "data": {
+        "data-slot-name": "footerConfig",
+        "data-feature-name": "Footer Navigation",
+        "data-display-name": "Privacy Policy",
+        "data-autom": "footer"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 73,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(2) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "innerText": "Terms of Use",
+      "href": "https://apple.com/legal/internet-services/terms/site.html",
+      "visible": true,
+      "parentRegion": "contentinfo",
+      "rect": {
+        "x": 653,
+        "y": 13972,
+        "w": 91,
+        "h": 16
+      },
+      "data": {
+        "data-slot-name": "footerConfig",
+        "data-feature-name": "Footer Navigation",
+        "data-display-name": "Terms of Use",
+        "data-autom": "footer"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 74,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(3) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "innerText": "Sales and Refunds",
+      "href": "/shop/open/salespolicies",
+      "visible": true,
+      "parentRegion": "contentinfo",
+      "rect": {
+        "x": 745,
+        "y": 13972,
+        "w": 121,
+        "h": 16
+      },
+      "data": {
+        "data-slot-name": "footerConfig",
+        "data-feature-name": "Footer Navigation",
+        "data-display-name": "Sales and Refunds",
+        "data-autom": "footer"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 75,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(4) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "innerText": "Legal",
+      "href": "https://apple.com/legal",
+      "visible": true,
+      "parentRegion": "contentinfo",
+      "rect": {
+        "x": 866,
+        "y": 13972,
+        "w": 48,
+        "h": 16
+      },
+      "data": {
+        "data-slot-name": "footerConfig",
+        "data-feature-name": "Footer Navigation",
+        "data-display-name": "Legal",
+        "data-autom": "footer"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 76,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(5) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "innerText": "Site Map",
+      "href": "/shop/browse/sitemap",
+      "visible": true,
+      "parentRegion": "contentinfo",
+      "rect": {
+        "x": 914,
+        "y": 13972,
+        "w": 67,
+        "h": 16
+      },
+      "data": {
+        "data-slot-name": "footerConfig",
+        "data-feature-name": "Footer Navigation",
+        "data-display-name": "Sitemap",
+        "data-autom": "footer"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 77,
+      "tag": "button",
+      "selector": "button.button.button-block.rc-summary-button-height",
+      "fallbacks": [
+        "div > div:nth-of-type(2) > div > button"
+      ],
+      "purpose": "action",
+      "intent": "interact",
+      "confidence": 0.4,
+      "innerText": "Continue",
+      "disabled": true,
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 1052,
+        "y": 3436,
+        "w": 328,
+        "h": 44
+      },
+      "data": {
+        "data-autom": "continueButton"
+      },
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 78,
+      "tag": "button",
+      "selector": "button.rc-chaticon-button",
+      "fallbacks": [
+        "div:nth-of-type(5) > div > div:nth-of-type(1) > button"
+      ],
+      "purpose": "action",
+      "intent": "interact",
+      "confidence": 0.4,
+      "innerText": "",
+      "role": "link",
+      "visible": true,
+      "parentRegion": "main",
+      "rect": {
+        "x": 1444,
+        "y": 653,
+        "w": 54,
+        "h": 54
+      },
+      "data": {
+        "data-autom": "chat-with-a-specialist-icon"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 79,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(2) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Mac",
+      "innerText": "",
+      "href": "https://www.apple.com/shop/buy-mac",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 140,
+        "w": 68,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "mac"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 80,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(3) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "iPad",
+      "innerText": "",
+      "href": "https://www.apple.com/shop/buy-ipad",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 178,
+        "w": 69,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "ipad"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 81,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(4) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "iPhone",
+      "innerText": "",
+      "href": "https://www.apple.com/shop/buy-iphone",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 216,
+        "w": 97,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "iphone"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 82,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(5) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Apple Watch",
+      "innerText": "",
+      "href": "https://www.apple.com/shop/buy-watch",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 254,
+        "w": 160,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "apple watch"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 83,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(6) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Apple Vision Pro",
+      "innerText": "",
+      "href": "https://www.apple.com/us/shop/goto/buy_vision",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 292,
+        "w": 198,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "apple vision pro"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 84,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(7) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "AirPods",
+      "innerText": "",
+      "href": "https://www.apple.com/us/shop/goto/airpods/accessories",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 330,
+        "w": 107,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "airpods"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 85,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(8) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Accessories",
+      "innerText": "",
+      "href": "https://www.apple.com/shop/accessories/all",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 368,
+        "w": 154,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "accessories"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 86,
+      "tag": "a",
+      "selector": "div:nth-of-type(2) > ul > li:nth-of-type(1) > a",
+      "purpose": "navigation",
+      "intent": "search",
+      "confidence": 0.8,
+      "text": "Find a Store",
+      "innerText": "",
+      "href": "https://www.apple.com/retail/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 524,
+        "y": 106,
+        "w": 91,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "find a store"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 87,
+      "tag": "a",
+      "selector": "div:nth-of-type(2) > ul > li:nth-of-type(2) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Order Status",
+      "innerText": "",
+      "href": "https://secure.store.apple.com/shop/order/list",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 524,
+        "y": 130,
+        "w": 96,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "order status"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 88,
+      "tag": "a",
+      "selector": "div:nth-of-type(2) > ul > li:nth-of-type(3) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Apple Trade In",
+      "innerText": "",
+      "href": "https://www.apple.com/shop/trade-in",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 524,
+        "y": 154,
+        "w": 105,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "apple trade in"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 89,
+      "tag": "a",
+      "selector": "div:nth-of-type(2) > ul > li:nth-of-type(4) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Financing",
+      "innerText": "",
+      "href": "https://www.apple.com/shop/browse/finance/instant_credit",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 524,
+        "y": 178,
+        "w": 78,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "financing"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 90,
+      "tag": "a",
+      "selector": "div:nth-of-type(2) > ul > li:nth-of-type(5) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Personal Setup",
+      "innerText": "",
+      "href": "https://www.apple.com/us/shop/goto/personal_setup",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 524,
+        "y": 202,
+        "w": 109,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "personal setup"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 91,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(1) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Certified Refurbished",
+      "innerText": "",
+      "href": "https://www.apple.com/shop/refurbished",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 655,
+        "y": 106,
+        "w": 146,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "certified refurbished"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 92,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(2) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Education",
+      "innerText": "",
+      "href": "https://www.apple.com/shop/browse/home/education_routing",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 655,
+        "y": 130,
+        "w": 80,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "education"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 93,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(3) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Business",
+      "innerText": "",
+      "href": "https://www.apple.com/retail/business/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 655,
+        "y": 154,
+        "w": 74,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "business"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 94,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(4) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Veterans and Military",
+      "innerText": "",
+      "href": "https://www.apple.com/shop/browse/home/veterans_military",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 655,
+        "y": 178,
+        "w": 144,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "veterans and military"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 95,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(5) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Government",
+      "innerText": "",
+      "href": "https://www.apple.com/r/store/government/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 655,
+        "y": 202,
+        "w": 93,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "government"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 96,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(1) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Explore All Mac",
+      "innerText": "",
+      "href": "https://www.apple.com/mac/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 102,
+        "w": 187,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "explore all mac"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 97,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(2) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "MacBook Neo",
+      "innerText": "",
+      "href": "https://www.apple.com/macbook-neo/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 140,
+        "w": 172,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "macbook neo"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 98,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(3) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "MacBook Air",
+      "innerText": "",
+      "href": "https://www.apple.com/macbook-air/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 178,
+        "w": 159,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "macbook air"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 99,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(4) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "MacBook Pro",
+      "innerText": "",
+      "href": "https://www.apple.com/macbook-pro/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 216,
+        "w": 165,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "macbook pro"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 100,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(6) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Mac mini",
+      "innerText": "",
+      "href": "https://www.apple.com/mac-mini/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 292,
+        "w": 119,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "mac mini"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 101,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(7) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Mac Studio",
+      "innerText": "",
+      "href": "https://www.apple.com/mac-studio/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 330,
+        "w": 144,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "mac studio"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 102,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(8) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Displays",
+      "innerText": "",
+      "href": "https://www.apple.com/displays/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 368,
+        "w": 114,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "displays"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 103,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(9) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Compare Mac",
+      "innerText": "",
+      "href": "https://www.apple.com/mac/compare/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 420,
+        "w": 102,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "compare mac"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 104,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(10) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Switch from PC to Mac",
+      "innerText": "",
+      "href": "https://www.apple.com/mac/mac-does-that/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 444,
+        "w": 153,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "switch from pc to mac"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 105,
+      "tag": "a",
+      "selector": "div:nth-of-type(2) > ul > li:nth-of-type(1) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Shop Mac",
+      "innerText": "",
+      "href": "https://www.apple.com/shop/buy-mac",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 512,
+        "y": 106,
+        "w": 79,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "shop mac"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 106,
+      "tag": "a",
+      "selector": "div:nth-of-type(2) > ul > li:nth-of-type(2) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Help Me Choose",
+      "innerText": "",
+      "href": "https://www.apple.com/mac/best-mac/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 512,
+        "y": 130,
+        "w": 116,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "help me choose"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 107,
+      "tag": "a",
+      "selector": "div:nth-of-type(2) > ul > li:nth-of-type(3) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Mac Accessories",
+      "innerText": "",
+      "href": "https://www.apple.com/shop/mac/accessories",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 512,
+        "y": 154,
+        "w": 119,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "mac accessories"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 108,
+      "tag": "a",
+      "selector": "div:nth-of-type(2) > ul > li:nth-of-type(4) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Apple Trade In",
+      "innerText": "",
+      "href": "https://www.apple.com/us/shop/goto/trade_in#mac",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 512,
+        "y": 178,
+        "w": 105,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "apple trade in"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 109,
+      "tag": "a",
+      "selector": "div:nth-of-type(2) > ul > li:nth-of-type(5) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Financing",
+      "innerText": "",
+      "href": "https://www.apple.com/shop/browse/finance/instant_credit",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 512,
+        "y": 202,
+        "w": 78,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "financing"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 110,
+      "tag": "a",
+      "selector": "div:nth-of-type(2) > ul > li:nth-of-type(6) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Personal Setup",
+      "innerText": "",
+      "href": "https://www.apple.com/us/shop/goto/personal_setup",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 512,
+        "y": 226,
+        "w": 109,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "personal setup"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 111,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(1) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Mac Support",
+      "innerText": "",
+      "href": "https://support.apple.com/mac?cid=gn-ols-mac-psp-prodfly",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 653,
+        "y": 106,
+        "w": 96,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-exit-link": "true",
+        "data-analytics-title": "mac support"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 112,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(2) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "AppleCare",
+      "innerText": "",
+      "href": "https://www.apple.com/applecare/?filter=mac",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 653,
+        "y": 130,
+        "w": 83,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "applecare"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 113,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(3) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "macOS Tahoe",
+      "innerText": "",
+      "href": "https://www.apple.com/os/macos/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 653,
+        "y": 154,
+        "w": 101,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "macos tahoe"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 114,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(4) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Apple Intelligence",
+      "innerText": "",
+      "href": "https://www.apple.com/apple-intelligence/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 653,
+        "y": 178,
+        "w": 126,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "apple intelligence"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 115,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(5) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Apps by Apple",
+      "innerText": "",
+      "href": "https://www.apple.com/apps/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 653,
+        "y": 202,
+        "w": 106,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "apps by apple"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 116,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(6) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Apple Creator Studio",
+      "innerText": "",
+      "href": "https://www.apple.com/apple-creator-studio/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 653,
+        "y": 226,
+        "w": 143,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "apple creator studio"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 117,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(7) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Better with iPhone",
+      "innerText": "",
+      "href": "https://www.apple.com/macos/continuity/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 653,
+        "y": 250,
+        "w": 129,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "better with iphone"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 118,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(8) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "iCloud+",
+      "innerText": "",
+      "href": "https://www.apple.com/icloud/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 653,
+        "y": 274,
+        "w": 67,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "icloud+"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 119,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(9) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Mac for Business",
+      "innerText": "",
+      "href": "https://www.apple.com/business/mac/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 653,
+        "y": 298,
+        "w": 121,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "mac for business"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 120,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(10) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Education",
+      "innerText": "",
+      "href": "https://www.apple.com/education/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 653,
+        "y": 322,
+        "w": 80,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "education"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 121,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(1) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Explore All iPad",
+      "innerText": "",
+      "href": "https://www.apple.com/ipad/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 102,
+        "w": 187,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "explore all ipad"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 122,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(2) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "iPad Pro",
+      "innerText": "",
+      "href": "https://www.apple.com/ipad-pro/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 140,
+        "w": 110,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "ipad pro"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 123,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(3) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "iPad Air",
+      "innerText": "",
+      "href": "https://www.apple.com/ipad-air/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 178,
+        "w": 104,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "ipad air"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 124,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(5) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "iPad mini",
+      "innerText": "",
+      "href": "https://www.apple.com/ipad-mini/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 254,
+        "w": 119,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "ipad mini"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 125,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(6) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Apple Pencil",
+      "innerText": "",
+      "href": "https://www.apple.com/apple-pencil/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 292,
+        "w": 156,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "apple pencil"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 126,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(7) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Keyboards",
+      "innerText": "",
+      "href": "https://www.apple.com/ipad-keyboards/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 330,
+        "w": 137,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "keyboards"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 127,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(8) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Compare iPad",
+      "innerText": "",
+      "href": "https://www.apple.com/ipad/compare/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 382,
+        "w": 103,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "compare ipad"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 128,
+      "tag": "a",
+      "selector": "div:nth-of-type(2) > ul > li:nth-of-type(1) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Shop iPad",
+      "innerText": "",
+      "href": "https://www.apple.com/shop/buy-ipad",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 512,
+        "y": 106,
+        "w": 80,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "shop ipad"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 129,
+      "tag": "a",
+      "selector": "div:nth-of-type(2) > ul > li:nth-of-type(2) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "iPad Accessories",
+      "innerText": "",
+      "href": "https://www.apple.com/shop/ipad/accessories",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 512,
+        "y": 130,
+        "w": 120,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "ipad accessories"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 130,
+      "tag": "a",
+      "selector": "div:nth-of-type(2) > ul > li:nth-of-type(3) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Apple Trade In",
+      "innerText": "",
+      "href": "https://www.apple.com/us/shop/goto/trade_in#ipad",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 512,
+        "y": 154,
+        "w": 105,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "apple trade in"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 131,
+      "tag": "a",
+      "selector": "div:nth-of-type(2) > ul > li:nth-of-type(4) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Financing",
+      "innerText": "",
+      "href": "https://www.apple.com/shop/browse/finance/instant_credit",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 512,
+        "y": 178,
+        "w": 78,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "financing"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 132,
+      "tag": "a",
+      "selector": "div:nth-of-type(2) > ul > li:nth-of-type(5) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Personal Setup",
+      "innerText": "",
+      "href": "https://www.apple.com/us/shop/goto/personal_setup",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 512,
+        "y": 202,
+        "w": 109,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "personal setup"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 133,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(1) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "iPad Support",
+      "innerText": "",
+      "href": "https://support.apple.com/ipad?cid=gn-ols-ipad-psp-prodfly",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 655,
+        "y": 106,
+        "w": 97,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "ipad support",
+        "data-analytics-exit-link": "true"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 134,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(2) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "AppleCare",
+      "innerText": "",
+      "href": "https://www.apple.com/applecare/?filter=ipad",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 655,
+        "y": 130,
+        "w": 83,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "applecare"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 135,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(3) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "iPadOS 26",
+      "innerText": "",
+      "href": "https://www.apple.com/os/ipados/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 655,
+        "y": 154,
+        "w": 82,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "ipados 26"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 136,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(4) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Apple Intelligence",
+      "innerText": "",
+      "href": "https://www.apple.com/apple-intelligence/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 655,
+        "y": 178,
+        "w": 126,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "apple intelligence"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 137,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(5) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Apps by Apple",
+      "innerText": "",
+      "href": "https://www.apple.com/apps/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 655,
+        "y": 202,
+        "w": 106,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "apps by apple"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 138,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(6) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Apple Creator Studio",
+      "innerText": "",
+      "href": "https://www.apple.com/apple-creator-studio/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 655,
+        "y": 226,
+        "w": 143,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "apple creator studio"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 139,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(7) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "iCloud+",
+      "innerText": "",
+      "href": "https://www.apple.com/icloud/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 655,
+        "y": 250,
+        "w": 67,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "icloud+"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 140,
+      "tag": "a",
+      "selector": "div:nth-of-type(3) > ul > li:nth-of-type(8) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Education",
+      "innerText": "",
+      "href": "https://www.apple.com/education/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 655,
+        "y": 274,
+        "w": 80,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "education"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 141,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(1) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Explore All iPhone",
+      "innerText": "",
+      "href": "https://www.apple.com/iphone/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 102,
+        "w": 215,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "explore all iphone"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 142,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(2) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "iPhone 17 Pro",
+      "innerText": "",
+      "href": "https://www.apple.com/iphone-17-pro/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 140,
+        "w": 168,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "iphone 17 pro"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 143,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(3) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "iPhone Air",
+      "innerText": "",
+      "href": "https://www.apple.com/iphone-air/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 178,
+        "w": 132,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "iphone air"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 144,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(4) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "iPhone 17",
+      "innerText": "",
+      "href": "https://www.apple.com/iphone-17/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 216,
+        "w": 127,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "iphone 17"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 145,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(5) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "iPhone 17e",
+      "innerText": "",
+      "href": "https://www.apple.com/iphone-17e/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 254,
+        "w": 139,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "iphone 17e"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 146,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(6) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "iPhone 16",
+      "innerText": "",
+      "href": "https://www.apple.com/us/shop/goto/buy_iphone/iphone_16",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 292,
+        "w": 129,
+        "h": 44
+      },
+      "data": {
+        "data-analytics-title": "iphone 16"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 147,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(7) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Compare iPhone",
+      "innerText": "",
+      "href": "https://www.apple.com/iphone/compare/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 344,
+        "w": 117,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "compare iphone"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 148,
+      "tag": "a",
+      "selector": "div:nth-of-type(1) > ul > li:nth-of-type(8) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Switch from Android",
+      "innerText": "",
+      "href": "https://www.apple.com/iphone/switch/",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 259,
+        "y": 368,
+        "w": 141,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "switch from android"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    },
+    {
+      "_domElement": {},
+      "i": 149,
+      "tag": "a",
+      "selector": "div:nth-of-type(2) > ul > li:nth-of-type(1) > a",
+      "purpose": "navigation",
+      "intent": "navigate",
+      "confidence": 0.6,
+      "text": "Shop iPhone",
+      "innerText": "",
+      "href": "https://www.apple.com/shop/buy-iphone",
+      "visible": true,
+      "parentRegion": "nav",
+      "rect": {
+        "x": 540,
+        "y": 106,
+        "w": 94,
+        "h": 30
+      },
+      "data": {
+        "data-analytics-title": "shop iphone"
+      },
+      "hasPointerCursor": true,
+      "computedTabIndex": 0
+    }
+  ],
+  "inputFields": [
+    {
+      "selector": "input[aria-label=\"Search\\ apple\\.com\"]",
+      "inputType": "text",
+      "placeholder": "Search apple.com",
+      "ariaLabel": "Search apple.com",
+      "rect": {
+        "x": 264,
+        "y": 76,
+        "w": 995,
+        "h": 40
+      }
+    },
+    {
+      "selector": "fieldset > div > div:nth-of-type(1) > input",
+      "inputType": "radio",
+      "rect": {
+        "x": 1098,
+        "y": 542,
+        "w": 328,
+        "h": 84
+      },
+      "value": "6_3inch"
+    },
+    {
+      "selector": "fieldset > div > div:nth-of-type(2) > input",
+      "inputType": "radio",
+      "rect": {
+        "x": 1098,
+        "y": 639,
+        "w": 328,
+        "h": 84
+      },
+      "value": "6_9inch"
+    },
+    {
+      "selector": "fieldset > ul > li:nth-of-type(1) > input",
+      "inputType": "radio",
+      "rect": {
+        "x": 1097,
+        "y": 1008,
+        "w": 36,
+        "h": 36
+      },
+      "value": "silver"
+    },
+    {
+      "selector": "fieldset > ul > li:nth-of-type(2) > input",
+      "inputType": "radio",
+      "rect": {
+        "x": 1138,
+        "y": 1008,
+        "w": 36,
+        "h": 36
+      },
+      "value": "cosmicorange"
+    },
+    {
+      "selector": "fieldset > ul > li:nth-of-type(3) > input",
+      "inputType": "radio",
+      "rect": {
+        "x": 1179,
+        "y": 1008,
+        "w": 36,
+        "h": 36
+      },
+      "value": "deepblue"
+    },
+    {
+      "selector": "fieldset > div > div:nth-of-type(1) > input",
+      "inputType": "radio",
+      "rect": {
+        "x": 1098,
+        "y": 1314,
+        "w": 328,
+        "h": 84
+      },
+      "value": "256gb"
+    },
+    {
+      "selector": "fieldset > div > div:nth-of-type(2) > input",
+      "inputType": "radio",
+      "rect": {
+        "x": 1098,
+        "y": 1412,
+        "w": 328,
+        "h": 84
+      },
+      "value": "512gb"
+    },
+    {
+      "selector": "fieldset > div > div:nth-of-type(3) > input",
+      "inputType": "radio",
+      "rect": {
+        "x": 1098,
+        "y": 1509,
+        "w": 328,
+        "h": 84
+      },
+      "value": "1tb"
+    },
+    {
+      "selector": "fieldset > div > div:nth-of-type(4) > input",
+      "inputType": "radio",
+      "rect": {
+        "x": 1098,
+        "y": 1607,
+        "w": 328,
+        "h": 84
+      },
+      "value": "2tb"
+    },
+    {
+      "selector": "#tradeIn",
+      "inputType": "radio",
+      "rect": {
+        "x": 95,
+        "y": 2012,
+        "w": 471,
+        "h": 83
+      },
+      "value": "tradeIn"
+    },
+    {
+      "selector": "#noTradeIn",
+      "inputType": "radio",
+      "rect": {
+        "x": 580,
+        "y": 2012,
+        "w": 471,
+        "h": 83
+      },
+      "value": "noTradeIn"
+    },
+    {
+      "selector": "div:nth-of-type(1) > div > div > input",
+      "inputType": "radio",
+      "rect": {
+        "x": 95,
+        "y": 2269,
+        "w": 308,
+        "h": 153
+      },
+      "value": "fullprice"
+    },
+    {
+      "selector": "div:nth-of-type(2) > div > div > input",
+      "inputType": "radio",
+      "rect": {
+        "x": 419,
+        "y": 2269,
+        "w": 308,
+        "h": 153
+      },
+      "value": "finance"
+    },
+    {
+      "selector": "div:nth-of-type(3) > div > div > input",
+      "inputType": "radio",
+      "rect": {
+        "x": 744,
+        "y": 2269,
+        "w": 308,
+        "h": 153
+      },
+      "value": "iup"
+    },
+    {
+      "selector": "fieldset > div > div:nth-of-type(1) > input",
+      "inputType": "radio",
+      "rect": {
+        "x": 95,
+        "y": 2555,
+        "w": 310,
+        "h": 104
+      },
+      "value": "ATT_IPHONE17PRO"
+    },
+    {
+      "selector": "fieldset > div > div:nth-of-type(2) > input",
+      "inputType": "radio",
+      "rect": {
+        "x": 419,
+        "y": 2555,
+        "w": 310,
+        "h": 104
+      },
+      "value": "BOOST_IPHONE17PRO"
+    },
+    {
+      "selector": "fieldset > div > div:nth-of-type(3) > input",
+      "inputType": "radio",
+      "rect": {
+        "x": 742,
+        "y": 2555,
+        "w": 310,
+        "h": 104
+      },
+      "value": "TMOBILE_IPHONE17PRO"
+    },
+    {
+      "selector": "fieldset > div > div:nth-of-type(4) > input",
+      "inputType": "radio",
+      "rect": {
+        "x": 95,
+        "y": 2673,
+        "w": 310,
+        "h": 104
+      },
+      "value": "VERIZON_IPHONE17PRO"
+    },
+    {
+      "selector": "fieldset > div > div:nth-of-type(5) > input",
+      "inputType": "radio",
+      "rect": {
+        "x": 419,
+        "y": 2673,
+        "w": 310,
+        "h": 104
+      },
+      "value": "UNLOCKED/US"
+    },
+    {
+      "selector": "div > div > div:nth-of-type(1) > input",
+      "inputType": "radio",
+      "rect": {
+        "x": 95,
+        "y": 2894,
+        "w": 319,
+        "h": 313
+      },
+      "value": "on"
+    },
+    {
+      "selector": "div > div > div:nth-of-type(3) > input",
+      "inputType": "radio",
+      "rect": {
+        "x": 414,
+        "y": 2894,
+        "w": 319,
+        "h": 313
+      },
+      "value": "on"
+    },
+    {
+      "selector": "div > div > div:nth-of-type(4) > input",
+      "inputType": "radio",
+      "rect": {
+        "x": 733,
+        "y": 2894,
+        "w": 319,
+        "h": 313
+      },
+      "value": "on"
+    }
+  ],
+  "forms": [
+    {
+      "selector": "form.globalnav-searchfield",
+      "action": "https://www.apple.com/search",
+      "method": "get",
+      "fields": [
+        {
+          "tag": "input",
+          "type": "text",
+          "placeholder": "Search apple.com",
+          "ariaLabel": "Search apple.com"
+        },
+        {
+          "tag": "input",
+          "type": "hidden",
+          "name": "src"
+        }
+      ],
+      "submitButton": {
+        "text": "",
+        "selector": "button[aria-label=\"Submit\\ search\"]"
+      }
+    }
+  ],
+  "interactions": [],
+  "mergedInteractions": [],
+  "inputInteractions": [],
+  "keyboardInteractions": [],
+  "editorCapabilities": [],
+  "stateTransitions": [],
+  "hierarchy": {
+    "nav": [
+      {
+        "selector": "button[aria-label=\"Submit\\ search\"]",
+        "intent": "submit_form",
+        "confidence": 0.85,
+        "text": "Submit search",
+        "purpose": "action"
+      },
+      {
+        "selector": "#globalnav-menubutton-link-store",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "Store menu",
+        "purpose": "action"
+      },
+      {
+        "selector": "#globalnav-menubutton-link-mac",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "Mac menu",
+        "purpose": "action"
+      },
+      {
+        "selector": "#globalnav-menubutton-link-ipad",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "iPad menu",
+        "purpose": "action"
+      },
+      {
+        "selector": "#globalnav-menubutton-link-iphone",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "iPhone menu",
+        "purpose": "action"
+      },
+      {
+        "selector": "#globalnav-menubutton-link-watch",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "Watch menu",
+        "purpose": "action"
+      },
+      {
+        "selector": "#globalnav-menubutton-link-vision",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "Vision menu",
+        "purpose": "action"
+      },
+      {
+        "selector": "#globalnav-menubutton-link-airpods",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "AirPods menu",
+        "purpose": "action"
+      },
+      {
+        "selector": "#globalnav-menubutton-link-tv-home",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "TV and Home menu",
+        "purpose": "action"
+      },
+      {
+        "selector": "#globalnav-menubutton-link-entertainment",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "Entertainment menu",
+        "purpose": "action"
+      },
+      {
+        "selector": "#globalnav-menubutton-link-accessories",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "Accessories menu",
+        "purpose": "action"
+      },
+      {
+        "selector": "#globalnav-menubutton-link-support",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "Support menu",
+        "purpose": "action"
+      },
+      {
+        "selector": "a[aria-label=\"Apple\"]",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "Apple",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "a[aria-label=\"Store\"]",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "Store",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "a[aria-label=\"Mac\"]",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "Mac",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "a[aria-label=\"iPad\"]",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "iPad",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "a[aria-label=\"iPhone\"]",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "iPhone",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "a[aria-label=\"Watch\"]",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "Watch",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "a[aria-label=\"Vision\"]",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "Vision",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "a[aria-label=\"AirPods\"]",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "AirPods",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "a[aria-label=\"TV\\ and\\ Home\"]",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "TV & Home",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "a[aria-label=\"Entertainment\"]",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "Entertainment",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "a[aria-label=\"Accessories\"]",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "Accessories",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "a[aria-label=\"Support\"]",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "Support",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "#globalnav-menubutton-link-search",
+        "intent": "search",
+        "confidence": 0.8,
+        "text": "Search apple.com",
+        "purpose": "action"
+      },
+      {
+        "selector": "button[aria-label=\"Clear\\ search\"]",
+        "intent": "search",
+        "confidence": 0.8,
+        "text": "Clear search",
+        "purpose": "action"
+      },
+      {
+        "selector": "#globalnav-menubutton-link-bag",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "Shopping Bag",
+        "purpose": "action"
+      },
+      {
+        "selector": "input[aria-label=\"Search\\ apple\\.com\"]",
+        "intent": "search",
+        "confidence": 0.8,
+        "text": "Search apple.com",
+        "purpose": "unknown"
+      },
+      {
+        "selector": "a[aria-label=\"Shop\\ the\\ latest\\ Apple\\ products\"]",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "Shop the latest Apple products",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "a[aria-label=\"iMac\"]",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "iMac",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "a[aria-label=\"iPad-11\"]",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "iPad-11",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(2) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(3) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(4) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(5) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(6) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(7) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(8) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(1) > a",
+        "intent": "search",
+        "confidence": 0.8,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(2) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(3) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(4) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(5) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(1) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(2) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(3) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(4) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(5) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(1) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(2) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(3) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(4) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(6) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(7) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(8) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(9) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(10) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(1) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(2) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(3) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(4) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(5) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(6) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(1) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(2) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(3) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(4) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(5) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(6) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(7) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(8) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(9) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(10) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(1) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(2) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(3) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(5) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(6) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(7) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(8) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(1) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(2) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(3) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(4) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(5) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(1) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(2) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(3) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(4) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(5) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(6) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(7) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(8) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(1) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(2) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(3) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(4) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(5) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(6) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(7) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(8) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(1) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "",
+        "purpose": "navigation"
+      }
+    ],
+    "main": [
+      {
+        "selector": "div:nth-of-type(2) > div > div:nth-of-type(1) > a",
+        "intent": "open_dialog",
+        "confidence": 0.95,
+        "text": "Get $35–$685 for your trade-in. Footnote #",
+        "purpose": "action"
+      },
+      {
+        "selector": "div:nth-of-type(1) > div > div > a",
+        "intent": "open_dialog",
+        "confidence": 0.95,
+        "text": "Show more",
+        "purpose": "action"
+      },
+      {
+        "selector": "div > div > p:nth-of-type(2) > a",
+        "intent": "open_dialog",
+        "confidence": 0.95,
+        "text": "Learn more about Personal Setup",
+        "purpose": "action"
+      },
+      {
+        "selector": "div:nth-of-type(1) > div:nth-of-type(3) > span > a",
+        "intent": "open_menu",
+        "confidence": 0.7,
+        "text": "Learn more about Apple Intelligence for iPhone",
+        "purpose": "action"
+      },
+      {
+        "selector": "button[aria-label=\"Next\\ gallery\\ image\"]",
+        "intent": "upload_file",
+        "confidence": 0.8,
+        "text": "Next gallery image",
+        "purpose": "action"
+      },
+      {
+        "selector": "#title-_r_11_-1",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "Frequently Asked Questions",
+        "purpose": "action"
+      },
+      {
+        "selector": "#title-question-0",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "What is eSIM?",
+        "purpose": "action"
+      },
+      {
+        "selector": "#title-question-1",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "Can I activate an iPhone 17 Pro outside of the United States?",
+        "purpose": "action"
+      },
+      {
+        "selector": "#title-question-2",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "Will my new iPhone be unlocked?",
+        "purpose": "action"
+      },
+      {
+        "selector": "#title-question-3",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "When I buy from apple.com, does my iPhone come ready to use?",
+        "purpose": "action"
+      },
+      {
+        "selector": "#title-question-4",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "Will my iPhone work worldwide?",
+        "purpose": "action"
+      },
+      {
+        "selector": "#title-question-5",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "Can I return my iPhone?",
+        "purpose": "action"
+      },
+      {
+        "selector": "#title-question-6",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "I’m buying an iPhone as a gift. Can it be activated at a later date?",
+        "purpose": "action"
+      },
+      {
+        "selector": "#title-question-7",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "What resources are available to me to quickly get set up, transfer existing files, and make the most of my new iPhone?",
+        "purpose": "action"
+      },
+      {
+        "selector": "#title-question-8",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "Are there differences between an iPhone for AT&T, Boost Mobile, T-Mobile, or Verizon?",
+        "purpose": "action"
+      },
+      {
+        "selector": "#title-question-9",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "Can I easily switch my carrier when I purchase an iPhone?",
+        "purpose": "action"
+      },
+      {
+        "selector": "#title-question-10",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "How does the iPhone Upgrade Program work?",
+        "purpose": "action"
+      },
+      {
+        "selector": "#title-question-11",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "What are connectivity discounts?",
+        "purpose": "action"
+      },
+      {
+        "selector": "#title-question-12",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "Which network providers offer 5G service?",
+        "purpose": "action"
+      },
+      {
+        "selector": "#title-question-13",
+        "intent": "toggle_expand",
+        "confidence": 0.9,
+        "text": "What products can be covered by AppleCare One?",
+        "purpose": "action"
+      },
+      {
+        "selector": "div:nth-of-type(2) > div > div:nth-of-type(2) > a",
+        "intent": "open_dialog",
+        "confidence": 0.95,
+        "text": "See how to pay monthly.",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > div > div > a",
+        "intent": "open_dialog",
+        "confidence": 0.95,
+        "text": "Show more",
+        "purpose": "action"
+      },
+      {
+        "selector": "div:nth-of-type(2) > div > div > a",
+        "intent": "open_dialog",
+        "confidence": 0.95,
+        "text": "Show more",
+        "purpose": "action"
+      },
+      {
+        "selector": "div:nth-of-type(2) > div > div > a",
+        "intent": "open_dialog",
+        "confidence": 0.95,
+        "text": "Show more",
+        "purpose": "action"
+      },
+      {
+        "selector": "#as-compareapplecare-link",
+        "intent": "open_dialog",
+        "confidence": 0.95,
+        "text": "Show more",
+        "purpose": "action"
+      },
+      {
+        "selector": "#as-compareprice-link",
+        "intent": "open_menu",
+        "confidence": 0.7,
+        "text": "Show more",
+        "purpose": "action"
+      },
+      {
+        "selector": "button[aria-label=\"Previous\\ gallery\\ image\"]",
+        "intent": "upload_file",
+        "confidence": 0.8,
+        "text": "Previous gallery image",
+        "purpose": "action"
+      },
+      {
+        "selector": "button[aria-label=\"Save\\ for\\ later\\ \"]",
+        "intent": "save",
+        "confidence": 0.8,
+        "text": "Save for later",
+        "purpose": "action"
+      },
+      {
+        "selector": "#as-carrierpromotion-ribbonlearnmore-trigger",
+        "intent": "interact",
+        "confidence": 0.4,
+        "text": "See all deals",
+        "purpose": "action"
+      },
+      {
+        "selector": "#buyflow-messages-summary-trigger",
+        "intent": "interact",
+        "confidence": 0.4,
+        "text": "Get 3% Daily Cash with Apple Card",
+        "purpose": "action"
+      },
+      {
+        "selector": "a.title",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "iPhone 17 Pro",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div > p > div > a",
+        "intent": "add_item",
+        "confidence": 0.7,
+        "text": "carbon neutrality by 2030 (Opens in a new window)",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(1) > div:nth-of-type(1) > p:nth-of-type(1) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "iPhone 17 Pro",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "iPhone Air",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > div:nth-of-type(1) > p:nth-of-type(1) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "iPhone 17",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(4) > div:nth-of-type(1) > p:nth-of-type(1) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "iPhone 17e",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "a.more",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "Compare all iPhone models",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "button.button.button-block.rc-summary-button-height",
+        "intent": "interact",
+        "confidence": 0.4,
+        "text": "Continue",
+        "purpose": "action"
+      },
+      {
+        "selector": "button.rc-chaticon-button",
+        "intent": "interact",
+        "confidence": 0.4,
+        "text": "",
+        "purpose": "action"
+      }
+    ],
+    "contentinfo": [
+      {
+        "selector": "ul > li:nth-of-type(10) > span:nth-of-type(2) > a:nth-of-type(4)",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "Theft and Loss Insurance Documentation ${translate.store.a11y.opens_new_window}",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "li:nth-of-type(10) > span:nth-of-type(2) > p:nth-of-type(7) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "Service Fees and Deductibles ${translate.store.a11y.opens_new_window}",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "li:nth-of-type(10) > span:nth-of-type(2) > p:nth-of-type(8) > a:nth-of-type(1)",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "Terms and Conditions ${translate.store.a11y.opens_new_window}",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "a.as-globalfooter-mini-locale-link",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "United States",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(1) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "Privacy Policy",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(2) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "Terms of Use",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(3) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "Sales and Refunds",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(4) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "Legal",
+        "purpose": "navigation"
+      },
+      {
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(5) > a",
+        "intent": "navigate",
+        "confidence": 0.6,
+        "text": "Site Map",
+        "purpose": "navigation"
+      }
+    ]
+  },
+  "navigation": {
+    "internalLinks": [
+      {
+        "href": "/",
+        "text": "Apple",
+        "isInternal": true,
+        "safe": true,
+        "selector": "a[aria-label=\"Apple\"]"
+      },
+      {
+        "href": "/store",
+        "text": "Store",
+        "isInternal": true,
+        "safe": true,
+        "selector": "a[aria-label=\"Store\"]"
+      },
+      {
+        "href": "/shop/buy-mac",
+        "text": "Mac",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/shop/buy-ipad",
+        "text": "iPad",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/shop/buy-iphone",
+        "text": "iPhone",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(4) > a"
+      },
+      {
+        "href": "/shop/buy-watch",
+        "text": "Apple Watch",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(5) > a"
+      },
+      {
+        "href": "/us/shop/goto/buy_vision",
+        "text": "Apple Vision Pro",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(6) > a"
+      },
+      {
+        "href": "/us/shop/goto/airpods/accessories",
+        "text": "AirPods",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(7) > a"
+      },
+      {
+        "href": "/shop/accessories/all",
+        "text": "Accessories",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(8) > a"
+      },
+      {
+        "href": "/retail/",
+        "text": "Find a Store",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(1) > a"
+      },
+      {
+        "href": "/shop/trade-in",
+        "text": "Apple Trade In",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/shop/browse/finance/instant_credit",
+        "text": "Financing",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(4) > a"
+      },
+      {
+        "href": "/us/shop/goto/personal_setup",
+        "text": "Personal Setup",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(5) > a"
+      },
+      {
+        "href": "/shop/refurbished",
+        "text": "Certified Refurbished",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(1) > a"
+      },
+      {
+        "href": "/shop/browse/home/education_routing",
+        "text": "Education",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/retail/business/",
+        "text": "Business",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/shop/browse/home/veterans_military",
+        "text": "Veterans and Military",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(4) > a"
+      },
+      {
+        "href": "/r/store/government/",
+        "text": "Government",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(5) > a"
+      },
+      {
+        "href": "/mac/",
+        "text": "Mac",
+        "isInternal": true,
+        "safe": true,
+        "selector": "a[aria-label=\"Mac\"]"
+      },
+      {
+        "href": "/macbook-neo/",
+        "text": "MacBook Neo",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/macbook-air/",
+        "text": "MacBook Air",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/macbook-pro/",
+        "text": "MacBook Pro",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(4) > a"
+      },
+      {
+        "href": "/imac/",
+        "text": "iMac",
+        "isInternal": true,
+        "safe": true,
+        "selector": "a[aria-label=\"iMac\"]"
+      },
+      {
+        "href": "/mac-mini/",
+        "text": "Mac mini",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(6) > a"
+      },
+      {
+        "href": "/mac-studio/",
+        "text": "Mac Studio",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(7) > a"
+      },
+      {
+        "href": "/displays/",
+        "text": "Displays",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(8) > a"
+      },
+      {
+        "href": "/mac/compare/",
+        "text": "Compare Mac",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(9) > a"
+      },
+      {
+        "href": "/mac/mac-does-that/",
+        "text": "Switch from PC to Mac",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(10) > a"
+      },
+      {
+        "href": "/mac/best-mac/",
+        "text": "Help Me Choose",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/shop/mac/accessories",
+        "text": "Mac Accessories",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/us/shop/goto/trade_in",
+        "text": "Apple Trade In",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(4) > a"
+      },
+      {
+        "href": "/applecare/?filter=mac",
+        "text": "AppleCare",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/os/macos/",
+        "text": "macOS Tahoe",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/apple-intelligence/",
+        "text": "Apple Intelligence",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(4) > a"
+      },
+      {
+        "href": "/apps/",
+        "text": "Apps by Apple",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(5) > a"
+      },
+      {
+        "href": "/apple-creator-studio/",
+        "text": "Apple Creator Studio",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(6) > a"
+      },
+      {
+        "href": "/macos/continuity/",
+        "text": "Better with iPhone",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(7) > a"
+      },
+      {
+        "href": "/icloud/",
+        "text": "iCloud+",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(8) > a"
+      },
+      {
+        "href": "/business/mac/",
+        "text": "Mac for Business",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(9) > a"
+      },
+      {
+        "href": "/education/",
+        "text": "Education",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(10) > a"
+      },
+      {
+        "href": "/ipad/",
+        "text": "iPad",
+        "isInternal": true,
+        "safe": true,
+        "selector": "a[aria-label=\"iPad\"]"
+      },
+      {
+        "href": "/ipad-pro/",
+        "text": "iPad Pro",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/ipad-air/",
+        "text": "iPad Air",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/ipad-11/",
+        "text": "iPad",
+        "isInternal": true,
+        "safe": true,
+        "selector": "a[aria-label=\"iPad-11\"]"
+      },
+      {
+        "href": "/ipad-mini/",
+        "text": "iPad mini",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(5) > a"
+      },
+      {
+        "href": "/apple-pencil/",
+        "text": "Apple Pencil",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(6) > a"
+      },
+      {
+        "href": "/ipad-keyboards/",
+        "text": "Keyboards",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(7) > a"
+      },
+      {
+        "href": "/ipad/compare/",
+        "text": "Compare iPad",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(8) > a"
+      },
+      {
+        "href": "/shop/ipad/accessories",
+        "text": "iPad Accessories",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/applecare/?filter=ipad",
+        "text": "AppleCare",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/os/ipados/",
+        "text": "iPadOS 26",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/iphone/",
+        "text": "iPhone",
+        "isInternal": true,
+        "safe": true,
+        "selector": "a[aria-label=\"iPhone\"]"
+      },
+      {
+        "href": "/iphone-17-pro/",
+        "text": "iPhone 17 Pro",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/iphone-air/",
+        "text": "iPhone Air",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/iphone-17/",
+        "text": "iPhone 17",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(4) > a"
+      },
+      {
+        "href": "/iphone-17e/",
+        "text": "iPhone 17e",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(5) > a"
+      },
+      {
+        "href": "/us/shop/goto/buy_iphone/iphone_16",
+        "text": "iPhone 16",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(6) > a"
+      },
+      {
+        "href": "/iphone/compare/",
+        "text": "Compare iPhone",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(7) > a"
+      },
+      {
+        "href": "/iphone/switch/",
+        "text": "Switch from Android",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(8) > a"
+      },
+      {
+        "href": "/shop/iphone/accessories",
+        "text": "iPhone Accessories",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/shop/buy-iphone/carrier-offers",
+        "text": "Carrier Deals at Apple",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(4) > a"
+      },
+      {
+        "href": "/applecare/?filter=iphone",
+        "text": "AppleCare",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/os/ios/",
+        "text": "iOS 26",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/privacy/",
+        "text": "iPhone Privacy",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(6) > a"
+      },
+      {
+        "href": "/wallet/",
+        "text": "Wallet, Pay, Card",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(9) > a"
+      },
+      {
+        "href": "/siri/",
+        "text": "Siri",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(10) > a"
+      },
+      {
+        "href": "/watch/",
+        "text": "Watch",
+        "isInternal": true,
+        "safe": true,
+        "selector": "a[aria-label=\"Watch\"]"
+      },
+      {
+        "href": "/apple-watch-series-11/",
+        "text": "Apple Watch Series 11",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/apple-watch-se-3/",
+        "text": "Apple Watch SE 3",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/apple-watch-ultra-3/",
+        "text": "Apple Watch Ultra 3",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(4) > a"
+      },
+      {
+        "href": "/apple-watch-nike/",
+        "text": "Apple Watch Nike",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(5) > a"
+      },
+      {
+        "href": "/apple-watch-hermes/",
+        "text": "Apple Watch Hermès",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(6) > a"
+      },
+      {
+        "href": "/watch/compare/",
+        "text": "Compare Watch",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(7) > a"
+      },
+      {
+        "href": "/watch/why-apple-watch/",
+        "text": "Why Apple Watch",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(8) > a"
+      },
+      {
+        "href": "/shop/watch/bands",
+        "text": "Apple Watch Bands",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/shop/watch/accessories",
+        "text": "Apple Watch Accessories",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/applecare/?filter=watch",
+        "text": "AppleCare",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/os/watchos/",
+        "text": "watchOS 26",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/apple-watch-for-your-kids/",
+        "text": "Apple Watch For Your Kids",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(4) > a"
+      },
+      {
+        "href": "/apple-fitness-plus/",
+        "text": "Apple Fitness+",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(6) > a"
+      },
+      {
+        "href": "/apple-vision-pro/",
+        "text": "Vision",
+        "isInternal": true,
+        "safe": true,
+        "selector": "a[aria-label=\"Vision\"]"
+      },
+      {
+        "href": "/apple-vision-pro/specs/",
+        "text": "Tech Specs",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/us/shop/goto/vision/accessories",
+        "text": "Apple Vision Pro Accessories",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/retail/instore-shopping-session/session-selection/?topic=visionpro",
+        "text": "Book a Demo",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/applecare/?filter=apple-vision-pro",
+        "text": "AppleCare",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/os/visionos/",
+        "text": "visionOS 26",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/business/enterprise/apple-vision-pro/",
+        "text": "Apple Vision Pro for Enterprise",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(4) > a"
+      },
+      {
+        "href": "/airpods/",
+        "text": "AirPods",
+        "isInternal": true,
+        "safe": true,
+        "selector": "a[aria-label=\"AirPods\"]"
+      },
+      {
+        "href": "/airpods-4/",
+        "text": "AirPods 4",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/airpods-pro/",
+        "text": "AirPods Pro 3",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/airpods-max/",
+        "text": "AirPods Max 2",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(4) > a"
+      },
+      {
+        "href": "/airpods/compare/",
+        "text": "Compare AirPods",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(5) > a"
+      },
+      {
+        "href": "/us/shop/goto/accessories/all_accessories/headphones_speakers?fh=47d1%2B3214%2B45aa%2B45ab&f=apple-overear-sport&page=1",
+        "text": "Shop AirPods",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(1) > a"
+      },
+      {
+        "href": "/applecare/?filter=headphones",
+        "text": "AppleCare",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/airpods-pro/hearing-health/",
+        "text": "Hearing Health",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/apple-music/",
+        "text": "Apple Music",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(4) > a"
+      },
+      {
+        "href": "/tv-home/",
+        "text": "TV & Home",
+        "isInternal": true,
+        "safe": true,
+        "selector": "a[aria-label=\"TV\\ and\\ Home\"]"
+      },
+      {
+        "href": "/apple-tv-4k/",
+        "text": "Apple TV 4K",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/homepod-2nd-generation/",
+        "text": "HomePod",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/homepod-mini/",
+        "text": "HomePod mini",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(4) > a"
+      },
+      {
+        "href": "/shop/tv/family/apple-tv-4k",
+        "text": "Shop Apple TV 4K",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(1) > a"
+      },
+      {
+        "href": "/shop/homepod/family/homepod",
+        "text": "Shop HomePod",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/shop/homepod/family/homepod-mini",
+        "text": "Shop HomePod mini",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/shop/product/mw5g3am/a/siri-remote",
+        "text": "Shop Siri Remote",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(4) > a"
+      },
+      {
+        "href": "/shop/smart-home/accessories",
+        "text": "TV & Home Accessories",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(5) > a"
+      },
+      {
+        "href": "/applecare/?filter=tv",
+        "text": "AppleCare for Apple TV",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/applecare/?filter=homepod",
+        "text": "AppleCare for HomePod",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(4) > a"
+      },
+      {
+        "href": "/apple-tv-app/",
+        "text": "Apple TV app",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(5) > a"
+      },
+      {
+        "href": "/apple-tv/",
+        "text": "Apple TV",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(6) > a"
+      },
+      {
+        "href": "/home-app/",
+        "text": "Home app",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(7) > a"
+      },
+      {
+        "href": "/airplay/",
+        "text": "AirPlay",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(10) > a"
+      },
+      {
+        "href": "/services/",
+        "text": "Entertainment",
+        "isInternal": true,
+        "safe": true,
+        "selector": "a[aria-label=\"Entertainment\"]"
+      },
+      {
+        "href": "/apple-one/",
+        "text": "Apple One",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/apple-arcade/",
+        "text": "Apple Arcade",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(5) > a"
+      },
+      {
+        "href": "/apple-news/",
+        "text": "Apple News+",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(7) > a"
+      },
+      {
+        "href": "/apple-podcasts/",
+        "text": "Apple Podcasts",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(8) > a"
+      },
+      {
+        "href": "/apple-books/",
+        "text": "Apple Books",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(9) > a"
+      },
+      {
+        "href": "/app-store/",
+        "text": "App Store",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(10) > a"
+      },
+      {
+        "href": "/shop/accessories/all/made-by-apple",
+        "text": "Made by Apple",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(1) > a"
+      },
+      {
+        "href": "/shop/accessories/all/beats-featured",
+        "text": "Beats",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/airtag/",
+        "text": "AirTag",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/accessibility/assistive-technologies/",
+        "text": "Assistive Technologies",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(4) > a"
+      },
+      {
+        "href": "/support/",
+        "text": "Support",
+        "isInternal": true,
+        "safe": true,
+        "selector": "a[aria-label=\"Support\"]"
+      },
+      {
+        "href": "/retail/geniusbar/",
+        "text": "Genius Bar",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/applecare/",
+        "text": "Get AppleCare",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(1) > a"
+      },
+      {
+        "href": "/search",
+        "text": "",
+        "isInternal": true,
+        "safe": true,
+        "selector": "#globalnav-menubutton-link-search"
+      },
+      {
+        "href": "/shop/bag",
+        "text": "",
+        "isInternal": true,
+        "safe": true,
+        "selector": "#globalnav-menubutton-link-bag"
+      },
+      {
+        "href": "/iphone-17-pro",
+        "text": "iPhone 17 Pro",
+        "isInternal": true,
+        "safe": true,
+        "selector": "a.title"
+      },
+      {
+        "href": "/shop/browse/overlay/iphone/domore/apple_intelligence",
+        "text": "Learn more about Apple Intelligence for iPhone",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > div:nth-of-type(3) > span > a"
+      },
+      {
+        "href": "/shop/browse/overlay/iphone_step1/tradein",
+        "text": "Get $35–$685 for your trade-in. Footnote #",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > div > div:nth-of-type(1) > a"
+      },
+      {
+        "href": "/shop/browse/overlay/iphone/compare_models/iphone_17_pro",
+        "text": "Show more",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > div > div > a"
+      },
+      {
+        "href": "/environment",
+        "text": "carbon neutrality by 2030(Opens in a new window)",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div > p > div > a"
+      },
+      {
+        "href": "/shop/browse/overlay/store/step_1/personal_setup",
+        "text": "Learn more about Personal Setup",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div > div > p:nth-of-type(2) > a"
+      },
+      {
+        "href": "/shop/buy-iphone/iphone-17-pro",
+        "text": "iPhone 17 Pro",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > div:nth-of-type(1) > p:nth-of-type(1) > a"
+      },
+      {
+        "href": "/shop/buy-iphone/iphone-air",
+        "text": "iPhone Air",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > div:nth-of-type(1) > p:nth-of-type(1) > a"
+      },
+      {
+        "href": "/shop/buy-iphone/iphone-17",
+        "text": "iPhone 17",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > div:nth-of-type(1) > p:nth-of-type(1) > a"
+      },
+      {
+        "href": "/shop/buy-iphone/iphone-17e",
+        "text": "iPhone 17e",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(4) > div:nth-of-type(1) > p:nth-of-type(1) > a"
+      },
+      {
+        "href": "/iphone/compare",
+        "text": "Compare all iPhone models",
+        "isInternal": true,
+        "safe": true,
+        "selector": "a.more"
+      },
+      {
+        "href": "/legal/applecare/applecareplus/theftandloss",
+        "text": "apple.com/legal/applecare/applecareplus/theftandloss",
+        "isInternal": true,
+        "safe": true,
+        "selector": "li:nth-of-type(1) > span:nth-of-type(2) > p:nth-of-type(3) > a:nth-of-type(1)"
+      },
+      {
+        "href": "/legal/sales-support/iphoneinstallments_us/",
+        "text": "here (Opens in a new window)",
+        "isInternal": true,
+        "safe": true,
+        "selector": "ul > li:nth-of-type(2) > span:nth-of-type(2) > a:nth-of-type(2)"
+      },
+      {
+        "href": "/promo",
+        "text": "terms",
+        "isInternal": true,
+        "safe": true,
+        "selector": "li:nth-of-type(7) > span:nth-of-type(2) > span > a"
+      },
+      {
+        "href": "/legal/applecare/applecareone",
+        "text": "Terms and Conditions${translate.store.a11y.opens_new_window}",
+        "isInternal": true,
+        "safe": true,
+        "selector": "ul > li:nth-of-type(10) > span:nth-of-type(2) > a:nth-of-type(1)"
+      },
+      {
+        "href": "/legal/sales-support/applecare/applecareplus",
+        "text": "Terms and Conditions${translate.store.a11y.opens_new_window}",
+        "isInternal": true,
+        "safe": true,
+        "selector": "ul > li:nth-of-type(10) > span:nth-of-type(2) > a:nth-of-type(3)"
+      },
+      {
+        "href": "/legal/applecare/fees-deductibles",
+        "text": "Service Fees and Deductibles${translate.store.a11y.opens_new…",
+        "isInternal": true,
+        "safe": true,
+        "selector": "li:nth-of-type(10) > span:nth-of-type(2) > p:nth-of-type(7) > a"
+      },
+      {
+        "href": "/legal/applecare/applecareplus",
+        "text": "apple.com/legal/applecare/applecareplus/${translate.store.a1…",
+        "isInternal": true,
+        "safe": true,
+        "selector": "li:nth-of-type(10) > span:nth-of-type(2) > p:nth-of-type(12) > a:nth-of-type(1)"
+      },
+      {
+        "href": "/batteries",
+        "text": "apple.com/batteries",
+        "isInternal": true,
+        "safe": true,
+        "selector": "ul > li:nth-of-type(13) > span:nth-of-type(3) > a:nth-of-type(1)"
+      },
+      {
+        "href": "/iphone/battery.html",
+        "text": "apple.com/iphone/battery.html",
+        "isInternal": true,
+        "safe": true,
+        "selector": "ul > li:nth-of-type(13) > span:nth-of-type(3) > a:nth-of-type(2)"
+      },
+      {
+        "href": "/iphone",
+        "text": "iPhone",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div > ol > li:nth-of-type(1) > a"
+      },
+      {
+        "href": "/shop/goto/store",
+        "text": "Store",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(1) > a"
+      },
+      {
+        "href": "/tv/",
+        "text": "TV & Home",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(8) > a"
+      },
+      {
+        "href": "/shop/gift-cards",
+        "text": "Gift Cards",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(11) > a"
+      },
+      {
+        "href": "/apple-card/",
+        "text": "Apple Card",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/apple-cash/",
+        "text": "Apple Cash",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(4) > a"
+      },
+      {
+        "href": "/apple-tv-plus/",
+        "text": "Apple TV",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/today/",
+        "text": "Today at Apple",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/today/camp/",
+        "text": "Apple Camp",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div > ul > li:nth-of-type(4) > a"
+      },
+      {
+        "href": "/shop/help",
+        "text": "Shopping Help",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div > ul > li:nth-of-type(11) > a"
+      },
+      {
+        "href": "/business/",
+        "text": "Apple and Business",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(1) > a"
+      },
+      {
+        "href": "/education/k12/how-to-buy/",
+        "text": "Shop for K-12",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/healthcare/",
+        "text": "Apple in Healthcare",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(1) > a"
+      },
+      {
+        "href": "/healthcare/apple-watch/",
+        "text": "Health on Apple Watch",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/healthcare/health-records/",
+        "text": "Health Records on iPhone",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/r/store/government",
+        "text": "Shop for Government",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(4) > ul > li:nth-of-type(1) > a"
+      },
+      {
+        "href": "/accessibility/",
+        "text": "Accessibility",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(1) > a"
+      },
+      {
+        "href": "/education/connectED/",
+        "text": "Education",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/environment/",
+        "text": "Environment",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/diversity/",
+        "text": "Inclusion and Diversity",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(4) > a"
+      },
+      {
+        "href": "/racial-equity-justice-initiative/",
+        "text": "Racial Equity and Justice",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(6) > a"
+      },
+      {
+        "href": "/supply-chain/",
+        "text": "Supply Chain",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(7) > a"
+      },
+      {
+        "href": "/newsroom/",
+        "text": "Newsroom",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(1) > a"
+      },
+      {
+        "href": "/leadership/",
+        "text": "Apple Leadership",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "/jobs/us/",
+        "text": "Career Opportunities",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/compliance",
+        "text": "Ethics & Compliance",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(5) > a"
+      },
+      {
+        "href": "/apple-events/",
+        "text": "Events",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(6) > a"
+      },
+      {
+        "href": "/contact/",
+        "text": "Contact Apple",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(7) > a"
+      },
+      {
+        "href": "/retail",
+        "text": "Find an Apple Store",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > p > span:nth-of-type(1) > a"
+      },
+      {
+        "href": "/choose-your-country",
+        "text": "United States",
+        "isInternal": true,
+        "safe": true,
+        "selector": "a.as-globalfooter-mini-locale-link"
+      },
+      {
+        "href": "/privacy/privacy-policy",
+        "text": "Privacy Policy",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(1) > a"
+      },
+      {
+        "href": "/shop/open/salespolicies",
+        "text": "Sales and Refunds",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/shop/browse/sitemap",
+        "text": "Site Map",
+        "isInternal": true,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(5) > a"
+      }
+    ],
+    "unsafeLinks": [
+      {
+        "href": "/shop/browse/overlay/iphone/payment_options",
+        "text": "See how to pay monthly.",
+        "isInternal": true,
+        "safe": false,
+        "selector": "div:nth-of-type(2) > div > div:nth-of-type(2) > a"
+      },
+      {
+        "href": "/apple-pay/",
+        "text": "Apple Pay",
+        "isInternal": true,
+        "safe": false,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "/shop/browse/finance/PaypalFinancingLandingPage",
+        "text": "Financing",
+        "isInternal": true,
+        "safe": false,
+        "selector": "div > ul > li:nth-of-type(8) > a"
+      }
+    ],
+    "externalLinks": [
+      {
+        "href": "https://secure.store.apple.com/shop/order/list",
+        "text": "Order Status",
+        "isInternal": false,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "https://support.apple.com/mac?cid=gn-ols-mac-psp-prodfly",
+        "text": "Mac Support",
+        "isInternal": false,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(1) > a"
+      },
+      {
+        "href": "https://support.apple.com/ipad?cid=gn-ols-ipad-psp-prodfly",
+        "text": "iPad Support",
+        "isInternal": false,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(1) > a"
+      },
+      {
+        "href": "https://support.apple.com/iphone?cid=gn-ols-iphone-psp-prodfly",
+        "text": "iPhone Support",
+        "isInternal": false,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(1) > a"
+      },
+      {
+        "href": "https://support.apple.com/watch?cid=gn-ols-watch-psp-prodfly",
+        "text": "Apple Watch Support",
+        "isInternal": false,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(1) > a"
+      },
+      {
+        "href": "https://support.apple.com/apple-vision-pro?cid=gn-nav-vision-psp-prodfly",
+        "text": "Apple Vision Pro Support",
+        "isInternal": false,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(1) > a"
+      },
+      {
+        "href": "https://support.apple.com/airpods?cid=gn-ols-airpods-psp-prodfly",
+        "text": "AirPods Support",
+        "isInternal": false,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(1) > a"
+      },
+      {
+        "href": "https://support.apple.com/apple-tv?cid=gn-ols-appletv-psp-prodfly",
+        "text": "Apple TV Support",
+        "isInternal": false,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(1) > a"
+      },
+      {
+        "href": "https://support.apple.com/homepod?cid=gn-ols-homepod-psp-prodfly",
+        "text": "HomePod Support",
+        "isInternal": false,
+        "safe": true,
+        "selector": "div:nth-of-type(3) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "https://support.apple.com/tv?cid=gn-ols-tv-psp-prodfly",
+        "text": "Apple TV Support",
+        "isInternal": false,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(1) > a"
+      },
+      {
+        "href": "https://support.apple.com/music?cid=gn-ols-music-psp-prodfly",
+        "text": "Apple Music Support",
+        "isInternal": false,
+        "safe": true,
+        "selector": "div:nth-of-type(2) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "https://support.apple.com/iphone?cid=gn-ols-iphone-psp-explore",
+        "text": "iPhone",
+        "isInternal": false,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(1) > a"
+      },
+      {
+        "href": "https://support.apple.com/mac?cid=gn-ols-mac-psp-explore",
+        "text": "Mac",
+        "isInternal": false,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(2) > a"
+      },
+      {
+        "href": "https://support.apple.com/ipad?cid=gn-ols-ipad-psp-explore",
+        "text": "iPad",
+        "isInternal": false,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(3) > a"
+      },
+      {
+        "href": "https://support.apple.com/watch?cid=gn-ols-watch-psp-explore",
+        "text": "Watch",
+        "isInternal": false,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(4) > a"
+      },
+      {
+        "href": "https://support.apple.com/apple-vision-pro?cid=gn-nav-vision-psp-explore",
+        "text": "Apple Vision Pro",
+        "isInternal": false,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(5) > a"
+      },
+      {
+        "href": "https://support.apple.com/airpods?cid=gn-ols-airpods-psp-explore",
+        "text": "AirPods",
+        "isInternal": false,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(6) > a"
+      },
+      {
+        "href": "https://support.apple.com/music?cid=gn-ols-music-psp-explore",
+        "text": "Music",
+        "isInternal": false,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(7) > a"
+      },
+      {
+        "href": "https://support.apple.com/tv?cid=gn-ols-tv-psp-explore",
+        "text": "TV",
+        "isInternal": false,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(8) > a"
+      },
+      {
+        "href": "https://support.apple.com/?cid=gn-ols-home-hp-explore",
+        "text": "Explore Support",
+        "isInternal": false,
+        "safe": true,
+        "selector": "div:nth-of-type(1) > ul > li:nth-of-type(9) > a"
+      }
+    ]
+  },
+  "summary": {
+    "totalInteractive": 150,
+    "totalInputFields": 23,
+    "totalForms": 1,
+    "totalInternalLinks": 183,
+    "totalExternalLinks": 38,
+    "unsafeLinksFiltered": 3,
+    "customElements": 1,
+    "reactComponents": 0,
+    "hasOverlays": false,
+    "interactionsRecorded": 0,
+    "hoverInteractions": 0,
+    "clickInteractions": 0,
+    "mergedInteractionGroups": 0,
+    "reactiveInputs": 0,
+    "keyboardResponsiveElements": 0,
+    "stateTransitionsRecorded": 0,
+    "editorsTested": 0,
+    "hierarchyRegions": 3
+  }
+}

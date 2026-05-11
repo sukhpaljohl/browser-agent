@@ -1,29 +1,4 @@
-/**
- * ═══════════════════════════════════════════════════════════════════════════════
- * Brain Executor — Generic, Site-Agnostic Execution Engine
- * ═══════════════════════════════════════════════════════════════════════════════
- *
- * Lives in: content script (Isolated World)
- * Purpose:  Replaces ALL site-specific strategy files with a single unified
- *           execution engine that works on ANY website.
- *
- * How it works:
- *   1. Receives a natural-language prompt from the bridge server
- *   2. Parses intent (click, type, read, scroll, search, etc.)
- *   3. Scans the page with DOMRecon → NodeClassifier → CandidatePruner
- *   4. Enriches candidates with ContextBuilder (failure memory, loop state)
- *   5. Finds the best matching element from the pruned candidates
- *   6. Executes action via HumanEngine (CDP-level, hardware-like events)
- *   7. Returns structured result to the bridge
- *
- * Zero hardcoded selectors. Zero site-specific logic.
- * The Brain decides what to interact with by reading the live DOM.
- *
- * Ref: Implementation Plan — Strategy-to-Brain Migration
- * ═══════════════════════════════════════════════════════════════════════════════
- */
-
-BrowserAgent.BrainExecutor = class BrainExecutor {
+class BrainExecutor {
   constructor(engine) {
     this.engine = engine;       // POMDP engine (belief state, rewards)
     this._humanEngine = null;
@@ -328,55 +303,6 @@ BrowserAgent.BrainExecutor = class BrainExecutor {
         score *= c._expectedOutcome;
       }
 
-      // ─── Phase 1B.2.4: URL Alignment Scoring ───
-      // extracts the absolute URL and tokenizes the path to compare against target words.
-      const href = this._getResolvedHref(c);
-      if (href) {
-        try {
-          // Provide window.location.origin as a fallback base for relative hrefs
-          const urlObj = new URL(href, window.location.origin);
-          const path = urlObj.pathname.toLowerCase();
-          
-          // Extract meaningful tokens from the user's prompt (e.g. "MacBook Air" -> ["macbook", "air"])
-          const targetTokens = lower.split(/[^a-z0-9]+/).filter(t => t.length > 2);
-          
-          if (targetTokens.length > 0 && path.length > 2 && path !== '/') {
-            let matches = 0;
-            for (const token of targetTokens) {
-              if (path.includes(token)) matches++;
-            }
-            
-            if (matches > 0) {
-              score += (matches * 4); // micro tie-breaker per matched URL token
-            }
-          }
-        } catch (e) { /* ignore invalid URL */ }
-      }
-
-      // ─── Phase 1B.3: Spatial Context Scoring ───
-      // If the candidate's containing block heading overlaps with target tokens,
-      // inject a decisive scoring boost that breaks ties between identical triggers.
-      // This is how "Learn More" under "MacBook Air" beats "Learn More" under
-      // "MacBook Neo" when the target is "navigate to MacBook Air."
-      //
-      // Applied to ALL regions (including nav — menus deserve spatial context).
-      // Phase 2's GNN will replace this with a learned weight.
-      if (c._ac_parent_card_heading) {
-        const headingLower = c._ac_parent_card_heading.toLowerCase();
-        const spatialTokens = lower.split(/[^a-z0-9]+/).filter(t => t.length > 2);
-
-        if (spatialTokens.length > 0) {
-          let spatialMatches = 0;
-          for (const token of spatialTokens) {
-            if (headingLower.includes(token)) spatialMatches++;
-          }
-          if (spatialMatches > 0) {
-            const matchRatio = spatialMatches / spatialTokens.length;
-            score += 45 + Math.round(matchRatio * 5); // +45 to +50
-          }
-        }
-      }
-
       // ─── Phase 1B.1: Diversity penalty ───
       // Applied by ContextBuilder — penalizes candidates whose tag was
       // over-represented in recent actions (0.85^repeats).
@@ -416,188 +342,16 @@ BrowserAgent.BrainExecutor = class BrainExecutor {
       s.score > 0 && (top - s.score) / top < 0.20
     );
 
-    // 2+ candidates in the margin = potential ambiguity
+    // 2+ candidates in the margin = genuine ambiguity
     if (ambiguousGroup.length >= 2) {
-      // ─── Semantic Deduplication Filter (Phase 1B.2.2b) ───
-      // Before escalating to the user, collapse candidates that are
-      // functionally identical: same link destination OR overlapping
-      // on screen (nested DOM elements).
-      const uniqueOptions = this._deduplicateAmbiguousCandidates(ambiguousGroup);
-
-      // If dedup collapsed everything to a single unique option → no ambiguity
-      if (uniqueOptions.length < 2) {
-        console.log(`[Brain] Ambiguity resolved by dedup: ${ambiguousGroup.length} candidates → ${uniqueOptions.length} unique option(s) for "${targetText}"`);
-        return null;
-      }
-
-      console.log(`[Brain] Ambiguity confirmed: ${uniqueOptions.length} unique options for "${targetText}" (from ${ambiguousGroup.length} raw candidates)`);
-      return uniqueOptions.map(s => {
-        let label = (s.candidate.innerText || s.candidate.ariaLabel ||
-                     s.candidate.placeholder || s.candidate.value ||
-                     s.candidate.tag || '').substring(0, 60);
-
-        // Phase 1B.3: Append spatial context for meaningful disambiguation
-        const heading = s.candidate._ac_parent_card_heading;
-        if (heading) label += ` [${heading.substring(0, 40)}]`;
-
-        const region = s.candidate._ac_page_region || 'unknown';
-
-        return {
-          text: label,
-          score: Math.round(s.score * 10) / 10,
-          tag: s.candidate.tag || '',
-          parentContext: heading || null,
-          region: region
-        };
-      });
+      return ambiguousGroup.map(s => ({
+        text: (s.candidate.innerText || '').substring(0, 60),
+        score: Math.round(s.score * 10) / 10,
+        tag: s.candidate.tag || ''
+      }));
     }
 
     return null;  // clear winner — no ambiguity
-  }
-
-  // ═══════════════════════════════════════════════════════════════
-  //  SEMANTIC DEDUPLICATION — Collapse functionally identical candidates
-  // ═══════════════════════════════════════════════════════════════
-
-  /**
-   * Collapse an array of scored candidates into unique semantic groups.
-   *
-   * Two candidates are considered functionally identical if:
-   *   Rule 1 (Destination): Both are <a> tags pointing to the same resolved href
-   *   Rule 2 (Overlap):     Their bounding boxes overlap by >80% of the smaller
-   *                         element's area (one is nested inside the other)
-   *
-   * From each group of duplicates, only the highest-scored representative
-   * is kept. This prevents false-positive clarification prompts when
-   * a website repeats the same link as multiple HTML elements.
-   *
-   * @param {Array<{candidate: Object, score: number}>} ambiguousGroup
-   * @returns {Array<{candidate: Object, score: number}>} Deduplicated representatives
-   */
-  _deduplicateAmbiguousCandidates(ambiguousGroup) {
-    if (ambiguousGroup.length < 2) return ambiguousGroup;
-
-    // The group is already sorted by score descending (inherited from _findBestMatch).
-    // We process in score order so the first candidate encountered in each
-    // cluster is automatically the highest-scored representative.
-    const representatives = [];
-    const merged = new Set(); // indices that have been absorbed into an earlier group
-
-    for (let i = 0; i < ambiguousGroup.length; i++) {
-      if (merged.has(i)) continue;
-
-      // This candidate becomes the representative of its group
-      representatives.push(ambiguousGroup[i]);
-
-      // Check every remaining candidate to see if it's a duplicate of this one
-      for (let j = i + 1; j < ambiguousGroup.length; j++) {
-        if (merged.has(j)) continue;
-
-        if (this._areFunctionallyIdentical(ambiguousGroup[i], ambiguousGroup[j])) {
-          merged.add(j);
-        }
-      }
-    }
-
-    return representatives;
-  }
-
-  /**
-   * Determine whether two scored candidates are functionally identical.
-   *
-   * @param {{candidate: Object, score: number}} a
-   * @param {{candidate: Object, score: number}} b
-   * @returns {boolean}
-   */
-  _areFunctionallyIdentical(a, b) {
-    const candA = a.candidate;
-    const candB = b.candidate;
-
-    // ── Rule 1: Same destination (href match for <a> tags) ──
-    const hrefA = this._getResolvedHref(candA);
-    const hrefB = this._getResolvedHref(candB);
-
-    if (hrefA && hrefB && hrefA === hrefB) {
-      return true;
-    }
-
-    // ── Rule 2: Physical overlap (nested DOM elements) ──
-    if (this._hasSignificantOverlap(candA.rect, candB.rect)) {
-      return true;
-    }
-
-    return false;
-  }
-
-  /**
-   * Get the fully resolved, normalised href for a candidate.
-   * Returns null for non-link elements and pseudo-links (javascript:, #).
-   *
-   * Resolution priority:
-   *   1. _domElement.href  — browser auto-resolves to absolute URL
-   *   2. candidate.href    — DOMRecon-serialised (may be relative)
-   *
-   * @param {Object} candidate
-   * @returns {string|null}
-   */
-  _getResolvedHref(candidate) {
-    let href = null;
-
-    // Prefer the live DOM reference (always absolute)
-    if (candidate._domElement && candidate._domElement.href) {
-      href = candidate._domElement.href;
-    } else if (candidate.href) {
-      // DOMRecon stores the raw attribute; resolve it against current page
-      try {
-        href = new URL(candidate.href, window.location.href).href;
-      } catch (e) {
-        href = candidate.href;
-      }
-    }
-
-    if (!href) return null;
-
-    // Filter out non-navigation pseudo-links
-    if (href === '#' || href.endsWith('/#') || href.startsWith('javascript:') || href.startsWith('mailto:') || href.startsWith('tel:')) {
-      return null;
-    }
-
-    // Normalise: strip trailing slash for consistent comparison
-    // e.g. "https://apple.com/macbook-air/" === "https://apple.com/macbook-air"
-    return href.replace(/\/+$/, '');
-  }
-
-  /**
-   * Check whether two bounding boxes overlap significantly.
-   * Returns true if the intersection covers >80% of the smaller element's area,
-   * which indicates one element is visually nested inside the other.
-   *
-   * @param {{x:number, y:number, w:number, h:number}} rectA
-   * @param {{x:number, y:number, w:number, h:number}} rectB
-   * @returns {boolean}
-   */
-  _hasSignificantOverlap(rectA, rectB) {
-    if (!rectA || !rectB) return false;
-
-    // Both must have non-zero area
-    const areaA = rectA.w * rectA.h;
-    const areaB = rectB.w * rectB.h;
-    if (areaA <= 0 || areaB <= 0) return false;
-
-    // Calculate intersection rectangle
-    const left   = Math.max(rectA.x, rectB.x);
-    const top    = Math.max(rectA.y, rectB.y);
-    const right  = Math.min(rectA.x + rectA.w, rectB.x + rectB.w);
-    const bottom = Math.min(rectA.y + rectA.h, rectB.y + rectB.h);
-
-    // No intersection
-    if (right <= left || bottom <= top) return false;
-
-    const intersectionArea = (right - left) * (bottom - top);
-    const smallerArea = Math.min(areaA, areaB);
-
-    // >80% of the smaller element is covered → visually the same button
-    return (intersectionArea / smallerArea) > 0.80;
   }
 
   /**
@@ -717,7 +471,7 @@ BrowserAgent.BrainExecutor = class BrainExecutor {
   async _handleClick(target) {
     const candidates = this._preComputedCandidates || await this._runBrainPipeline([target]);
     this._preComputedCandidates = null;
-    let match = this._findBestMatch(candidates, target);
+    const match = this._findBestMatch(candidates, target);
 
     // ─── Text-match ambiguity gate ───
     const ambiguousOptions = this._checkTextMatchAmbiguity(target);
@@ -747,60 +501,26 @@ BrowserAgent.BrainExecutor = class BrainExecutor {
     // Phase 1B.2.1: Register intent before click (survives navigation death)
     await this._registerIntent('click', match, target);
 
+    const engine = await this._ensureHumanEngine();
+    if (engine) {
+      await engine.click(el);
+    } else {
+      // Fallback: synthetic click
+      el.scrollIntoView({ behavior: 'instant', block: 'nearest' });
+      el.click();
+    }
+
     const clickedText = (match.innerText || '').substring(0, 60);
     const isLink = match.tag === 'a';
     const href = isLink ? (el.href || '') : '';
 
-    // ─── DEBUG: Build response BEFORE click so it reaches bridge before navigation kills us ───
-    const response = {
+    return {
       success: true,
       response: {
         text: `Clicked "${clickedText}".${isLink && href ? ` Navigating to ${href}.` : ''}`,
-        data: { 
-          action: 'click', 
-          text: clickedText, 
-          href, 
-          nodeType: match.nodeType,
-          parentCardHeading: match._ac_parent_card_heading || null,
-          pageRegion: match._ac_page_region || null,
-          blockType: match._ac_block_type || null,
-          scoredCandidates: (this._lastScoredMatches || []).slice(0, 10).map(m => ({
-            score: m.score,
-            text: (m.candidate.innerText || '').substring(0, 60),
-            tag: m.candidate.tag,
-            role: m.candidate.role,
-            ariaLabel: m.candidate.ariaLabel,
-            parentCardHeading: m.candidate._ac_parent_card_heading || null,
-            pageRegion: m.candidate._ac_page_region || null,
-            blockType: m.candidate._ac_block_type || null,
-            href: (m.candidate._domElement && m.candidate._domElement.href && typeof m.candidate._domElement.href === 'string') 
-                    ? m.candidate._domElement.href 
-                    : (typeof m.candidate.href === 'string' ? m.candidate.href : null),
-            rect: m.candidate.rect
-          }))
-        }
+        data: { action: 'click', text: clickedText, href, nodeType: match.nodeType }
       }
     };
-
-    // Schedule click after 3s delay so response reaches bridge first (DEBUG MODE)
-    setTimeout(async () => {
-      const debugRect = el ? el.getBoundingClientRect() : null;
-      console.log('[Brain] DEBUG click target:', el?.tagName, 
-        'connected:', el?.isConnected, 
-        'rect:', debugRect ? `x=${Math.round(debugRect.x)} y=${Math.round(debugRect.y)} w=${Math.round(debugRect.width)} h=${Math.round(debugRect.height)}` : 'null',
-        'text:', (el?.innerText || '').substring(0, 40));
-      const engine = await this._ensureHumanEngine();
-      if (engine) {
-        const result = await engine.click(el);
-        console.log('[Brain] DEBUG HumanEngine.click result:', result);
-      } else {
-        el.scrollIntoView({ behavior: 'instant', block: 'nearest' });
-        el.click();
-        console.log('[Brain] DEBUG fallback el.click() used');
-      }
-    }, 3000);
-
-    return response;
   }
 
   async _handleType(target, text) {
@@ -1123,24 +843,7 @@ BrowserAgent.BrainExecutor = class BrainExecutor {
       success: true,
       response: {
         text: `Navigating to "${linkText}" → ${href}. Page will reload — send next command after 2-3 seconds.`,
-        data: { 
-          action: 'navigate', 
-          target, 
-          href, 
-          linkText, 
-          willNavigate: true,
-          scoredCandidates: (this._lastScoredMatches || []).slice(0, 5).map(m => ({
-            score: m.score,
-            text: (m.candidate.innerText || '').substring(0, 60),
-            tag: m.candidate.tag,
-            role: m.candidate.role,
-            ariaLabel: m.candidate.ariaLabel,
-            href: (m.candidate._domElement && m.candidate._domElement.href && typeof m.candidate._domElement.href === 'string') 
-                    ? m.candidate._domElement.href 
-                    : (typeof m.candidate.href === 'string' ? m.candidate.href : null),
-            rect: m.candidate.rect
-          }))
-        }
+        data: { action: 'navigate', target, href, linkText, willNavigate: true }
       }
     };
   }
@@ -1250,13 +953,10 @@ BrowserAgent.BrainExecutor = class BrainExecutor {
       // Ensure a task is active in the service worker.
       // First prompt → initializes task (prompt = goal).
       // Subsequent prompts → updates instruction OR detects goal shift.
-      // Phase 1B.4: If options.goalJSON is present, use fromJSON() for goal parsing.
       let goalTokens = [];
       if (BrowserAgent.ProgressEstimator) {
         try {
-          const taskInfo = await BrowserAgent.ProgressEstimator.ensureTaskActive(
-            prompt, options.goalJSON || null
-          );
+          const taskInfo = await BrowserAgent.ProgressEstimator.ensureTaskActive(prompt);
           goalTokens = taskInfo.goalTokens || [];
         } catch (e) {
           console.warn('[Brain] Task init error (non-fatal):', e.message);
@@ -1618,24 +1318,6 @@ BrowserAgent.BrainExecutor = class BrainExecutor {
         outcome = Math.max(outcome, 0.85);
       }
 
-      // ── Phase 1B.3: Region-based outcome adjustments ──
-
-      // Footer elements are almost never the target action
-      if (node._ac_page_region === 'footer') {
-        outcome = Math.min(outcome, 0.2);
-      }
-
-      // Modal elements get priority — they're interrupting normal flow
-      // and usually require immediate user action
-      if (node._ac_page_region === 'modal') {
-        outcome = Math.max(outcome, 0.65);
-      }
-
-      // Main content cards with spatial context → slight boost above default
-      if (node._ac_page_region === 'main' && node._ac_block_type === 'card') {
-        outcome = Math.max(outcome, 0.45);
-      }
-
       node._expectedOutcome = outcome;
     }
   }
@@ -1672,19 +1354,6 @@ BrowserAgent.BrainExecutor = class BrainExecutor {
                `Uncertainty: ${clarResult.context?.uncertainty || '?'}. ` +
                `Please confirm or clarify the next step.`;
 
-      case 'decision_point_detected': {
-        const choices = clarResult.context?.choices || [];
-        if (choices.length === 0) {
-          return `There are product options on this page that need to be selected. Please specify your preferences.`;
-        }
-        const choiceLines = choices.map(c => {
-          const label = c.label || c.type;
-          const opts = (c.options || []).slice(0, 5).join(', ');
-          return `• ${label}: ${opts}${c.options?.length > 5 ? '...' : ''}`;
-        });
-        return `The following options need to be selected:\n${choiceLines.join('\n')}\nPlease specify your preferences.`;
-      }
-
       default:
         return `Agent needs guidance to proceed. Reason: ${clarResult.reason}.`;
     }
@@ -1693,4 +1362,5 @@ BrowserAgent.BrainExecutor = class BrainExecutor {
   _sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
-};
+}
+const b = new BrainExecutor(); console.log(b._parseIntent('click on macbook air'));

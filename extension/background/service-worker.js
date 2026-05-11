@@ -204,6 +204,7 @@ function dispatchToContentScript(data, retryCount = 0) {
       type: 'EXECUTE_PROMPT',
       prompt: data.prompt,
       images: data.images || [],
+      goal: data.goal || null,  // Phase 1B.4: structured goal JSON from external parser
       id: data.id
     }, (response) => {
       if (chrome.runtime.lastError) {

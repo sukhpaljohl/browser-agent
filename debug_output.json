@@ -1,0 +1,106 @@
+﻿{
+    "id":  "chatcmpl-1db79430-6ca1-4d5a-bcbb-e8cfc058921e",
+    "object":  "chat.completion",
+    "created":  1776697390,
+    "model":  "gpt-4o-browser",
+    "choices":  [
+                    {
+                        "index":  0,
+                        "message":  {
+                                        "role":  "assistant",
+                                        "content":  "Multiple elements match \"macbook air\". Which one?\n  1. Learn more [New\nMacBookÂ Air 13âÂ andÂ 15â\nMacBookÂ Air ]\n  2. Buy [New\nMacBookÂ Air 13âÂ andÂ 15â\nMacBookÂ Air ]"
+                                    },
+                        "finish_reason":  "stop"
+                    }
+                ],
+    "raw_result":  {
+                       "id":  "1db79430-6ca1-4d5a-bcbb-e8cfc058921e",
+                       "success":  false,
+                       "status":  "needs_clarification",
+                       "reason":  "ambiguous_match",
+                       "severity":  "soft",
+                       "response":  {
+                                        "text":  "Multiple elements match \"macbook air\". Which one?\n  1. Learn more [New\nMacBookÂ Air 13âÂ andÂ 15â\nMacBookÂ Air ]\n  2. Buy [New\nMacBookÂ Air 13âÂ andÂ 15â\nMacBookÂ Air ]",
+                                        "data":  {
+                                                     "options":  [
+                                                                     {
+                                                                         "text":  "Learn more [New\nMacBookÂ Air 13âÂ andÂ 15â\nMacBookÂ Air ]",
+                                                                         "score":  99.3,
+                                                                         "tag":  "a",
+                                                                         "parentContext":  "New\nMacBookÂ Air 13âÂ andÂ 15â\nMacBookÂ Air 13âÂ andÂ 15â\nM5 chip",
+                                                                         "region":  "unknown"
+                                                                     },
+                                                                     {
+                                                                         "text":  "Buy [New\nMacBookÂ Air 13âÂ andÂ 15â\nMacBookÂ Air ]",
+                                                                         "score":  81.7,
+                                                                         "tag":  "a",
+                                                                         "parentContext":  "New\nMacBookÂ Air 13âÂ andÂ 15â\nMacBookÂ Air 13âÂ andÂ 15â\nM5 chip",
+                                                                         "region":  "unknown"
+                                                                     }
+                                                                 ]
+                                                 }
+                                    },
+                       "totalTime":  3227,
+                       "engineStatus":  {
+                                            "convergence":  {
+                                                                "isConverged":  false,
+                                                                "shortTermSuccess":  0,
+                                                                "longTermSuccess":  0,
+                                                                "totalOutcomes":  0
+                                                            },
+                                            "epsilon":  0.1,
+                                            "iteration":  0,
+                                            "trackedNodes":  0,
+                                            "trackedEdges":  0
+                                        },
+                       "diagnostics":  [
+                                           {
+                                               "module":  "action_context",
+                                               "timestamp":  1776697390542,
+                                               "data":  {
+                                                            "total":  50,
+                                                            "domResolved":  50,
+                                                            "domMissing":  0,
+                                                            "primaryButtons":  3,
+                                                            "inForm":  2,
+                                                            "inNavRegion":  14,
+                                                            "recentlyEnabled":  0,
+                                                            "hasFilledInputs":  true,
+                                                            "withCardHeading":  22,
+                                                            "regionCounts":  {
+                                                                                 "main":  24,
+                                                                                 "unknown":  24,
+                                                                                 "header":  1,
+                                                                                 "nav":  1
+                                                                             },
+                                                            "blockTypeCounts":  {
+                                                                                    "list-item":  46,
+                                                                                    "section":  1,
+                                                                                    "hero":  1,
+                                                                                    "card":  1,
+                                                                                    "form":  1
+                                                                                }
+                                                        }
+                                           },
+                                           {
+                                               "module":  "clarification",
+                                               "timestamp":  1776697390545,
+                                               "data":  {
+                                                            "outcome":  "passed",
+                                                            "stepIndex":  1,
+                                                            "uncertainty":  0.407,
+                                                            "effectiveThreshold":  0.7,
+                                                            "consecutiveNoProgress":  0,
+                                                            "stepsStuck":  0,
+                                                            "loopCycles":  0
+                                                        }
+                                           }
+                                       ],
+                       "strategyTime":  3240
+                   },
+    "usage":  {
+                  "prompt_tokens":  0,
+                  "completion_tokens":  0,
+                  "total_tokens":  0
+              }
+}

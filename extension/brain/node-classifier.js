@@ -82,6 +82,16 @@ BrowserAgent.NodeClassifier = (() => {
         intent === 'open_dropdown' || intent === 'toggle_expand') {
       return { nodeType: 'dynamic_trigger', typeConfidence: 0.80, semanticScore: null };
     }
+    // Toggle elements (radio/checkbox labels, switch controls) trigger state
+    // changes — they're choosers, not action buttons. Classified as dynamic_trigger
+    // so they get diversity reservation slots (3 guaranteed) in CandidatePruner.
+    if (purpose === 'toggle') {
+      return { nodeType: 'dynamic_trigger', typeConfidence: 0.80, semanticScore: null };
+    }
+    // ARIA-based toggle controls — same rationale as purpose === 'toggle' above.
+    if (role === 'radio' || role === 'checkbox' || role === 'switch') {
+      return { nodeType: 'dynamic_trigger', typeConfidence: 0.85, semanticScore: null };
+    }
 
     // ── Input fields ──
     if (purpose === 'text-input' || purpose === 'file-upload' || 
@@ -110,10 +120,10 @@ BrowserAgent.NodeClassifier = (() => {
     if (tag === 'button' || role === 'button') {
       return { nodeType: 'clickable_action', typeConfidence: 0.90, semanticScore: null };
     }
-    if (purpose === 'action' || purpose === 'tab' || purpose === 'menu-item' || purpose === 'toggle') {
+    if (purpose === 'action' || purpose === 'tab' || purpose === 'menu-item') {
       return { nodeType: 'clickable_action', typeConfidence: 0.85, semanticScore: null };
     }
-    if (role === 'tab' || role === 'radio' || role === 'checkbox' || role === 'switch') {
+    if (role === 'tab') {
       return { nodeType: 'clickable_action', typeConfidence: 0.85, semanticScore: null };
     }
     if (role === 'menuitem' || role === 'menuitemcheckbox' || role === 'menuitemradio') {
@@ -122,6 +132,12 @@ BrowserAgent.NodeClassifier = (() => {
     // Intent-driven clickable (e.g., "submit_form", "save", "delete")
     if (intent && intent !== 'interact' && intent !== 'navigate') {
       return { nodeType: 'clickable_action', typeConfidence: 0.70, semanticScore: null };
+    }
+    // Labels linked to form inputs — classified as triggers (state-change proxies).
+    // This catches labels whose purpose wasn't resolved by DOMRecon (missing
+    // 'for' target or referenced element without type/role).
+    if (tag === 'label') {
+      return { nodeType: 'dynamic_trigger', typeConfidence: 0.65, semanticScore: null };
     }
 
     // ── Affordance-only detection (no tag/role, but has cursor:pointer or tabIndex) ──

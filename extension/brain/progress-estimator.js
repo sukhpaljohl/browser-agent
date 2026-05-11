@@ -245,9 +245,12 @@ BrowserAgent.ProgressEstimator = (() => {
    * Returns goalTokens for downstream use (no re-fetch needed).
    *
    * @param {string} prompt - Current prompt text
+   * @param {Object} [goalJSON=null] - Structured goal from external parser (Phase 1B.4).
+   *   If provided, uses GoalParser.fromJSON() instead of GoalParser.parse().
+   *   Shape: { verb, target, site, constraints, condition, complexity, task_type }
    * @returns {Promise<{goalTokens: string[], taskState: Object, isNew: boolean}>}
    */
-  async function ensureTaskActive(prompt) {
+  async function ensureTaskActive(prompt, goalJSON = null) {
     // Check current task state
     const currentState = await _sendMessage({
       type: 'BRAIN_TASK_GET'
@@ -266,15 +269,20 @@ BrowserAgent.ProgressEstimator = (() => {
 
       console.log(`[ProgressEstimator] Task initialized — goal: "${prompt}"`);
 
-      // Parse goal for completion evaluation (Phase 1B.2)
+      // Reset clarification debounce for new task
+      if (typeof BrowserAgent.ClarificationEngine?.resetDebounce === 'function') {
+        BrowserAgent.ClarificationEngine.resetDebounce();
+      }
+
+      // Parse goal for completion evaluation (Phase 1B.2 + 1B.4)
       const goalTokens = initResult?.state?.goalTokens || _tokenize(prompt);
       if (typeof BrowserAgent.GoalParser !== 'undefined') {
-        const parsedGoal = BrowserAgent.GoalParser.parse(prompt);
+        const parsedGoal = _parseGoalDualMode(prompt, goalJSON);
         await _sendMessage({
           type: 'BRAIN_TASK_SET_PARSED_GOAL',
           parsedGoal: parsedGoal
         });
-        console.log(`[ProgressEstimator] Goal parsed: ${parsedGoal.verb} → "${parsedGoal.target}"`);
+        console.log(`[ProgressEstimator] Goal parsed (${parsedGoal.source}): ${parsedGoal.verb} → "${parsedGoal.target}"`);
       }
 
       return {
@@ -297,15 +305,19 @@ BrowserAgent.ProgressEstimator = (() => {
 
       console.log(`[ProgressEstimator] Goal shift detected — new goal: "${prompt}"`);
 
-      // Parse goal for completion evaluation (Phase 1B.2)
+      // Reset clarification debounce for goal shift
+      if (typeof BrowserAgent.ClarificationEngine?.resetDebounce === 'function') {
+        BrowserAgent.ClarificationEngine.resetDebounce();
+      }
+      // Parse goal for completion evaluation (Phase 1B.2 + 1B.4)
       const goalTokens = initResult?.state?.goalTokens || _tokenize(prompt);
       if (typeof BrowserAgent.GoalParser !== 'undefined') {
-        const parsedGoal = BrowserAgent.GoalParser.parse(prompt);
+        const parsedGoal = _parseGoalDualMode(prompt, goalJSON);
         await _sendMessage({
           type: 'BRAIN_TASK_SET_PARSED_GOAL',
           parsedGoal: parsedGoal
         });
-        console.log(`[ProgressEstimator] Goal parsed (shift): ${parsedGoal.verb} → "${parsedGoal.target}"`);
+        console.log(`[ProgressEstimator] Goal parsed (shift, ${parsedGoal.source}): ${parsedGoal.verb} → "${parsedGoal.target}"`);
       }
 
       return {
@@ -326,6 +338,30 @@ BrowserAgent.ProgressEstimator = (() => {
       taskState: currentState?.state || null,
       isNew: false
     };
+  }
+
+  /**
+   * Dual-mode goal parsing router (Phase 1B.4).
+   *
+   * Routes to GoalParser.fromJSON() when a structured JSON goal is available,
+   * otherwise falls back to GoalParser.parse() for backward compatibility.
+   *
+   * @param {string} prompt - Natural language goal text
+   * @param {Object|null} goalJSON - Structured goal from external parser
+   * @returns {Object} Parsed goal (same shape from both paths)
+   * @private
+   */
+  function _parseGoalDualMode(prompt, goalJSON) {
+    if (goalJSON && typeof goalJSON === 'object' && goalJSON.verb) {
+      // External parser provided structured JSON — use fromJSON()
+      if (typeof BrowserAgent.GoalParser.fromJSON === 'function') {
+        return BrowserAgent.GoalParser.fromJSON(goalJSON);
+      }
+      // fromJSON not available (shouldn't happen) — fall through to regex
+      console.warn('[ProgressEstimator] GoalParser.fromJSON not available, falling back to parse()');
+    }
+    // Default: regex-based parsing
+    return BrowserAgent.GoalParser.parse(prompt);
   }
 
   // ═══════════════════════════════════════════════════════════════

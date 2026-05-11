@@ -217,6 +217,8 @@ BrowserAgent.GoalParser = (() => {
       primaryDetector: terminalInfo.primaryDetector,
       safeDepth: terminalInfo.safeDepth,
       confidence,
+      source: 'regex',
+      constraints: {},
       raw: goalText
     };
 
@@ -237,11 +239,120 @@ BrowserAgent.GoalParser = (() => {
       primaryDetector: 'stateChanged',
       safeDepth: 'unlimited',
       confidence: 0.3,
+      source: 'regex',
+      constraints: {},
       raw
     };
   }
 
-  return { parse, _tokenize };
+
+  // ─── Verb Normalization (JSON schema → TERMINAL_MAP key) ─────────────────
+  // The external JSON schema uses verbs that may not exist in TERMINAL_MAP.
+  // This map aliases them to the closest existing verb.
+  const VERB_ALIASES = {
+    compare: 'search',   // comparing = finding results side-by-side
+  };
+
+  /**
+   * Convert a structured JSON goal object from the external labeling system
+   * into the same output shape as parse().
+   *
+   * The external system (LLM, API, etc.) produces JSON conforming to the
+   * labeling_system_prompt.txt schema:
+   *   { verb, target, site, constraints, condition, complexity, task_type }
+   *
+   * This method maps that schema to GoalParser's internal format, ensuring
+   * full backward compatibility with all downstream consumers (PageStateAnalyzer,
+   * GoalCompletionEvaluator, ProgressEstimator, ClarificationEngine).
+   *
+   * The `constraints` field is passed through verbatim so that
+   * detectDecisionPoints() can use it for auto-resolution (e.g., if the
+   * user specified color: "blue", the agent won't ask again).
+   *
+   * @param {Object} jsonObj - Structured goal from external parser
+   * @param {string} jsonObj.verb - Action verb (search, purchase, navigate, etc.)
+   * @param {string} jsonObj.target - Product/entity noun phrase
+   * @param {string|null} [jsonObj.site] - Target website domain
+   * @param {Object} [jsonObj.constraints={}] - Task constraints (color, size, brand, etc.)
+   * @param {Object|null} [jsonObj.condition] - Conditional logic (if/then/else)
+   * @param {string} [jsonObj.complexity] - simple | constrained
+   * @param {string} [jsonObj.task_type] - Semantic task category
+   * @returns {Object} Parsed goal in the same shape as parse()
+   */
+  function fromJSON(jsonObj) {
+    if (!jsonObj || typeof jsonObj !== 'object') {
+      console.warn('[GoalParser] fromJSON() received non-object input, falling back');
+      return _fallbackParsedGoal(JSON.stringify(jsonObj) || '');
+    }
+
+    // ── Step 1: Normalize verb ──
+    let verb = (jsonObj.verb || 'interact').toLowerCase().trim();
+
+    // Apply aliases for verbs not in TERMINAL_MAP
+    if (VERB_ALIASES[verb]) {
+      verb = VERB_ALIASES[verb];
+    }
+
+    // Validate against known verbs — if unknown, fall back to 'interact'
+    if (!TERMINAL_MAP[verb]) {
+      console.warn(`[GoalParser] fromJSON: unknown verb "${jsonObj.verb}", falling back to interact`);
+      verb = 'interact';
+    }
+
+    // ── Step 2: Extract target and tokens ──
+    const target = (jsonObj.target || '').trim();
+    const targetTokens = _tokenize(target);
+
+    // ── Step 3: Normalize site ──
+    // The JSON schema uses "site" while GoalParser uses "targetSite"
+    let targetSite = null;
+    if (jsonObj.site && typeof jsonObj.site === 'string') {
+      targetSite = jsonObj.site.toLowerCase().trim();
+      // Remove trailing TLD normalization — keep as-is per schema rules
+    }
+
+    // ── Step 4: Constraints pass-through ──
+    // These are used by detectDecisionPoints() for auto-resolution.
+    // Keys like color, size, storage, brand, etc. map directly to
+    // product variant selectors on the page.
+    const constraints = (jsonObj.constraints && typeof jsonObj.constraints === 'object')
+      ? { ...jsonObj.constraints }
+      : {};
+
+    // ── Step 5: Map to terminal expectation ──
+    const terminalInfo = TERMINAL_MAP[verb] || TERMINAL_MAP.interact;
+
+    // ── Step 6: Confidence — external parsers are high-confidence ──
+    const confidence = 0.95;
+
+    const parsed = {
+      verb,
+      target,
+      targetTokens,
+      targetSite,
+      terminalExpectation: terminalInfo.expectation,
+      primaryDetector: terminalInfo.primaryDetector,
+      safeDepth: terminalInfo.safeDepth,
+      confidence,
+      source: 'json',
+      constraints,
+      // Preserve optional metadata for diagnostics/logging
+      taskType: jsonObj.task_type || null,
+      complexity: jsonObj.complexity || null,
+      condition: jsonObj.condition || null,
+      raw: JSON.stringify(jsonObj)
+    };
+
+    console.log(
+      `[GoalParser] fromJSON: verb=${verb}, target="${target}", ` +
+      `tokens=[${targetTokens.join(', ')}], site=${targetSite}, ` +
+      `constraints=${Object.keys(constraints).length} keys`
+    );
+
+    return parsed;
+  }
+
+  return { parse, fromJSON, _tokenize };
 })();
 
 
@@ -1152,6 +1263,614 @@ BrowserAgent.PageStateAnalyzer = (() => {
 
 
   // ═══════════════════════════════════════════════════════════════════════════
+  //  DECISION POINT DETECTION (Phase 1B.4 — Structural Variant Selectors)
+  // ═══════════════════════════════════════════════════════════════════════════
+  //
+  // Detects mandatory user choices on the current page — product variants,
+  // configuration options, exclusive toggles. Uses framework-invariant
+  // structural patterns only (no class names, no site-specific selectors).
+  //
+  // Each detected group is cross-referenced against parsedGoal.constraints
+  // for auto-resolution. Groups where a constraint value matches an option
+  // label are marked resolved. Unresolved groups trigger escalation.
+  //
+  // Cost: ~5-10ms. Uses querySelectorAll + getBoundingClientRect.
+  // ═══════════════════════════════════════════════════════════════════════════
+
+  // Constraint keys that map to common product variant categories.
+  // Used to match parsedGoal.constraints against detected decision point labels.
+  const VARIANT_CONSTRAINT_KEYS = [
+    'color', 'size', 'storage', 'material', 'style', 'pattern',
+    'ram', 'gpu', 'cpu', 'capacity', 'screen_size',
+  ];
+
+  /**
+   * Detect structural decision points (variant selectors) on the page.
+   *
+   * Scans for 5 framework-invariant patterns:
+   *   1. Radio groups — <input type="radio"> with shared name, or [role="radiogroup"]
+   *   2. Toggle button sets — siblings with [aria-pressed]
+   *   3. Exclusive selection groups — siblings with [aria-selected]
+   *   4. Required selects — <select required> or <select aria-required>
+   *   5. Swatch groups — siblings with shared structural signature and label patterns
+   *
+   * @param {Object} parsedGoal - From GoalParser (includes .constraints)
+   * @returns {Object} { detected, decisionPoints[], unresolvedCount, resolvedCount }
+   */
+  function detectDecisionPoints(parsedGoal) {
+    const result = {
+      detected: false,
+      decisionPoints: [],
+      unresolvedCount: 0,
+      resolvedCount: 0,
+    };
+
+    const constraints = parsedGoal?.constraints || {};
+
+    try {
+      // ── Pattern 1: Native Radio Groups ──────────────────────────────────
+      _detectRadioGroups(result, constraints);
+
+      // ── Pattern 2: ARIA Radiogroups ─────────────────────────────────────
+      _detectAriaRadioGroups(result, constraints);
+
+      // ── Pattern 3: Toggle Button Sets (aria-pressed) ────────────────────
+      _detectToggleButtonSets(result, constraints);
+
+      // ── Pattern 4: Exclusive Selection Groups (aria-selected) ───────────
+      _detectSelectionGroups(result, constraints);
+
+      // ── Pattern 5: Required Selects at Default ──────────────────────────
+      _detectRequiredSelects(result, constraints);
+
+      // ── Cross-Pattern Deduplication ──────────────────────────────────────
+      // Different patterns can detect the same physical UI widget (e.g., an
+      // Apple swatch picker may match BOTH Pattern 2 ARIA radiogroup AND
+      // Pattern 4 aria-selected). Dedup by checking if one decision point's
+      // container is the same element or ancestor/descendant of another's.
+      _deduplicateDecisionPoints(result);
+
+      // Strip internal _containerElement references — these are live DOM nodes
+      // used only for deduplication. They'd cause serialization failures when
+      // the result is sent through Chrome's sendResponse() or JSON.stringify().
+      for (const dp of result.decisionPoints) {
+        delete dp._containerElement;
+      }
+
+      // Compute final state
+      result.detected = result.decisionPoints.length > 0;
+      result.unresolvedCount = result.decisionPoints.filter(dp => !dp.resolved).length;
+      result.resolvedCount = result.decisionPoints.filter(dp => dp.resolved).length;
+
+    } catch (e) {
+      console.warn('[PageStateAnalyzer] decisionPoints detector error:', e.message);
+    }
+
+    if (result.detected) {
+      console.log(
+        `[PageStateAnalyzer] Decision points: ${result.decisionPoints.length} found, ` +
+        `${result.unresolvedCount} unresolved, ${result.resolvedCount} resolved`
+      );
+    }
+
+    return result;
+  }
+
+  /**
+   * Pattern 1: Native <input type="radio"> groups.
+   * Groups radios by their `name` attribute.
+   * @private
+   */
+  function _detectRadioGroups(result, constraints) {
+    const radios = document.querySelectorAll('input[type="radio"]');
+    if (radios.length === 0) return;
+
+    // Group by name attribute
+    const groups = new Map();
+    for (const radio of radios) {
+      // Skip hidden radios
+      const rect = radio.getBoundingClientRect();
+      if (rect.width === 0 && rect.height === 0) continue;
+
+      const name = radio.getAttribute('name') || '';
+      if (!name) continue;
+
+      if (!groups.has(name)) groups.set(name, []);
+      groups.get(name).push(radio);
+    }
+
+    for (const [name, groupRadios] of groups) {
+      if (groupRadios.length < 2) continue; // not a choice
+
+      const options = groupRadios.map(r => ({
+        text: _getRadioLabel(r),
+        value: r.value || '',
+        selected: r.checked,
+      }));
+
+      const hasSelection = options.some(o => o.selected);
+      const groupLabel = _inferGroupLabel(groupRadios[0], name);
+
+      const dp = {
+        type: 'radio_group',
+        label: groupLabel,
+        options: options.filter(o => o.text), // only options with visible labels
+        hasSelection,
+        resolved: false,
+        _containerElement: groupRadios[0].closest('fieldset') || groupRadios[0].parentElement,
+      };
+
+      // Auto-resolve: check if constraints cover this group
+      dp.resolved = hasSelection || _isResolvedByConstraints(dp, constraints);
+
+      result.decisionPoints.push(dp);
+    }
+  }
+
+  /**
+   * Pattern 2: ARIA [role="radiogroup"] containers.
+   * Children with [role="radio"] are the options.
+   * @private
+   */
+  function _detectAriaRadioGroups(result, constraints) {
+    const containers = document.querySelectorAll('[role="radiogroup"]');
+
+    for (const container of containers) {
+      // Skip invisible containers
+      const rect = container.getBoundingClientRect();
+      if (rect.width === 0 && rect.height === 0) continue;
+
+      const radios = container.querySelectorAll('[role="radio"]');
+      if (radios.length < 2) continue;
+
+      const options = [];
+      let hasSelection = false;
+
+      for (const radio of radios) {
+        const radioRect = radio.getBoundingClientRect();
+        if (radioRect.width === 0 && radioRect.height === 0) continue;
+
+        const checked = radio.getAttribute('aria-checked') === 'true';
+        if (checked) hasSelection = true;
+
+        options.push({
+          text: _getElementLabel(radio),
+          value: radio.getAttribute('data-value') || radio.getAttribute('value') || '',
+          selected: checked,
+        });
+      }
+
+      if (options.length < 2) continue;
+
+      const groupLabel = _getElementLabel(container) ||
+                          container.getAttribute('aria-label') || '';
+
+      const dp = {
+        type: 'aria_radiogroup',
+        label: groupLabel,
+        options: options.filter(o => o.text),
+        hasSelection,
+        resolved: false,
+        _containerElement: container,
+      };
+
+      dp.resolved = hasSelection || _isResolvedByConstraints(dp, constraints);
+      result.decisionPoints.push(dp);
+    }
+  }
+
+  /**
+   * Pattern 3: Toggle button sets — sibling elements with [aria-pressed].
+   * Groups by parent container.
+   * @private
+   */
+  function _detectToggleButtonSets(result, constraints) {
+    const pressed = document.querySelectorAll('[aria-pressed]');
+    if (pressed.length < 2) return;
+
+    // Group by parent
+    const groups = new Map();
+    for (const el of pressed) {
+      const rect = el.getBoundingClientRect();
+      if (rect.width === 0 && rect.height === 0) continue;
+
+      const parent = el.parentElement;
+      if (!parent) continue;
+
+      const key = _elementId(parent);
+      if (!groups.has(key)) groups.set(key, { parent, elements: [] });
+      groups.get(key).elements.push(el);
+    }
+
+    for (const [, group] of groups) {
+      if (group.elements.length < 2) continue;
+
+      let hasSelection = false;
+      const options = group.elements.map(el => {
+        const isActive = el.getAttribute('aria-pressed') === 'true';
+        if (isActive) hasSelection = true;
+        return {
+          text: _getElementLabel(el),
+          value: el.getAttribute('data-value') || el.getAttribute('value') || '',
+          selected: isActive,
+        };
+      });
+
+      const groupLabel = _inferGroupLabel(group.elements[0], '') ||
+                          group.parent.getAttribute('aria-label') || '';
+
+      const dp = {
+        type: 'toggle_group',
+        label: groupLabel,
+        options: options.filter(o => o.text),
+        hasSelection,
+        resolved: false,
+        _containerElement: group.parent,
+      };
+
+      dp.resolved = hasSelection || _isResolvedByConstraints(dp, constraints);
+      result.decisionPoints.push(dp);
+    }
+  }
+
+  /**
+   * Pattern 4: Exclusive selection groups — siblings with [aria-selected].
+   * Only detects groups where NOT all items are selected (exclusive choice).
+   * @private
+   */
+  function _detectSelectionGroups(result, constraints) {
+    const selected = document.querySelectorAll('[aria-selected]');
+    if (selected.length < 2) return;
+
+    // Group by parent
+    const groups = new Map();
+    for (const el of selected) {
+      const rect = el.getBoundingClientRect();
+      if (rect.width === 0 && rect.height === 0) continue;
+
+      const parent = el.parentElement;
+      if (!parent) continue;
+
+      // Skip navigation tabs — they're not product variant choices
+      const role = (parent.getAttribute('role') || '').toLowerCase();
+      if (role === 'tablist') continue;
+
+      const key = _elementId(parent);
+      if (!groups.has(key)) groups.set(key, { parent, elements: [] });
+      groups.get(key).elements.push(el);
+    }
+
+    for (const [, group] of groups) {
+      if (group.elements.length < 2) continue;
+
+      let selectedCount = 0;
+      const options = group.elements.map(el => {
+        const isActive = el.getAttribute('aria-selected') === 'true';
+        if (isActive) selectedCount++;
+        return {
+          text: _getElementLabel(el),
+          value: el.getAttribute('data-value') || el.getAttribute('value') || '',
+          selected: isActive,
+        };
+      });
+
+      // Skip if ALL or NONE are selected (not a meaningful choice state)
+      // A valid exclusive group has exactly 1 selected or 0 (unselected)
+      if (selectedCount === options.length) continue;
+
+      const hasSelection = selectedCount > 0;
+      const groupLabel = group.parent.getAttribute('aria-label') ||
+                          _inferGroupLabel(group.elements[0], '');
+
+      const dp = {
+        type: 'selection_group',
+        label: groupLabel,
+        options: options.filter(o => o.text),
+        hasSelection,
+        resolved: false,
+        _containerElement: group.parent,
+      };
+
+      dp.resolved = hasSelection || _isResolvedByConstraints(dp, constraints);
+      result.decisionPoints.push(dp);
+    }
+  }
+
+  /**
+   * Pattern 5: Required <select> elements at default/placeholder value.
+   * @private
+   */
+  function _detectRequiredSelects(result, constraints) {
+    const selects = document.querySelectorAll(
+      'select[required], select[aria-required="true"]'
+    );
+
+    for (const select of selects) {
+      const rect = select.getBoundingClientRect();
+      if (rect.width === 0 && rect.height === 0) continue;
+
+      // Check if the current value is a placeholder/default
+      const currentValue = select.value || '';
+      const selectedOption = select.options[select.selectedIndex];
+      const isPlaceholder = !currentValue ||
+        (selectedOption && (
+          selectedOption.disabled ||
+          selectedOption.value === '' ||
+          selectedOption.hasAttribute('hidden')
+        ));
+
+      if (!isPlaceholder) continue; // already has a selection
+
+      // Collect non-placeholder options
+      const options = [];
+      for (const opt of select.options) {
+        if (opt.disabled || opt.value === '' || opt.hasAttribute('hidden')) continue;
+        options.push({
+          text: opt.textContent.trim(),
+          value: opt.value,
+          selected: false,
+        });
+      }
+
+      if (options.length < 2) continue; // not a meaningful choice
+
+      const groupLabel = _getSelectLabel(select);
+
+      const dp = {
+        type: 'required_select',
+        label: groupLabel,
+        options,
+        hasSelection: false,
+        resolved: false,
+        _containerElement: select.parentElement || select,
+      };
+
+      dp.resolved = _isResolvedByConstraints(dp, constraints);
+      result.decisionPoints.push(dp);
+    }
+  }
+
+
+  // ─── Decision Point Helpers ────────────────────────────────────────────────
+
+  /**
+   * Cross-pattern deduplication.
+   *
+   * Problem: The same physical widget can be detected by multiple patterns.
+   * For example, Apple's color picker uses [role="radiogroup"] > [role="radio"]
+   * with [aria-selected] on each child, matching BOTH Pattern 2 and Pattern 4.
+   *
+   * Solution: Compare each pair of decision points by their _containerElement.
+   * If one container is the same element or an ancestor/descendant of another,
+   * they represent the same physical choice — keep only the more specific one
+   * (the one with the child container, or the one with more options).
+   *
+   * @private
+   */
+  function _deduplicateDecisionPoints(result) {
+    const dps = result.decisionPoints;
+    if (dps.length < 2) return;
+
+    const toRemove = new Set();
+
+    for (let i = 0; i < dps.length; i++) {
+      if (toRemove.has(i)) continue;
+      const containerA = dps[i]._containerElement;
+      if (!containerA) continue;
+
+      for (let j = i + 1; j < dps.length; j++) {
+        if (toRemove.has(j)) continue;
+        const containerB = dps[j]._containerElement;
+        if (!containerB) continue;
+
+        // Same element — exact duplicate
+        if (containerA === containerB) {
+          // Keep the one with more options (more specific detection)
+          const keepI = (dps[i].options?.length || 0) >= (dps[j].options?.length || 0);
+          toRemove.add(keepI ? j : i);
+          console.log(
+            `[PageStateAnalyzer] Dedup: removed ${dps[keepI ? j : i].type} ` +
+            `(duplicate of ${dps[keepI ? i : j].type} "${dps[keepI ? i : j].label}")`
+          );
+          continue;
+        }
+
+        // Ancestor/descendant relationship — overlapping containers
+        if (containerA.contains(containerB)) {
+          // B is inside A — keep B (more specific)
+          toRemove.add(i);
+          console.log(
+            `[PageStateAnalyzer] Dedup: removed ${dps[i].type} "${dps[i].label}" ` +
+            `(ancestor of ${dps[j].type} "${dps[j].label}")`
+          );
+          break; // i is removed, stop comparing against it
+        } else if (containerB.contains(containerA)) {
+          // A is inside B — keep A (more specific)
+          toRemove.add(j);
+          console.log(
+            `[PageStateAnalyzer] Dedup: removed ${dps[j].type} "${dps[j].label}" ` +
+            `(ancestor of ${dps[i].type} "${dps[i].label}")`
+          );
+        }
+      }
+    }
+
+    // Remove duplicates (iterate in reverse to preserve indices)
+    if (toRemove.size > 0) {
+      const sortedIndices = [...toRemove].sort((a, b) => b - a);
+      for (const idx of sortedIndices) {
+        result.decisionPoints.splice(idx, 1);
+      }
+    }
+  }
+
+  /**
+   * Get a stable identifier for an element (for grouping by parent).
+   * @private
+   */
+  function _elementId(el) {
+    if (el.id) return `#${el.id}`;
+    // Use a positional fingerprint
+    const tag = el.tagName.toLowerCase();
+    const parent = el.parentElement;
+    if (!parent) return tag;
+    const index = Array.from(parent.children).indexOf(el);
+    return `${parent.tagName}.${tag}[${index}]`;
+  }
+
+  /**
+   * Get the visible label for a radio input.
+   * Checks: explicit <label>, aria-label, parent label, adjacent text.
+   * @private
+   */
+  function _getRadioLabel(radio) {
+    // 1. Explicit label via for/id
+    if (radio.id) {
+      const label = document.querySelector(`label[for="${CSS.escape(radio.id)}"]`);
+      if (label) return label.textContent.trim().substring(0, 80);
+    }
+    // 2. Wrapping label
+    const wrapper = radio.closest('label');
+    if (wrapper) {
+      // Get label text excluding the radio itself
+      const clone = wrapper.cloneNode(true);
+      const inputs = clone.querySelectorAll('input');
+      for (const inp of inputs) inp.remove();
+      const text = clone.textContent.trim();
+      if (text) return text.substring(0, 80);
+    }
+    // 3. aria-label
+    const ariaLabel = radio.getAttribute('aria-label');
+    if (ariaLabel) return ariaLabel.trim().substring(0, 80);
+    // 4. Value as fallback
+    return (radio.value || '').trim().substring(0, 80);
+  }
+
+  /**
+   * Get the visible label for a generic element.
+   * @private
+   */
+  function _getElementLabel(el) {
+    // aria-label first
+    const ariaLabel = el.getAttribute('aria-label');
+    if (ariaLabel) return ariaLabel.trim().substring(0, 80);
+    // Visible text
+    const text = (el.textContent || '').trim();
+    if (text && text.length <= 80) return text;
+    if (text) return text.substring(0, 80);
+    // title attribute
+    return (el.getAttribute('title') || '').trim().substring(0, 80);
+  }
+
+  /**
+   * Get the label for a <select> element.
+   * @private
+   */
+  function _getSelectLabel(select) {
+    // 1. Explicit label via for/id
+    if (select.id) {
+      const label = document.querySelector(`label[for="${CSS.escape(select.id)}"]`);
+      if (label) return label.textContent.trim().substring(0, 80);
+    }
+    // 2. Wrapping label
+    const wrapper = select.closest('label');
+    if (wrapper) {
+      const clone = wrapper.cloneNode(true);
+      const selects = clone.querySelectorAll('select');
+      for (const s of selects) s.remove();
+      const text = clone.textContent.trim();
+      if (text) return text.substring(0, 80);
+    }
+    // 3. aria-label
+    const ariaLabel = select.getAttribute('aria-label');
+    if (ariaLabel) return ariaLabel.trim().substring(0, 80);
+    // 4. name attribute
+    return (select.getAttribute('name') || '').trim().substring(0, 80);
+  }
+
+  /**
+   * Infer a group label from context — looks at heading siblings,
+   * fieldset legends, and aria-label on parent.
+   * @private
+   */
+  function _inferGroupLabel(element, fallbackName) {
+    // 1. Fieldset legend
+    const fieldset = element.closest('fieldset');
+    if (fieldset) {
+      const legend = fieldset.querySelector('legend');
+      if (legend) return legend.textContent.trim().substring(0, 80);
+    }
+    // 2. aria-label on parent
+    const parent = element.parentElement;
+    if (parent) {
+      const ariaLabel = parent.getAttribute('aria-label');
+      if (ariaLabel) return ariaLabel.trim().substring(0, 80);
+    }
+    // 3. Previous sibling heading or label
+    if (parent) {
+      const prevSibling = parent.previousElementSibling;
+      if (prevSibling) {
+        const tag = prevSibling.tagName.toLowerCase();
+        if (['h1','h2','h3','h4','h5','h6','label','legend','span','p'].includes(tag)) {
+          const text = prevSibling.textContent.trim();
+          if (text && text.length <= 40) return text;
+        }
+      }
+    }
+    // 4. Fallback to name attribute (humanized)
+    if (fallbackName) {
+      return fallbackName
+        .replace(/[_-]/g, ' ')
+        .replace(/([a-z])([A-Z])/g, '$1 $2')
+        .trim();
+    }
+    return '';
+  }
+
+  /**
+   * Check if a decision point is resolved by the goal's constraints.
+   *
+   * Uses token-overlap matching: tokenizes the constraint value and checks
+   * if any option's text contains those tokens. This handles fuzzy cases
+   * like constraint "blue" matching option "Pacific Blue".
+   *
+   * @param {Object} dp - Decision point { label, options }
+   * @param {Object} constraints - From parsedGoal.constraints
+   * @returns {boolean} Whether this decision point is covered by constraints
+   * @private
+   */
+  function _isResolvedByConstraints(dp, constraints) {
+    if (!constraints || Object.keys(constraints).length === 0) return false;
+
+    // Try matching against known variant constraint keys
+    for (const key of VARIANT_CONSTRAINT_KEYS) {
+      const constraintValue = constraints[key];
+      if (!constraintValue || typeof constraintValue !== 'string') continue;
+
+      const constraintTokens = constraintValue.toLowerCase().split(/\s+/);
+
+      // Check if any option's text contains the constraint tokens
+      for (const option of dp.options) {
+        const optionText = option.text.toLowerCase();
+        const matches = constraintTokens.every(token => optionText.includes(token));
+        if (matches) return true;
+      }
+
+      // Also check if the group label matches the constraint key
+      // e.g., label "Color" + constraint key "color" with value "blue"
+      const labelLower = dp.label.toLowerCase();
+      const keyWords = key.replace(/_/g, ' ').toLowerCase();
+      if (labelLower.includes(keyWords) || keyWords.includes(labelLower)) {
+        // Group label matches the constraint key category — resolved
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+
+  // ═══════════════════════════════════════════════════════════════════════════
   //  DETECTOR ROUTER — Maps verb → detector function
   // ═══════════════════════════════════════════════════════════════════════════
 
@@ -1216,6 +1935,7 @@ BrowserAgent.PageStateAnalyzer = (() => {
     detectSafetyBoundary,
     detectErrors,
     detectLoading,
+    detectDecisionPoints,
     // Individual detectors exposed for testing
     detectSearchResults,
     detectCartAdded,
@@ -1431,6 +2151,7 @@ BrowserAgent.GoalCompletionEvaluator = (() => {
    *   4. Combine scores (30/70 weighting)
    *   5. Apply maturity gate
    *   6. Apply negative gates (errors, loading)
+   *   6b. Decision point gate (Phase 1B.4 — structural variant penalty)
    *   7. Terminal decision
    *   8. Extract feature vector
    *
@@ -1501,6 +2222,33 @@ BrowserAgent.GoalCompletionEvaluator = (() => {
       completionScore *= 0.70;
     }
 
+    // Step 6b: Decision point gate (Phase 1B.4)
+    // If there are unresolved structural decision points (variant selectors the
+    // user hasn't chosen), penalize completion score. This prevents the agent
+    // from declaring "goal complete" before mandatory choices are made.
+    //
+    // Graduated penalty: scales with the number of unresolved decision points.
+    //   1 unresolved → *= 0.85 (15% reduction)
+    //   2 unresolved → *= 0.70 (30% reduction)
+    //   3 unresolved → *= 0.55 (45% reduction)
+    //   4+ unresolved → *= 0.40 (floor — 60% reduction)
+    let decisionPoints = null;
+    if (typeof BrowserAgent.PageStateAnalyzer.detectDecisionPoints === 'function') {
+      try {
+        decisionPoints = BrowserAgent.PageStateAnalyzer.detectDecisionPoints(parsedGoal);
+        if (decisionPoints.detected && decisionPoints.unresolvedCount > 0) {
+          const penaltyMultiplier = Math.max(0.40, 1 - 0.15 * decisionPoints.unresolvedCount);
+          completionScore *= penaltyMultiplier;
+          console.log(
+            `[GoalCompletion] ⚠ Decision point penalty: ${decisionPoints.unresolvedCount} unresolved ` +
+            `(score *= ${penaltyMultiplier.toFixed(2)} → ${completionScore.toFixed(3)})`
+          );
+        }
+      } catch (e) {
+        console.warn('[GoalCompletion] Decision point detection failed (non-fatal):', e.message);
+      }
+    }
+
     // Step 7: Terminal decision
     const isTerminal = completionScore >= profile.threshold;
 
@@ -1511,6 +2259,8 @@ BrowserAgent.GoalCompletionEvaluator = (() => {
     featureVector.f_completionScore = completionScore;
     featureVector.label_isTerminal = isTerminal;
     featureVector.label_safetyBlocked = false;
+    // Phase 1B.4: Decision point feature (field 33)
+    featureVector.f_decisionPointsUnresolved = decisionPoints?.unresolvedCount || 0;
 
     // Determine reason
     let reason;
@@ -1534,6 +2284,7 @@ BrowserAgent.GoalCompletionEvaluator = (() => {
         typeSpecific: { detector: parsedGoal.primaryDetector, ...typeSpecific },
         errors,
         loading,
+        decisionPoints,
       },
       featureVector,
       evalTimeMs: Date.now() - evalStart

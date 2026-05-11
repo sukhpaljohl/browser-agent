@@ -4,3 +4,5 @@ temp_chrome_profile/
 __pycache__/
 *.pyc
 tools/dataset/data/sample_1000.json
+tools/dataset/api_keys.py
+tools/dataset/Goal_Parser_Dataset_Labeler.ipynb

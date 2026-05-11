@@ -267,9 +267,10 @@
      *
      * @param {string} prompt - Natural language command
      * @param {Object[]} [images=[]] - Attached images
+     * @param {Object} [options={}] - Additional options (Phase 1B.4: goalJSON)
      * @returns {Promise<Object>} Structured result with backward-compatible shape
      */
-    async executeFullFlow(prompt, images = []) {
+    async executeFullFlow(prompt, images = [], options = {}) {
       const strategyStart = Date.now();
       let actionsExecuted = 0;
 
@@ -295,7 +296,7 @@
       //  1. PRIMARY ACTION
       // ═════════════════════════════════════════════════════════════
 
-      const primaryResult = await this.executor.executeFullFlow(prompt, images);
+      const primaryResult = await this.executor.executeFullFlow(prompt, images, options);
       actionsExecuted++;
 
       // If clarification was triggered, check if we should override with recovery
@@ -388,6 +389,48 @@
           if (goalCompletion.isTerminal) {
             console.log(`[UniversalStrategy] ✅ GOAL COMPLETE (score: ${goalCompletion.completionScore.toFixed(3)})`);
             return this._assembleTerminalResponse(primaryResult, goalCompletion, strategyStart);
+          }
+
+          // ═══════════════════════════════════════════════════════════
+          //  3a. DECISION POINT ESCALATION (Phase 1B.4)
+          // ═══════════════════════════════════════════════════════════
+          //  If the page has structural variant selectors that the user
+          //  hasn't specified (color, size, storage, etc.), escalate
+          //  with structured options so the user can choose.
+          //
+          //  Only fires for purchase goals (product pages with variant
+          //  selectors) and only for unresolved groups.
+          const dpSignals = goalCompletion.signals?.decisionPoints;
+          if (dpSignals && dpSignals.unresolvedCount > 0 && parsedGoal.verb === 'purchase') {
+            const unresolved = dpSignals.decisionPoints.filter(dp => !dp.resolved);
+            const optionSummary = unresolved.map(dp => {
+              const label = dp.label || dp.type;
+              const choices = dp.options.map(o => o.text).filter(Boolean).join(', ');
+              return `${label}: ${choices}`;
+            }).join('\n  ');
+
+            console.log(
+              `[UniversalStrategy] ⚠ Decision point escalation: ` +
+              `${dpSignals.unresolvedCount} unresolved variant(s)`
+            );
+
+            primaryResult.strategyTime = Date.now() - strategyStart;
+            return {
+              ...primaryResult,
+              status: 'needs_clarification',
+              reason: 'decision_point_detected',
+              severity: 'soft',
+              response: {
+                ...primaryResult.response,
+                text: `I found the product, but there are options to choose:\n  ${optionSummary}\nWhich would you like?`,
+                data: {
+                  ...primaryResult.response?.data,
+                  decisionPoints: unresolved,
+                }
+              },
+              goalCompletion,
+              strategyTime: Date.now() - strategyStart
+            };
           }
 
           console.log(`[UniversalStrategy] Goal status: ${goalCompletion.reason} (score: ${goalCompletion.completionScore.toFixed(3)})`);

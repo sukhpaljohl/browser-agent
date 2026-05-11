@@ -158,7 +158,12 @@
           console.log('[BrowserAgent] Images attached:', msg.images.length);
         }
         try {
-          const result = await strategy.executeFullFlow(msg.prompt, msg.images || []);
+          // Phase 1B.4: Forward structured goal JSON from bridge if present
+          const options = {};
+          if (msg.goal && typeof msg.goal === 'object') {
+            options.goalJSON = msg.goal;
+          }
+          const result = await strategy.executeFullFlow(msg.prompt, msg.images || [], options);
           saveState();
           sendResponse(result);
           console.log('[BrowserAgent] === Flow complete. Success:', result.success, '===');

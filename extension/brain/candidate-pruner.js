@@ -113,7 +113,7 @@ BrowserAgent.CandidatePruner = (() => {
           node.hasPointerCursor ||
           (node.computedTabIndex !== undefined && node.computedTabIndex >= 0) ||
           node.role === 'button' ||
-          ['button', 'a', 'input', 'textarea', 'select'].includes(tag) ||
+          ['button', 'a', 'input', 'textarea', 'select', 'label'].includes(tag) ||
           (node.intent && node.intent !== 'interact');
         return isAffordant;
       }

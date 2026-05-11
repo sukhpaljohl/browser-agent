@@ -62,6 +62,13 @@ BrowserAgent.ClarificationEngine = (() => {
   /** Epsilon for margin noise floor (5% relative margin) */
   const MARGIN_EPSILON = 0.05;
 
+  // ─── Decision Point Debounce State ───────────────────────────────────────
+  // Tracks fingerprints of decision point sets that have already been
+  // escalated to the user. Prevents re-asking about the same unresolved
+  // choices every action cycle while the user is still responding.
+  // Cleared on task reset via resetDebounce().
+  const _askedDecisionPointKeys = new Set();
+
   // ─── Novelty Computation ───────────────────────────────────────────────────
 
   /**
@@ -404,6 +411,67 @@ BrowserAgent.ClarificationEngine = (() => {
     }
 
     // ═══════════════════════════════════════════════════════════════════════
+    //  SOFT TRIGGER: Decision Point Detected (Phase 1B.4)
+    //  Structural variant selectors found with no matching goal constraint.
+    //  Only fires for verbs where product configuration matters.
+    //
+    //  Debounce: Tracks which decision point sets have already been
+    //  escalated using a fingerprint (label + option texts). Won't re-ask
+    //  about the same unresolved choices until the page changes or the
+    //  task resets.
+    // ═══════════════════════════════════════════════════════════════════════
+
+    const parsedGoal = taskState?.parsedGoal;
+    if (parsedGoal &&
+        typeof BrowserAgent?.PageStateAnalyzer?.detectDecisionPoints === 'function' &&
+        ['purchase', 'search'].includes(parsedGoal.verb)) {
+      try {
+        const dpResult = BrowserAgent.PageStateAnalyzer.detectDecisionPoints(parsedGoal);
+        if (dpResult.detected && dpResult.unresolvedCount > 0) {
+          // Build structured options for the escalation context
+          const unresolvedChoices = dpResult.decisionPoints
+            .filter(dp => !dp.resolved)
+            .map(dp => ({
+              label: dp.label,
+              type: dp.type,
+              options: dp.options.map(o => o.text).filter(Boolean).slice(0, 10)
+            }));
+
+          // Debounce: generate a fingerprint of the unresolved choices
+          // and skip if we've already asked about this exact set.
+          const fingerprint = _dpFingerprint(unresolvedChoices);
+          if (_askedDecisionPointKeys.has(fingerprint)) {
+            _recordDiagnostic('suppressed', {
+              reason: 'decision_point_already_asked',
+              stepIndex,
+              fingerprint
+            });
+          } else {
+            // Mark as asked so we don't repeat
+            _askedDecisionPointKeys.add(fingerprint);
+
+            const result = {
+              escalate: true,
+              status: 'needs_clarification',
+              reason: 'decision_point_detected',
+              severity: 'soft',
+              context: {
+                ..._buildEscalationContext(taskState, loopStatus, stepIndex),
+                unresolvedCount: dpResult.unresolvedCount,
+                resolvedCount: dpResult.resolvedCount,
+                choices: unresolvedChoices
+              }
+            };
+            _recordDiagnostic('triggered', result);
+            return result;
+          }
+        }
+      } catch (e) {
+        console.warn('[Clarification] Decision point check failed (non-fatal):', e.message);
+      }
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════
     //  SOFT TRIGGER: Uncertain + Stalling
     //  High uncertainty AND recent no-progress
     // ═══════════════════════════════════════════════════════════════════════
@@ -504,11 +572,43 @@ BrowserAgent.ClarificationEngine = (() => {
     }
   }
 
+  // ─── Decision Point Debounce Helper ────────────────────────────────────────
+
+  /**
+   * Generate a stable fingerprint for a set of unresolved decision point choices.
+   * Used to detect "we already asked about this exact set of choices" so we
+   * don't spam the user with repeat questions.
+   *
+   * Fingerprint = sorted concatenation of each choice's (label + options list).
+   * Changing a single option (e.g., one gets selected) produces a different
+   * fingerprint, which allows re-escalation when the situation changes.
+   *
+   * @param {Object[]} choices - Array of { label, type, options[] }
+   * @returns {string} Fingerprint string
+   * @private
+   */
+  function _dpFingerprint(choices) {
+    return choices
+      .map(c => `${(c.label || '').toLowerCase()}:${(c.options || []).join(',').toLowerCase()}`)
+      .sort()
+      .join('|');
+  }
+
+  /**
+   * Reset the decision point debounce state.
+   * Call this when the task resets or the goal changes, so the agent can
+   * re-ask about decision points on a new page/task.
+   */
+  function resetDebounce() {
+    _askedDecisionPointKeys.clear();
+  }
+
   // ─── Public API ──────────────────────────────────────────────────────────
 
   return {
     evaluate,
     computeUncertainty,
+    resetDebounce,
     // Exposed for testing
     _computeNovelty,
     _computeConsecutiveNoProgress,

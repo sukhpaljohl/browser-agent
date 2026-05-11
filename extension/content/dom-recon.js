@@ -399,7 +399,7 @@ BrowserAgent.DOMRecon = (() => {
   // ─── Interactive Element Scanner ──────────────────────
 
   const INTERACTIVE_SELECTORS = [
-    'button', 'a[href]', 'input', 'textarea', 'select',
+    'button', 'a[href]', 'input', 'textarea', 'select', 'label[for]',
     '[role="button"]', '[role="tab"]', '[role="radio"]', '[role="checkbox"]',
     '[role="menuitem"]', '[role="menuitemcheckbox"]', '[role="menuitemradio"]',
     '[role="textbox"]', '[role="slider"]', '[role="switch"]',
@@ -432,7 +432,66 @@ BrowserAgent.DOMRecon = (() => {
 
     const tag = el.tagName.toLowerCase();
     const text = _truncate(el.textContent, MAX_TEXT_LENGTH);
-    const innerText = _truncate(el.innerText, MAX_TEXT_LENGTH);
+    // ── Label first-line extraction ─────────────────────────────────────
+    // Radio/checkbox labels contain multi-line text: line 1 = option name
+    // ("iPhone 17 Pro Max"), lines 2+ = pricing/footnotes/descriptions.
+    // MUST extract first line from RAW el.innerText BEFORE _truncate,
+    // because _truncate's \s+ regex collapses newlines into spaces,
+    // producing one long string that scores poorly in text matching
+    // (contains match = 20pts vs exact match = 100pts).
+    let rawInnerText = el.innerText || '';
+    if (tag === 'label' && rawInnerText.includes('\n')) {
+      rawInnerText = rawInnerText.split('\n')[0];
+    }
+    let innerText = _truncate(rawInnerText, MAX_TEXT_LENGTH);
+
+    // ── Label-to-input text enrichment (Phase 1B.4.1) ──────────────────
+    // Bare <input type="radio|checkbox"> elements often have empty innerText.
+    // The visible text lives in a separate <label for="inputId"> element.
+    // Borrow the label's text so the Heuristic Engine's text matching can
+    // find these elements. Also checks aria-labelledby as a secondary source.
+    // Flag: _labelText is set so downstream consumers can distinguish
+    //       label-sourced text from native text if needed.
+    let _labelText = undefined;
+    if (!innerText && tag === 'input' && el.id) {
+      try {
+        const linkedLabel = document.querySelector(`label[for="${CSS.escape(el.id)}"]`);
+        if (linkedLabel) {
+          // Normalize: replace non-breaking spaces (U+00A0) with regular spaces.
+          // Many sites (Apple, Amazon, etc.) use &nbsp; in labels which breaks
+          // text matching against user input that uses regular spaces.
+          const fullLabel = _truncate(linkedLabel.innerText, MAX_TEXT_LENGTH)
+            ?.replace(/\u00A0/g, ' ');
+          if (fullLabel) {
+            // Use the first line as innerText for scoring. Radio/checkbox labels
+            // typically have: line 1 = option name ("iPhone 17 Pro Max"),
+            // lines 2+ = supporting detail (pricing, footnotes, descriptions).
+            // First line gives exact matches; full text would score poorly.
+            const firstLine = fullLabel.split('\n')[0].trim();
+            innerText = firstLine || fullLabel;
+            _labelText = fullLabel;  // Full text preserved for diagnostics
+          }
+        }
+      } catch (e) { /* CSS.escape or querySelector failure — non-fatal */ }
+    }
+    // Secondary: aria-labelledby (used by some frameworks instead of <label for>)
+    if (!innerText && !_labelText) {
+      const labelledBy = el.getAttribute('aria-labelledby');
+      if (labelledBy) {
+        try {
+          const refEl = document.getElementById(labelledBy);
+          if (refEl) {
+            const refText = _truncate(refEl.innerText, MAX_TEXT_LENGTH)
+              ?.replace(/\u00A0/g, ' ');
+            if (refText) {
+              const firstLine = refText.split('\n')[0].trim();
+              innerText = firstLine || refText;
+              _labelText = refText;
+            }
+          }
+        } catch (e) { /* non-fatal */ }
+      }
+    }
 
     // Determine element purpose
     let purpose = 'unknown';
@@ -445,6 +504,29 @@ BrowserAgent.DOMRecon = (() => {
     else if (tag === 'a') purpose = 'navigation';
     else if (tag === 'input' && ['text', 'search', 'email', 'password', 'url', 'tel', 'number'].includes(type)) purpose = 'text-input';
     else if (tag === 'input' && ['checkbox', 'radio'].includes(type)) purpose = 'toggle';
+    else if (tag === 'label') {
+      // Inherit purpose from the referenced input — labels are proxies, not
+      // independent interactive elements. A label for a radio is a toggle;
+      // a label for a text input is a text-input proxy.
+      // Checks both type (native inputs) and role (ARIA custom elements).
+      const forAttr = el.getAttribute('for');
+      if (forAttr) {
+        try {
+          const refInput = document.getElementById(forAttr);
+          if (refInput) {
+            const refType = (refInput.getAttribute('type') || '').toLowerCase();
+            const refRole = (refInput.getAttribute('role') || '').toLowerCase();
+            if (refType === 'radio' || refType === 'checkbox' ||
+                refRole === 'radio' || refRole === 'checkbox') {
+              purpose = 'toggle';
+            } else if (['text', 'search', 'email', 'password', 'url', 'tel', 'number'].includes(refType)) {
+              purpose = 'text-input';
+            }
+            // else: keep 'unknown' — the label inherits no special boost
+          }
+        } catch (e) { /* getElementById failure — non-fatal, keep unknown */ }
+      }
+    }
     else if (tag === 'input' && type === 'file') purpose = 'file-upload';
     else if (tag === 'textarea' || role === 'textbox' || el.getAttribute('contenteditable') === 'true') purpose = 'text-input';
     else if (tag === 'select' || role === 'combobox') purpose = 'dropdown';
@@ -480,6 +562,7 @@ BrowserAgent.DOMRecon = (() => {
     }
 
     return {
+      _domElement: el,
       i: index,
       tag,
       selector: selectorInfo.primary,
@@ -514,7 +597,11 @@ BrowserAgent.DOMRecon = (() => {
       react: hasReactFiber || undefined,
       // ── Affordance flags (Phase 1A.2) ──
       hasPointerCursor: hasPointerCursor || undefined,
-      computedTabIndex: computedTabIndex >= 0 ? computedTabIndex : undefined
+      computedTabIndex: computedTabIndex >= 0 ? computedTabIndex : undefined,
+      // ── Label enrichment flag (Phase 1B.4.1) ──
+      // Set when innerText was sourced from a <label for=""> or aria-labelledby,
+      // not from the element's own text content.
+      _labelText: _labelText || undefined
     };
   }
 

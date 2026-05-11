@@ -142,7 +142,7 @@ const server = http.createServer((req, res) => {
         const data = JSON.parse(body);
         const id = crypto.randomUUID();
         const target = data.target || 'browser'; // default to real browser
-        promptQueue.push({ id, prompt: data.prompt, images: data.images || [], target });
+        promptQueue.push({ id, prompt: data.prompt, images: data.images || [], target, goal: data.goal || null });
         json(res, 200, { id, status: 'queued', target });
         log(`Prompt queued [ID: ${id}] → ${target}: "${data.prompt.substring(0, 60)}..." (${(data.images || []).length} images)`);
       }
@@ -192,7 +192,7 @@ const server = http.createServer((req, res) => {
         if (matchIdx !== -1) {
           const job = promptQueue.splice(matchIdx, 1)[0];
           activeJob = job;
-          json(res, 200, { id: job.id, prompt: job.prompt, images: job.images || [] });
+          json(res, 200, { id: job.id, prompt: job.prompt, images: job.images || [], goal: job.goal || null });
           log(`Prompt dispatched [ID: ${job.id}] → ${callerMode} (${(job.images || []).length} images)`);
         } else {
           res.writeHead(204);

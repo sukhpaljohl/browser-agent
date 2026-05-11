@@ -436,6 +436,16 @@ BrowserAgent.ActionContext = (() => {
         }
       }
 
+      // Rule (d): Structural product card gestalt (has image + heading + interactive element)
+      // Even if it lacks formal styling or flex parent, any standalone generic container
+      // with these three primitives is semantically functioning as a product card.
+      const hasImg = node.querySelector('img, picture, svg');
+      const hasHeading = node.querySelector('h1, h2, h3, h4, h5, h6, [role="heading"]');
+      const hasInteractive = node.querySelector('a, button, [role="button"], [role="link"]');
+      if (hasImg && hasHeading && hasInteractive) {
+        return true;
+      }
+
       return false;
     } catch (e) {
       return false;
