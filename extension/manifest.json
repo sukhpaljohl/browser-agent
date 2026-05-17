@@ -53,6 +53,7 @@
         "brain/clarification.js",
         "brain/brain-executor.js",
         "brain/universal-strategy.js",
+        "brain/experience-buffer.js",
         "content/content.js"
       ],
       "run_at": "document_idle"

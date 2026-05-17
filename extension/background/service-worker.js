@@ -29,8 +29,8 @@ console.error = function() { remoteSLog('ERROR', arguments); _serror.apply(conso
 // Must be at top level for MV3 service worker importScripts compatibility.
 // Loaded AFTER telemetry hook so all brain logs are captured remotely.
 try {
-  importScripts('../brain/task-state.js', '../brain/loop-detector.js');
-  console.log('[Brain] ✓ Command Center modules loaded (TaskState + LoopDetector)');
+  importScripts('../brain/task-state.js', '../brain/loop-detector.js', '../brain/experience-store.js');
+  console.log('[Brain] ✓ Command Center modules loaded (TaskState + LoopDetector + ExperienceStore)');
 } catch (e) {
   console.error('[Brain] ✗ Failed to load Command Center modules:', e.message);
 }
@@ -353,10 +353,32 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           sendResponse({ success: false, error: 'goal is required' });
           return false;
         }
+
+        // ── Phase 1B.5: Finalize previous trajectory (fire-and-forget) ──
+        const prevTrajectoryId = taskStateTracker._state?.trajectoryId;
+        if (prevTrajectoryId && typeof experienceStore !== 'undefined') {
+          experienceStore.finalizeTrajectory(prevTrajectoryId, 'abandoned', -0.3)
+            .catch(e => console.warn('[Brain] Failed to finalize previous trajectory:', e.message));
+        }
+
         // Reset loop detector when starting a new task
         if (typeof loopDetector !== 'undefined') loopDetector.reset();
         const snapshot = taskStateTracker.initTask(goal, startUrl || '');
-        sendResponse({ success: true, state: snapshot });
+
+        // ── Phase 1B.5: Create new trajectory ──
+        let trajectoryId = null;
+        if (typeof experienceStore !== 'undefined') {
+          trajectoryId = crypto.randomUUID();
+          taskStateTracker._state.trajectoryId = trajectoryId;
+
+          let domain = '';
+          try { domain = new URL(startUrl || '').hostname; } catch (e) { /* ignore */ }
+
+          experienceStore.createTrajectory(trajectoryId, goal, null, domain, startUrl || '')
+            .catch(e => console.warn('[Brain] Failed to create trajectory:', e.message));
+        }
+
+        sendResponse({ success: true, state: { ...snapshot, trajectoryId } });
         return false;
       }
 
@@ -700,6 +722,79 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           isTaskActive: taskStateTracker.isActive()
         });
         return false;
+      }
+
+      // ── Experience Buffer (Phase 1B.5) ─────────────────────────────────────
+
+      case 'BRAIN_LOG_EXPERIENCE': {
+        if (typeof experienceStore === 'undefined') {
+          sendResponse({ success: false, error: 'ExperienceStore not loaded' });
+          return false;
+        }
+        const { stepRecord } = message;
+        if (!stepRecord) {
+          sendResponse({ success: false, error: 'stepRecord is required' });
+          return false;
+        }
+        experienceStore.recordStep(stepRecord)
+          .then(result => sendResponse({ success: true, ...result }))
+          .catch(e => sendResponse({ success: false, error: e.message }));
+        return true; // async sendResponse
+      }
+
+      case 'BRAIN_FINALIZE_TRAJECTORY': {
+        if (typeof experienceStore === 'undefined') {
+          sendResponse({ success: false, error: 'ExperienceStore not loaded' });
+          return false;
+        }
+        const { trajectoryId, status, terminalReward } = message;
+        if (!trajectoryId) {
+          sendResponse({ success: false, error: 'trajectoryId is required' });
+          return false;
+        }
+        experienceStore.finalizeTrajectory(trajectoryId, status, terminalReward)
+          .then(result => sendResponse({ success: true, result }))
+          .catch(e => sendResponse({ success: false, error: e.message }));
+        return true; // async sendResponse
+      }
+
+      case 'BRAIN_EXPERIENCE_STATS': {
+        if (typeof experienceStore === 'undefined') {
+          sendResponse({ success: false, error: 'ExperienceStore not loaded' });
+          return false;
+        }
+        experienceStore.getStats()
+          .then(stats => sendResponse({ success: true, stats }))
+          .catch(e => sendResponse({ success: false, error: e.message }));
+        return true; // async sendResponse
+      }
+
+      case 'BRAIN_EXPERIENCE_EXPORT': {
+        if (typeof experienceStore === 'undefined') {
+          sendResponse({ success: false, error: 'ExperienceStore not loaded' });
+          return false;
+        }
+        const exportOptions = message.options || {};
+        experienceStore.exportData(exportOptions)
+          .then(data => sendResponse({ success: true, data }))
+          .catch(e => sendResponse({ success: false, error: e.message }));
+        return true; // async sendResponse
+      }
+
+      case 'BRAIN_EXPERIENCE_CORRECT': {
+        if (typeof experienceStore === 'undefined') {
+          sendResponse({ success: false, error: 'ExperienceStore not loaded' });
+          return false;
+        }
+        const { stepId, correctedOutcome, reason } = message;
+        if (!stepId) {
+          sendResponse({ success: false, error: 'stepId is required' });
+          return false;
+        }
+        experienceStore.recordCorrection(stepId, correctedOutcome, reason || '')
+          .then(result => sendResponse({ success: true, ...result }))
+          .catch(e => sendResponse({ success: false, error: e.message }));
+        return true; // async sendResponse
       }
 
       default:

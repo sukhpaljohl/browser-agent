@@ -383,12 +383,18 @@
 
           if (goalCompletion.safetyBlocked) {
             console.log('[UniversalStrategy] ⛔ SAFETY BOUNDARY — blocking further action');
-            return this._assembleTerminalResponse(primaryResult, goalCompletion, strategyStart);
+            const termResp = this._assembleTerminalResponse(primaryResult, goalCompletion, strategyStart);
+            this._logExperience(primaryResult, termResp, goalCompletion, context?.taskState, strategyStart);
+            this._finalizeTrajectory(context?.taskState?.trajectoryId, 'safety_blocked', -1.0);
+            return termResp;
           }
 
           if (goalCompletion.isTerminal) {
             console.log(`[UniversalStrategy] ✅ GOAL COMPLETE (score: ${goalCompletion.completionScore.toFixed(3)})`);
-            return this._assembleTerminalResponse(primaryResult, goalCompletion, strategyStart);
+            const termResp = this._assembleTerminalResponse(primaryResult, goalCompletion, strategyStart);
+            this._logExperience(primaryResult, termResp, goalCompletion, context?.taskState, strategyStart);
+            this._finalizeTrajectory(context?.taskState?.trajectoryId, 'completed', 1.0);
+            return termResp;
           }
 
           // ═══════════════════════════════════════════════════════════
@@ -517,7 +523,12 @@
       //  6. STRUCTURED RESPONSE
       // ═════════════════════════════════════════════════════════════
 
-      return this._assembleResponse(primaryResult, recoveryResult, recoveryMeta, strategyStart, goalCompletion);
+      const finalResponse = this._assembleResponse(primaryResult, recoveryResult, recoveryMeta, strategyStart, goalCompletion);
+
+      // ── Phase 1B.5: Log experience step ──
+      this._logExperience(primaryResult, finalResponse, goalCompletion, context?.taskState, strategyStart);
+
+      return finalResponse;
     }
 
     /**
@@ -688,6 +699,75 @@
       }
 
       return response;
+    }
+
+    // ═══════════════════════════════════════════════════════════════════════════
+    //  Phase 1B.5: Experience Buffer Integration
+    // ═══════════════════════════════════════════════════════════════════════════
+
+    /**
+     * Log a decision step to the Experience Buffer.
+     * Fire-and-forget — never blocks the response pipeline.
+     *
+     * @param {Object} primaryResult - BrainExecutor result
+     * @param {Object} assembledResponse - The response being returned
+     * @param {Object|null} goalCompletion - GoalCompletionEvaluator result
+     * @param {Object|null} taskState - TaskState snapshot
+     * @param {number} strategyStart - Cycle start timestamp
+     */
+    _logExperience(primaryResult, assembledResponse, goalCompletion, taskState, strategyStart) {
+      try {
+        if (typeof BrowserAgent.ExperienceBuffer === 'undefined') return;
+        if (!this.executor) return;
+
+        const candidates = this.executor._lastCandidates || [];
+        const scoredMatches = this.executor._lastScoredMatches || [];
+        const candidateMargin = this.executor._lastCandidateMargin ?? 0;
+
+        // Determine chosen index (first match in scored array = chosen)
+        const chosenIndex = scoredMatches.length > 0 ? 0 : null;
+
+        // Extract action info from primary result
+        const actionType = primaryResult?.progress?.actionType || 'click';
+        const actionIntent = primaryResult?.response?.text?.substring(0, 100) || '';
+
+        BrowserAgent.ExperienceBuffer.log({
+          candidates,
+          scoredMatches,
+          chosenIndex,
+          actionType,
+          actionIntent,
+          typedText: primaryResult?.typedText || null,
+          result: assembledResponse,
+          goalCompletion,
+          timing: {
+            totalCycleMs: Date.now() - strategyStart,
+            stabilizationTimeMs: primaryResult?.stabilizationTime || null,
+          },
+          viewport: { width: window.innerWidth, height: window.innerHeight },
+          taskState,
+          candidateMargin,
+        });
+      } catch (e) {
+        console.warn('[UniversalStrategy] Experience logging failed (non-fatal):', e.message);
+      }
+    }
+
+    /**
+     * Send trajectory finalization signal to the Experience Buffer.
+     * Fire-and-forget — never blocks the response pipeline.
+     *
+     * @param {string|null} trajectoryId
+     * @param {string} status
+     * @param {number} terminalReward
+     */
+    _finalizeTrajectory(trajectoryId, status, terminalReward) {
+      try {
+        if (typeof BrowserAgent.ExperienceBuffer === 'undefined') return;
+        BrowserAgent.ExperienceBuffer.finalizeTrajectory(trajectoryId, status, terminalReward);
+      } catch (e) {
+        console.warn('[UniversalStrategy] Trajectory finalization failed (non-fatal):', e.message);
+      }
     }
   }
 

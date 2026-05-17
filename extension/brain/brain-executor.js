@@ -303,19 +303,30 @@ BrowserAgent.BrainExecutor = class BrainExecutor {
       const placeholder = (c.placeholder || '').toLowerCase();
       let score = 0;
 
+      // ── Phase 1B.5: Score decomposition tracking ──
+      let textMatch = 0;
+      let prunerBoost = 0;
+      let urlAlignment = 0;
+      let spatialContext = 0;
+
       // Exact match (highest priority)
-      if (text === lower) score += 100;
-      else if (ariaLabel === lower) score += 95;
-      else if (placeholder === lower) score += 90;
+      if (text === lower) textMatch = 100;
+      else if (ariaLabel === lower) textMatch = 95;
+      else if (placeholder === lower) textMatch = 90;
       // Contains match
-      else if (text.includes(lower)) score += 70 - Math.min(text.length, 50); // shorter = better
-      else if (ariaLabel.includes(lower)) score += 60;
-      else if (placeholder.includes(lower)) score += 55;
+      else if (text.includes(lower)) textMatch = 70 - Math.min(text.length, 50); // shorter = better
+      else if (ariaLabel.includes(lower)) textMatch = 60;
+      else if (placeholder.includes(lower)) textMatch = 55;
       // Reverse contains (target includes element text)
-      else if (lower.includes(text) && text.length > 2) score += 40;
+      else if (lower.includes(text) && text.length > 2) textMatch = 40;
+
+      score += textMatch;
 
       // Boost by pruner score
-      if (c._prunerScore) score += c._prunerScore * 0.1;
+      if (c._prunerScore) {
+        prunerBoost = c._prunerScore * 0.1;
+        score += prunerBoost;
+      }
       // Penalty for failure memory
       if (c._failurePenalty && c._failurePenalty < 1) score *= c._failurePenalty;
       // Boost committed nodes
@@ -347,7 +358,8 @@ BrowserAgent.BrainExecutor = class BrainExecutor {
             }
             
             if (matches > 0) {
-              score += (matches * 4); // micro tie-breaker per matched URL token
+              urlAlignment = matches * 4; // micro tie-breaker per matched URL token
+              score += urlAlignment;
             }
           }
         } catch (e) { /* ignore invalid URL */ }
@@ -372,7 +384,8 @@ BrowserAgent.BrainExecutor = class BrainExecutor {
           }
           if (spatialMatches > 0) {
             const matchRatio = spatialMatches / spatialTokens.length;
-            score += 45 + Math.round(matchRatio * 5); // +45 to +50
+            spatialContext = 45 + Math.round(matchRatio * 5); // +45 to +50
+            score += spatialContext;
           }
         }
       }
@@ -384,6 +397,15 @@ BrowserAgent.BrainExecutor = class BrainExecutor {
         score *= c._diversityPenalty;
       }
 
+      // ── Phase 1B.5: Store decomposition on candidate for serialization ──
+      c._scoreBreakdown = { textMatch, prunerBoost, urlAlignment, spatialContext };
+      c._scoreModifiers = {
+        failurePenalty: c._failurePenalty ?? 1.0,
+        commitmentBonus: c._commitmentBonus ?? 1.0,
+        expectedOutcome: c._expectedOutcome ?? null,
+        diversityPenalty: c._diversityPenalty ?? 1.0,
+      };
+
       return { candidate: c, score };
     }).filter(s => s.score > 0);
 
@@ -391,6 +413,11 @@ BrowserAgent.BrainExecutor = class BrainExecutor {
     scored.sort((a, b) => b.score - a.score);
 
     this._lastScoredMatches = scored;
+
+    // ── Phase 1B.5: Store candidate margin for uncertainty estimation ──
+    this._lastCandidateMargin = (scored.length >= 2)
+      ? scored[0].score - scored[1].score
+      : (scored.length === 1 ? scored[0].score : 0);
 
     if (scored.length > 0) {
       const best = scored[0];

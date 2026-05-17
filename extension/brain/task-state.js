@@ -110,6 +110,7 @@ class TaskStateTracker {
     this._state = {
       // ── Identity ──
       taskId: this._taskIdCounter,
+      trajectoryId: null,  // Set by Service Worker after BRAIN_TASK_INIT (Phase 1B.5)
       goal: goal,
       goalTokens: this._tokenize(goal),
       startedAt: Date.now(),
@@ -434,6 +435,7 @@ class TaskStateTracker {
     const s = this._state;
     return {
       taskId: s.taskId,
+      trajectoryId: s.trajectoryId,
       goal: s.goal,
       goalTokens: s.goalTokens,
       startedAt: s.startedAt,
