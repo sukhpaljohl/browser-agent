@@ -227,6 +227,64 @@ var BrowserAgent = BrowserAgent || {};
     }
 
     /**
+     * Pre-register and log a decision step via Two-Phase Commit.
+     *
+     * Phase 1 (this method): Builds the step record and sends it to the
+     * Service Worker with `preRegister: true`. The SW parks the record in
+     * memory and responds immediately. This method AWAITS the acknowledgment,
+     * guaranteeing the data has crossed the process boundary before
+     * executeFullFlow() returns (and before sendResponse() can be called).
+     *
+     * Phase 2 (Service Worker): When the content script's EXECUTE_PROMPT
+     * response arrives normally, the SW commits the parked record to IndexedDB
+     * via the 4-gate pipeline. If the content script dies (navigation), the
+     * Dead Man's Switch commits the parked record instead.
+     *
+     * This solves the race condition where fire-and-forget BRAIN_LOG_EXPERIENCE
+     * messages were lost during navigation teardown.
+     *
+     * @param {Object} data - Decision context (same params as log())
+     * @returns {Promise<void>} Resolves when SW acknowledges receipt
+     */
+    async preRegisterAndLog(data) {
+      if (this._logging) {
+        console.warn('[ExperienceBuffer] Log already in-flight, skipping');
+        return;
+      }
+
+      this._logging = true;
+
+      try {
+        const stepRecord = this._buildStepRecord(data);
+        if (!stepRecord) {
+          console.warn('[ExperienceBuffer] Failed to build step record, skipping');
+          return;
+        }
+
+        // Await the pre-registration IPC — guarantees data crosses process boundary
+        await new Promise((resolve) => {
+          chrome.runtime.sendMessage(
+            { type: 'BRAIN_LOG_EXPERIENCE', stepRecord, preRegister: true },
+            (response) => {
+              if (chrome.runtime.lastError) {
+                console.warn('[ExperienceBuffer] Pre-register IPC failed:', chrome.runtime.lastError.message);
+              } else if (response?.preRegistered) {
+                console.log('[ExperienceBuffer] ✓ Step pre-registered (awaiting commit)');
+              } else {
+                console.log('[ExperienceBuffer] Pre-register response:', response);
+              }
+              resolve();  // Always resolve — never block the pipeline on IPC failure
+            }
+          );
+        });
+      } catch (e) {
+        console.error('[ExperienceBuffer] PreRegisterAndLog error:', e.message);
+      } finally {
+        this._logging = false;
+      }
+    }
+
+    /**
      * Send trajectory finalization signal to the Service Worker.
      * Called by UniversalStrategy on goal completion, safety block, or budget exhaustion.
      *

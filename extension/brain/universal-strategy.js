@@ -384,7 +384,7 @@
           if (goalCompletion.safetyBlocked) {
             console.log('[UniversalStrategy] ⛔ SAFETY BOUNDARY — blocking further action');
             const termResp = this._assembleTerminalResponse(primaryResult, goalCompletion, strategyStart);
-            this._logExperience(primaryResult, termResp, goalCompletion, context?.taskState, strategyStart);
+            await this._logExperience(primaryResult, termResp, goalCompletion, context?.taskState, strategyStart);
             this._finalizeTrajectory(context?.taskState?.trajectoryId, 'safety_blocked', -1.0);
             return termResp;
           }
@@ -392,7 +392,7 @@
           if (goalCompletion.isTerminal) {
             console.log(`[UniversalStrategy] ✅ GOAL COMPLETE (score: ${goalCompletion.completionScore.toFixed(3)})`);
             const termResp = this._assembleTerminalResponse(primaryResult, goalCompletion, strategyStart);
-            this._logExperience(primaryResult, termResp, goalCompletion, context?.taskState, strategyStart);
+            await this._logExperience(primaryResult, termResp, goalCompletion, context?.taskState, strategyStart);
             this._finalizeTrajectory(context?.taskState?.trajectoryId, 'completed', 1.0);
             return termResp;
           }
@@ -419,6 +419,20 @@
               `[UniversalStrategy] ⚠ Decision point escalation: ` +
               `${dpSignals.unresolvedCount} unresolved variant(s)`
             );
+
+            // Phase 1B.5 Bug #1 Fix: Log experience if an action was actually executed.
+            // When primaryResult.success is true, the BrainExecutor DID click an element
+            // (e.g., selecting a color swatch). This is a valid decision step that must be
+            // recorded even though the overall purchase goal has remaining unresolved options.
+            if (primaryResult.success) {
+              await this._logExperience(primaryResult, {
+                ...primaryResult,
+                status: 'needs_clarification',
+                reason: 'decision_point_detected',
+                goalCompletion,
+                strategyTime: Date.now() - strategyStart,
+              }, goalCompletion, context?.taskState, strategyStart);
+            }
 
             primaryResult.strategyTime = Date.now() - strategyStart;
             return {
@@ -525,8 +539,8 @@
 
       const finalResponse = this._assembleResponse(primaryResult, recoveryResult, recoveryMeta, strategyStart, goalCompletion);
 
-      // ── Phase 1B.5: Log experience step ──
-      this._logExperience(primaryResult, finalResponse, goalCompletion, context?.taskState, strategyStart);
+      // ── Phase 1B.5: Log experience step (awaited Two-Phase Commit) ──
+      await this._logExperience(primaryResult, finalResponse, goalCompletion, context?.taskState, strategyStart);
 
       return finalResponse;
     }
@@ -706,8 +720,12 @@
     // ═══════════════════════════════════════════════════════════════════════════
 
     /**
-     * Log a decision step to the Experience Buffer.
-     * Fire-and-forget — never blocks the response pipeline.
+     * Log a decision step to the Experience Buffer via Two-Phase Commit.
+     *
+     * Uses preRegisterAndLog() which awaits SW acknowledgment, guaranteeing
+     * the step record crosses the process boundary before sendResponse()
+     * returns control to Chrome. If navigation tears down the content script
+     * afterward, the Service Worker's Dead Man's Switch commits the parked data.
      *
      * @param {Object} primaryResult - BrainExecutor result
      * @param {Object} assembledResponse - The response being returned
@@ -715,7 +733,7 @@
      * @param {Object|null} taskState - TaskState snapshot
      * @param {number} strategyStart - Cycle start timestamp
      */
-    _logExperience(primaryResult, assembledResponse, goalCompletion, taskState, strategyStart) {
+    async _logExperience(primaryResult, assembledResponse, goalCompletion, taskState, strategyStart) {
       try {
         if (typeof BrowserAgent.ExperienceBuffer === 'undefined') return;
         if (!this.executor) return;
@@ -731,7 +749,7 @@
         const actionType = primaryResult?.progress?.actionType || 'click';
         const actionIntent = primaryResult?.response?.text?.substring(0, 100) || '';
 
-        BrowserAgent.ExperienceBuffer.log({
+        await BrowserAgent.ExperienceBuffer.preRegisterAndLog({
           candidates,
           scoredMatches,
           chosenIndex,

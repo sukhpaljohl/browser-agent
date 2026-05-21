@@ -44,6 +44,7 @@ chrome.alarms.create('keepAlive', { periodInMinutes: 0.5 });
 chrome.alarms.create('reconPoll', { periodInMinutes: 0.1 }); // Poll every ~6 seconds
 let reconInProgress = false;
 let isDispatchingCommand = false;  // CommandRelay: true while dispatching a bridge command
+let pendingExperience = null;      // Phase 1B.5: Parked experience step record awaiting commit
 
 // URL patterns that are NEVER safe to navigate to during scanning
 const UNSAFE_URL_PATTERNS = /logout|signout|log-out|sign-out|delete|remove|checkout|payment|pay|purchase|confirm|unsubscribe|deactivate|close-account|reset-password/i;
@@ -278,6 +279,16 @@ function dispatchToContentScript(data, retryCount = 0) {
             }
           }
 
+          // ── Phase 1B.5: Dead Man's Switch for experience data ──────────
+          // If a step record was pre-registered but the content script died
+          // before sendResponse(), commit it now via the 4-gate pipeline.
+          if (pendingExperience && typeof experienceStore !== 'undefined') {
+            experienceStore.recordStep(pendingExperience)
+              .then(result => console.log('[CommandRelay] ✓ Experience saved via Dead Man Switch:', result))
+              .catch(e => console.warn('[CommandRelay] Experience DMS failed:', e.message));
+            pendingExperience = null;
+          }
+
           postResponseToBridge(data.id, {
             success: true,
             response: { text: 'Action executed. Page navigated to a new URL.' }
@@ -296,6 +307,18 @@ function dispatchToContentScript(data, retryCount = 0) {
       // Happy path: content script completed and returned a result
       console.log(`[CommandRelay] ✓ Complete — success: ${response?.success}`);
       postResponseToBridge(data.id, response || { success: false, error: 'Empty response' });
+
+      // ── Phase 1B.5: Commit pre-registered experience data ──────────────
+      // The content script survived — commit the parked step record to
+      // IndexedDB via the full 4-gate pipeline. Fire-and-forget is safe
+      // here because we're in the SW (it doesn't die).
+      if (pendingExperience && typeof experienceStore !== 'undefined') {
+        experienceStore.recordStep(pendingExperience)
+          .then(result => console.log('[CommandRelay] ✓ Experience committed:', result))
+          .catch(e => console.warn('[CommandRelay] Experience commit failed:', e.message));
+        pendingExperience = null;
+      }
+
       isDispatchingCommand = false;
     });
   });
@@ -360,6 +383,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           experienceStore.finalizeTrajectory(prevTrajectoryId, 'abandoned', -0.3)
             .catch(e => console.warn('[Brain] Failed to finalize previous trajectory:', e.message));
         }
+
+        // Phase 1B.5: Clear any stale pre-registered experience from previous task
+        pendingExperience = null;
 
         // Reset loop detector when starting a new task
         if (typeof loopDetector !== 'undefined') loopDetector.reset();
@@ -731,11 +757,25 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           sendResponse({ success: false, error: 'ExperienceStore not loaded' });
           return false;
         }
-        const { stepRecord } = message;
+        const { stepRecord, preRegister } = message;
         if (!stepRecord) {
           sendResponse({ success: false, error: 'stepRecord is required' });
           return false;
         }
+
+        if (preRegister) {
+          // Phase 1B.5 Two-Phase Commit: Park the record in memory.
+          // The content script awaits this response, guaranteeing the data
+          // crosses the process boundary before sendResponse(EXECUTE_PROMPT)
+          // returns control to Chrome. Actual IndexedDB commit happens in
+          // dispatchToContentScript's happy path or Dead Man's Switch.
+          pendingExperience = stepRecord;
+          sendResponse({ success: true, preRegistered: true });
+          return false;  // sync response
+        }
+
+        // Direct commit path (legacy / backward compatible)
+        pendingExperience = null;  // Clear to prevent double-write
         experienceStore.recordStep(stepRecord)
           .then(result => sendResponse({ success: true, ...result }))
           .catch(e => sendResponse({ success: false, error: e.message }));

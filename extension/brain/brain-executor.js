@@ -809,23 +809,18 @@ BrowserAgent.BrainExecutor = class BrainExecutor {
       }
     };
 
-    // Schedule click after 3s delay so response reaches bridge first (DEBUG MODE)
-    setTimeout(async () => {
-      const debugRect = el ? el.getBoundingClientRect() : null;
-      console.log('[Brain] DEBUG click target:', el?.tagName, 
-        'connected:', el?.isConnected, 
-        'rect:', debugRect ? `x=${Math.round(debugRect.x)} y=${Math.round(debugRect.y)} w=${Math.round(debugRect.width)} h=${Math.round(debugRect.height)}` : 'null',
-        'text:', (el?.innerText || '').substring(0, 40));
-      const engine = await this._ensureHumanEngine();
-      if (engine) {
-        const result = await engine.click(el);
-        console.log('[Brain] DEBUG HumanEngine.click result:', result);
-      } else {
-        el.scrollIntoView({ behavior: 'instant', block: 'nearest' });
-        el.click();
-        console.log('[Brain] DEBUG fallback el.click() used');
-      }
-    }, 3000);
+    // Execute click synchronously via HumanEngine (or fallback).
+    // Navigation-safe: _registerIntent() (line 775) already saved the intent
+    // to the Service Worker. If this click causes navigation, the Dead Man's
+    // Switch auto-records the step and sends a synthetic response to the bridge.
+    // Experience data is protected by the Two-Phase Commit (Bug #2 fix).
+    const engine = await this._ensureHumanEngine();
+    if (engine) {
+      await engine.click(el);
+    } else {
+      el.scrollIntoView({ behavior: 'instant', block: 'nearest' });
+      el.click();
+    }
 
     return response;
   }
@@ -1136,15 +1131,15 @@ BrowserAgent.BrainExecutor = class BrainExecutor {
     // Phase 1B.2.1: Register intent before navigation click
     await this._registerIntent('navigate', match, target);
 
-    // Schedule click after response is posted (page may navigate away)
+    // Execute navigation click synchronously via HumanEngine (or fallback).
+    // Navigation-safe: _registerIntent() (line 1137) already saved the intent.
+    // The Dead Man's Switch + Two-Phase Experience Commit protect all data.
     const engine = await this._ensureHumanEngine();
-    setTimeout(async () => {
-      if (engine) {
-        await engine.click(el);
-      } else {
-        el.click();
-      }
-    }, 300);
+    if (engine) {
+      await engine.click(el);
+    } else {
+      el.click();
+    }
 
     return {
       success: true,
